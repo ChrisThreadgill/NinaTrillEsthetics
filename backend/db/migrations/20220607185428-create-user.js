@@ -10,33 +10,38 @@ module.exports = {
       },
       fName: {
         type: Sequelize.STRING(75),
-        allowNull: false,
       },
       lName: {
         type: Sequelize.STRING(75),
-        allowNull: false,
       },
       phoneNum: {
         type: Sequelize.INTEGER,
       },
       email: {
+        type: Sequelize.STRING,
         type: Sequelize.STRING(255),
-        allowNull: false,
-      },
-      hashedPassword: {
-        type: Sequelize.STRING.BINARY,
-        allowNull: false,
+        unique: true,
       },
       role: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         defaultValue: 1,
-        allowNull: false,
       },
       profileUrl: {
         type: Sequelize.STRING,
       },
       splashUrl: {
         type: Sequelize.STRING,
+      },
+      hashedPassword: {
+        allowNull: false,
+        type: Sequelize.STRING.BINARY,
+      },
+      bio: {
+        type: Sequelize.STRING(500),
+      },
+      title: {
+        type: Sequelize.STRING(75),
       },
       createdAt: {
         allowNull: false,
@@ -46,6 +51,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("now"),
       },
     });
   },

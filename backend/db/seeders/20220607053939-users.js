@@ -1,5 +1,5 @@
 "use strict";
-const bcrypt = require("brcyptjs");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -19,6 +19,8 @@ module.exports = {
           phoneNum: 123456,
           email: "manager@test.com",
           role: 3,
+          bio: "Started Business",
+          title: "Owner",
         },
         {
           fName: "Hannah's",
@@ -27,6 +29,8 @@ module.exports = {
           phoneNum: 123456,
           email: "employee@test.com",
           role: 2,
+          bio: "Started Working for hannah",
+          title: "Hannah's Employee",
         },
         {
           fName: "Hannah's",
