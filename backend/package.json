@@ -34,7 +34,7 @@
     "start:production": "node ./bin/www"
   },
   "keywords": [],
-  "author": "",
+  "author": "Chris Threadgill",
   "license": "ISC",
   "description": ""
 }

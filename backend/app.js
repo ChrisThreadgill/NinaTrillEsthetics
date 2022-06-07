@@ -1,51 +1,44 @@
 const express = require("express");
-// const morgan = require("morgan");
-// const cors = require("cors");
-// const csurf = require("csurf");
-// const helmet = require("helmet");
-// const cookieParser = require("cookie-parser");
-// const { ValidationError } = require("sequelize");
+const morgan = require("morgan");
+const cors = require("cors");
+const csurf = require("csurf");
+const helmet = require("helmet");
+const cookieParser = require("cookie-parser");
+const { ValidationError } = require("sequelize");
 
-// const { environment } = require("./config");
+const { environment } = require("./config");
 
-// const isProduction = environment === "production";
+const isProduction = environment === "production";
 
 const app = express();
-// const routes = require("./routes");
-var port = 3000;
-app.get("/", function (req, res) {
-  res.send("Hello World!");
-});
-//Launch listening server on port 3000
-app.listen(port, function () {
-  console.log("app listening on port ${port}!");
-});
-// app.use(morgan("dev"));
+const routes = require("./routes");
 
-// app.use(cookieParser());
-// app.use(express.json());
+app.use(morgan("dev"));
 
-// if (!isProduction) {
-//   app.use(cors());
-// }
+app.use(cookieParser());
+app.use(express.json());
 
-// app.use(
-//   helmet.crossOriginResourcePolicy({
-//     policy: "cross-origin",
-//   })
-// );
+if (!isProduction) {
+  app.use(cors());
+}
 
-// app.use(
-//   csurf({
-//     cookie: {
-//       secure: isProduction,
-//       sameSite: isProduction && "Lax",
-//       httpOnly: true,
-//     },
-//   })
-// );
+app.use(
+  helmet.crossOriginResourcePolicy({
+    policy: "cross-origin",
+  })
+);
 
-// app.use(routes);
+app.use(
+  csurf({
+    cookie: {
+      secure: isProduction,
+      sameSite: isProduction && "Lax",
+      httpOnly: true,
+    },
+  })
+);
+
+app.use(routes);
 
 // app.use((_req, _res, next) => {
 //   const err = new Error("The requested resource couldn't be found.");
