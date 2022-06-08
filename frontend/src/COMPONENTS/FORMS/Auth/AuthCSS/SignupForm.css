@@ -1,0 +1,30 @@
+.sign__up__form {
+  display: flex;
+  justify-content: center;
+  min-width: 440px;
+}
+
+.sign__up__form__container {
+  display: flex;
+  flex-direction: column;
+  max-width: 440px;
+  width: 100%;
+}
+
+.show__password {
+  width: 1rem;
+  height: 1rem;
+  background: url("./show__password.svg");
+  cursor: pointer;
+}
+
+.password__label__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.signup__label > div {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

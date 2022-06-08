@@ -1,14 +1,18 @@
-FROM node:latest
+FROM node:16
 # REACT_APP_BASE_URL -> Your deployment URL
-# ENV REACT_APP_BASE_URL=https://komication.heroku.com
+ENV REACT_APP_BASE_URL=https://ninatrill-esthetics.herokuapp.com/
 
 
 
-WORKDIR /app/backend
+WORKDIR /app
+COPY package*.json ./
 
-COPY ..
 RUN npm install
 
-EXPOSE 3000
+COPY . .
 
-ENTRYPOINT ["npm", "start"]
+
+RUN npm run build
+# EXPOSE 5000
+
+CMD ["npm", "install"]
