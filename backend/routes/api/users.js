@@ -59,9 +59,9 @@ router.post(
   userValidators,
 
   asyncHandler(async (req, res) => {
-    const { email, password, fName, lName, phoneNum } = req.body;
+    const { email, password, fName, lName } = req.body;
 
-    const user = await User.signup({ email, password, fName, lName, phoneNum });
+    const user = await User.signup({ email, password, fName, lName });
 
     await setJWT(res, user);
 
