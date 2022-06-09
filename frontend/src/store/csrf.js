@@ -5,6 +5,8 @@ export function restoreCSRF() {
 }
 
 export const csrfFetch = async (url, options = {}) => {
+  console.log(url);
+  console.log(options);
   // set options.method to 'GET' if there is no method
   options.method = options.method || "GET";
   // set options.headers to an empty object if there is no headers
