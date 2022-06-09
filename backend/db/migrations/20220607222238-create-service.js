@@ -9,11 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       title: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(75),
         allowNull: false,
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(500),
         allowNull: false,
       },
       employeeId: {
@@ -21,6 +21,10 @@ module.exports = {
         allowNull: false,
       },
       price: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      hours: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

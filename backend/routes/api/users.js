@@ -5,7 +5,7 @@ const { setJWT } = require("../../utils/auth");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 
-const { User } = require("../../db/models");
+const { User, userService } = require("../../db/models");
 
 const router = express.Router();
 
@@ -67,6 +67,19 @@ router.post(
 
     return res.json({
       user,
+    });
+  })
+);
+router.get(
+  "/test",
+  asyncHandler(async (req, res) => {
+    // const { userId } = req.body;
+    // const serviceId = 3;
+    // const users = await User.findAll();
+    // console.log(users);
+    let res2 = "hello world";
+    return res.json({
+      res2,
     });
   })
 );

@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.STRING,
       employeeId: DataTypes.INTEGER,
       price: DataTypes.INTEGER,
+      hours: DataTypes.INTEGER,
     },
     {}
   );
@@ -18,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     Service.belongsToMany(models.User, columnMapping);
+
     const appointmentMapping = {
       through: "appointmentService",
       otherKey: "appointmentId",

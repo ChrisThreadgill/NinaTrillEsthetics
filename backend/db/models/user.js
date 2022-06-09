@@ -87,7 +87,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "userId",
     };
     User.belongsToMany(models.Service, columnMapping);
-    User.hasMany(models.Appointment, { foreignKey: "appointmentId" });
+    // User.hasMany(models.Appointment, { foreignKey: "customerId" });
     User.hasOne(models.Schedule, { foreignKey: "userId" });
     User.hasMany(models.splashImage, { foreignKey: "userId" });
     User.hasOne(models.profilePicture, { foreignKey: "userId" });

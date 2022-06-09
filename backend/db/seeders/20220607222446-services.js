@@ -16,24 +16,28 @@ module.exports = {
           description: "Test service Description",
           employeeId: 1,
           price: 50,
+          hours: 1,
         },
         {
           title: "Test Service2",
           description: "Test service Description",
           employeeId: 1,
           price: 50,
+          hours: 2,
         },
         {
           title: "Test Service3",
           description: "Test service Description",
           employeeId: 1,
           price: 50,
+          hours: 3,
         },
         {
           title: "Test Service4",
           description: "Test service Description",
           employeeId: 1,
           price: 50,
+          hours: 4,
         },
       ],
       {}

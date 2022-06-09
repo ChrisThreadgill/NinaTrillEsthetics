@@ -3,16 +3,16 @@ module.exports = (sequelize, DataTypes) => {
   const Appointment = sequelize.define(
     "Appointment",
     {
-      date: DataTypes.INTEGER,
+      date: DataTypes.DATE,
       startTime: DataTypes.INTEGER,
-      hours: DataTypes.INTEGER,
       endTime: DataTypes.INTEGER,
+      hours: DataTypes.INTEGER,
       employeeId: DataTypes.INTEGER,
       customerId: DataTypes.INTEGER,
-      services: DataTypes.STRING,
     },
     {}
   );
+
   Appointment.associate = function (models) {
     Appointment.belongsTo(models.User);
     const appointmentMapping = {
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Appointment.belongsToMany(models.Service, appointmentMapping);
 
-    Appointment.belongsTo(models.User, { foreignKey: "customerId" });
+    // Appointment.belongsTo(models.User, { foreignKey: "customerId" });
   };
   return Appointment;
 };

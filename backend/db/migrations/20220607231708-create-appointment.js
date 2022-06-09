@@ -9,28 +9,22 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       date: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+        type: Sequelize.DATE,
       },
       startTime: {
-        type: Sequelize.INTEGER,
-      },
-      hours: {
         type: Sequelize.INTEGER,
       },
       endTime: {
         type: Sequelize.INTEGER,
       },
+      hours: {
+        type: Sequelize.INTEGER,
+      },
       employeeId: {
         type: Sequelize.INTEGER,
-        references: { model: "Users" },
       },
       customerId: {
         type: Sequelize.INTEGER,
-        references: { model: "Users" },
-      },
-      services: {
-        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
