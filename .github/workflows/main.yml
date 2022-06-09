@@ -28,6 +28,7 @@ jobs:
         working-directory: backend
         # CI=false allows the build to ignore any warnings when building
         run: npm install
+        run: npm start
 
       - name: Login to Heroku Container registry
         env:
@@ -47,4 +48,4 @@ jobs:
       - name: Run DB Migration
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku run -a ${{ secrets.HEROKU_APP_NAME }} npm run sequelize && npm run sequelize && npm start
+        run: heroku run -a ${{ secrets.HEROKU_APP_NAME }} npm install
