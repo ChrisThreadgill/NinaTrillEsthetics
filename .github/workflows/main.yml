@@ -28,7 +28,7 @@ jobs:
         working-directory: backend
         # CI=false allows the build to ignore any warnings when building
         run: npm install
-        run: npm start
+        # run: npm start
 
       - name: Login to Heroku Container registry
         env:
