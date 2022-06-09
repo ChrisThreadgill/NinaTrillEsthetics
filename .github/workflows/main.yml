@@ -47,4 +47,4 @@ jobs:
       - name: Run DB Migration
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku run -a ${{ secrets.HEROKU_APP_NAME }} npm sequelize && npm sequelize-cli
+        run: heroku run -a ${{ secrets.HEROKU_APP_NAME }} npm run sequelize && npm run sequelize-cli
