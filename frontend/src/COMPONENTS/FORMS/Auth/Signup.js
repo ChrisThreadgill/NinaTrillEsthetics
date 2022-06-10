@@ -20,13 +20,15 @@ function SignupFormPage() {
   const [fNameErrors, setFNameErrors] = useState([]);
   const [lNameErrors, setLNameErrors] = useState([]);
   const [passwordShow, setPasswordShow] = useState("password");
+  const [phoneNumErrors, setPhoneNumErrors] = useState([]);
 
   if (sessionUser) return <Redirect to="/" />;
-
+  console.log(phoneNumErrors);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setConfirmErrors([]);
+      console.log(phoneNum);
       return dispatch(sessionActions.signup({ email, fName, lName, password, phoneNum })).catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -34,6 +36,7 @@ function SignupFormPage() {
           setFNameErrors(data.errors.filter((error) => error.includes("first name")));
           setLNameErrors(data.errors.filter((error) => error.includes("last name")));
           setEmailErrors(data.errors.filter((error) => error.includes("email")));
+          setPhoneNumErrors(data.errors.filter((error) => error.includes("phone")));
         }
       });
     }
@@ -110,7 +113,13 @@ function SignupFormPage() {
             required
           />
 
-          <label className="signup__label">Phone Number</label>
+          <label className="signup__label">
+            {phoneNumErrors.map((error, idx) => (
+              <li key={idx}>{error}</li>
+            ))}
+
+            <div>Phone Number</div>
+          </label>
           <input type="text" value={phoneNum} maxLength={10} onChange={(e) => setPhoneNum(e.target.value)} />
 
           <button type="submit">Sign Up</button>
