@@ -128,6 +128,7 @@ function DatePickerTest() {
   useEffect(() => {
     setCurrentAppointments(checkAvailableTimes(testApts, schedule));
   }, [selectedDate]);
+
   console.log(currentAppointments);
   console.log(weekDay);
   useEffect(() => {

@@ -1,46 +1,37 @@
 "use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Users", {
+    return queryInterface.createTable("Appointments", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      fName: {
-        type: Sequelize.STRING(75),
-      },
-      lName: {
-        type: Sequelize.STRING(75),
-      },
-      phoneNum: {
+      date: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
-      email: {
+      startTime: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      hours: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      employeeId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      customerId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: "Users" },
+      },
+      services: {
+        allowNull: false,
         type: Sequelize.STRING(255),
-        unique: true,
-      },
-      role: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        defaultValue: 1,
-      },
-      profileUrl: {
-        type: Sequelize.STRING,
-      },
-      splashUrl: {
-        type: Sequelize.STRING,
-      },
-      hashedPassword: {
-        allowNull: false,
-        type: Sequelize.STRING.BINARY,
-      },
-      bio: {
-        type: Sequelize.STRING(500),
-      },
-      title: {
-        type: Sequelize.STRING(75),
       },
       createdAt: {
         allowNull: false,
@@ -55,6 +46,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Users");
+    return queryInterface.dropTable("Appointments");
   },
 };

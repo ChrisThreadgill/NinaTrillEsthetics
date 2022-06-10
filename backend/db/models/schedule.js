@@ -5,14 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       days: DataTypes.STRING,
       hours: DataTypes.STRING,
-      changeRequest: DataTypes.BOOLEAN,
       userId: DataTypes.INTEGER,
-      startTime: DataTypes.STRING,
+      changeRequest: DataTypes.BOOLEAN,
     },
     {}
   );
   Schedule.associate = function (models) {
-    // associations can be defined here
     Schedule.belongsTo(models.User, { foreignKey: "userId" });
   };
   return Schedule;

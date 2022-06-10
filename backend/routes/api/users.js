@@ -50,7 +50,18 @@ const userValidators = [
     .withMessage("Please input a password with at least one upper case character")
     .matches(oneNumeric)
     .withMessage("Please input a password with at least one numeric character"),
-  check("phoneNum").isLength({ max: 10 }).withMessage("Please enter a 10 digit US phone number."),
+  check("phoneNum")
+    .isLength({ max: 10 })
+    .withMessage("Please enter a 10 digit US phone number.")
+    .custom((value) => {
+      return db.User.findOne({ where: { phoneNum: value } }).then((user) => {
+        if (user) {
+          return Promise.reject(
+            "This phone number is already in use.  Please use a different phone number or leave this field blank.  Thank you"
+          );
+        }
+      });
+    }),
   handleValidationErrors,
 ];
 
@@ -59,9 +70,9 @@ router.post(
   userValidators,
 
   asyncHandler(async (req, res) => {
-    const { email, password, fName, lName } = req.body;
+    const { email, password, fName, lName, phoneNum } = req.body;
 
-    const user = await User.signup({ email, password, fName, lName });
+    const user = await User.signup({ email, password, fName, lName, phoneNum });
 
     await setJWT(res, user);
 
