@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       title: DataTypes.STRING,
       description: DataTypes.STRING,
-      employeeId: DataTypes.INTEGER,
       price: DataTypes.INTEGER,
       hours: DataTypes.INTEGER,
     },
@@ -18,15 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "serviceId",
     };
 
-    Service.belongsTo(models.User, columnMapping);
-
-    const appointmentMapping = {
-      through: "appointmentService",
-      otherKey: "appointmentId",
-      foreignKey: "serviceId",
-    };
-
-    Service.belongsToMany(models.Appointment, appointmentMapping);
+    Service.belongsToMany(models.User, columnMapping);
   };
   return Service;
 };

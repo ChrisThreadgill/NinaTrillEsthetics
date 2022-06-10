@@ -1,20 +1,28 @@
 "use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("userServices", {
+    return queryInterface.createTable("Schedules", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      serviceId: {
-        type: Sequelize.INTEGER,
+      days: {
         allowNull: false,
+        type: Sequelize.STRING(75),
+      },
+      hours: {
+        allowNull: false,
+        type: Sequelize.STRING(75),
       },
       userId: {
-        type: Sequelize.INTEGER,
         allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: "Users" },
+      },
+      changeRequest: {
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
@@ -29,6 +37,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("userServices");
+    return queryInterface.dropTable("Schedules");
   },
 };

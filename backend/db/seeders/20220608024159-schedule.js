@@ -12,10 +12,9 @@ module.exports = {
       "Schedules",
       [
         {
-          days: "sun,mon,tue,wed,thu,fri,sat",
-          hours: "8",
+          days: "SUN Mon Tue Wed Thu Fri Sat",
+          hours: "8 9 10 11 12 13 14 15 16 17 18",
           userId: 2,
-          startTime: "10",
         },
       ],
       {}
