@@ -11,13 +11,10 @@ module.exports = {
       serviceId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "Services" },
-        onDelete: "CASCADE",
       },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "Users" },
       },
       createdAt: {
         allowNull: false,

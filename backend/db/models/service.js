@@ -16,8 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       through: "userService",
       otherKey: "userId",
       foreignKey: "serviceId",
-      onDelete: "CASCADE",
-      hooks: true,
     };
 
     Service.belongsTo(models.User, columnMapping);
