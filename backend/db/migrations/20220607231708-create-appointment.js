@@ -22,9 +22,11 @@ module.exports = {
       },
       employeeId: {
         type: Sequelize.INTEGER,
+        references: { model: "Users" },
       },
       customerId: {
         type: Sequelize.INTEGER,
+        references: { model: "Users" },
       },
       createdAt: {
         allowNull: false,

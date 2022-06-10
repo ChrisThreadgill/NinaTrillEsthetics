@@ -12,18 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-
   Appointment.associate = function (models) {
-    Appointment.belongsTo(models.User);
-    const appointmentMapping = {
-      through: "appointmentService",
-      otherKey: "serviceId",
-      foreignKey: "appointmentId",
-    };
-
-    Appointment.belongsToMany(models.Service, appointmentMapping);
-
-    // Appointment.belongsTo(models.User, { foreignKey: "customerId" });
+    Appointment.belongsTo(models.User, { foreignKey: "customerId" });
+    Appointment.belongsTo(models.User, { foreignKey: "employeeId" });
   };
   return Appointment;
 };

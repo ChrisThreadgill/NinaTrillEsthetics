@@ -12,8 +12,4 @@ router.use("/services", servicesRouter);
 
 router.use("/appointments", appointmentsRouter);
 
-// router.post("/test", (req, res) => {
-//   res.json({ requestBody: req.body });
-// });
-
 module.exports = router;

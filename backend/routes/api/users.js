@@ -70,18 +70,32 @@ router.post(
     });
   })
 );
-router.get(
-  "/test",
-  asyncHandler(async (req, res) => {
-    // const { userId } = req.body;
-    // const serviceId = 3;
-    // const users = await User.findAll();
-    // console.log(users);
-    let res2 = "hello world";
-    return res.json({
-      res2,
-    });
-  })
-);
+// router.get(
+//   "/test",
+//   asyncHandler(async (req, res) => {
+//     // const { userId } = req.body;
+//     // const serviceId = 3;
+//     // const users = await User.findAll();
+//     // console.log(users);
+//     let res2 = "hello world";
+//     return res.json({
+//       res2,
+//     });
+//   })
+// );
+
+// router.get(
+//   "/",
+//   asyncHandler(async (req, res) => {
+//     const { userId } = req.params;
+//     // const serviceId = 3;
+//     // const users = await User.findAll();
+//     // console.log(users);
+//     let res2 = "hello world";
+//     return res.json({
+//       res2,
+//     });
+//   })
+// );
 
 module.exports = router;

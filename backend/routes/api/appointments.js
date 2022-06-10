@@ -8,32 +8,23 @@ const { Op } = require("sequelize");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { User, Service, Appointment, userService } = require("../../db/models");
 
-const serviceValidations = [
-  check("title").exists({ checkFalsy: true }).withMessage("Please Provide a Service Name"),
-  check("title").isLength({ max: 75 }).withMessage("Your title name must be within 75 characters."),
-  check("description").exists({ checkFalsy: true }).withMessage("Please provide a description of the service."),
-  check("description").isLength({ max: 500 }).withMessage("Description must be 500 characters or less."),
-  check("price").exists({ checkFalsy: true }).withMessage("You must include a price."),
-  check("hours").exists({ checkFalsy: true }).withMessage("Include total service time in hours."),
-  handleValidationErrors,
-];
+// const serviceValidations = [
+//   check("date").custom((value) => {
+//     console.log(value, "the valueeeeeeeeee");
+//     // return Appointment.findAll({ where: { date: value } }).then((appointments) => {
+//     //   if (appointments) {
+//     //     console.log(value, "the original value");
+//     //     appointments.forEach((el) => {
+//     //       console.log(el.dataValues.date);
+//     //     });
+//     //     console.log(appointments);
+//     //     return Promise.reject("The provided Email Address is already in use by another account");
+//     //   }
+//     // });
+//   }),
+//   handleValidationErrors,
+// ];
 
-router.get(
-  "/:appointmentId",
-  // requireAuth,
-  // serviceValidations,
-  asyncHandler(async (req, res) => {
-    const { appointmentId } = req.params;
-    // console.log(appointmentId);
-    // const apptId = parseInt(appointmentId);
-
-    const appointment = await Appointment.findByPk(appointmentId);
-    // await newService.save();
-    return res.json({
-      appointment,
-    });
-  })
-);
 router.get(
   "/",
   // requireAuth,
@@ -49,129 +40,114 @@ router.get(
   })
 );
 
-//posts new service
 router.post(
   "/",
-  requireAuth,
-  serviceValidations,
+  // requireAuth,
+  // serviceValidations,
   asyncHandler(async (req, res) => {
-    const { employeeId, title, description, price, hours } = req.body;
+    const { startTime, endTime, hours, employeeId, customerId, date } = req.body;
+    // let date = 20220817;
 
-    const newService = await Service.build({
-      employeeId,
-      title,
-      description,
-      price,
+    const newAppointment = await Appointment.build({
+      startTime,
+      endTime,
       hours,
+      employeeId,
+      customerId,
+      date,
     });
-    await newService.save();
+    await newAppointment.save();
     return res.json({
-      newService,
+      newAppointment,
     });
   })
 );
 
-// //updating service
-// router.put(
-//   "/:serviceId",
-//   requireAuth,
-//   serviceValidations,
-//   asyncHandler(async (req, res) => {
-//     const { serviceId } = req.params;
+//get all customer appointments
+router.get(
+  "/customer/:customerId",
+  // requireAuth,
+  // serviceValidations,
+  asyncHandler(async (req, res) => {
+    const { customerId } = req.params;
 
-//     const { userId, title, description, price } = req.body;
+    const appointments = await Appointment.findAll({
+      where: { customerId: customerId },
+    });
+    return res.json({
+      appointments,
+    });
+  })
+);
 
-//     const serviceToUpdate = await Service.findByPk(serviceId);
+//get all employee appointments
+router.get(
+  "/employee/:employeeId",
+  // requireAuth,
+  // serviceValidations,
+  asyncHandler(async (req, res) => {
+    const { employeeId } = req.params;
 
-//     if (userId === Service.employeeId) {
-//       await serviceToUpdate.update({
-//         title,
-//         description,
-//         price,
-//         employeeId: userId,
-//       });
-//     }
+    const appointments = await Appointment.findAll({
+      where: { employeeId: employeeId },
+    });
+    return res.json({
+      appointments,
+    });
+  })
+);
 
-//     res.json({
-//       serviceToUpdate,
-//     });
-//   })
-// );
+router.get(
+  "/:appointmentId",
+  // requireAuth,
+  // serviceValidations,
+  asyncHandler(async (req, res) => {
+    const { appointmentId } = req.params;
+    const appointment = await Appointment.findByPk(appointmentId);
+    return res.json({
+      appointment,
+    });
+  })
+);
+router.put(
+  "/:appointmentId",
+  // requireAuth,
+  // serviceValidations,
+  asyncHandler(async (req, res) => {
+    const { appointmentId } = req.params;
 
-// //removing service
-// router.delete(
-//   "/:serviceId",
-//   asyncHandler(async (req, res) => {
-//     const { serviceId } = req.params;
+    const { date, startTime, endTime, hours, customerId } = req.body;
 
-//     const deletedService = await Service.findByPk(serviceId);
-//     if (deletedService) {
-//       await deletedService.destroy();
-//       res.json({ message: "Successfully removed service" });
-//     }
-//   })
-// );
+    const appointmentToUpdate = await Appointment.findByPk(appointmentId);
 
-// //gets employee includes services
-// router.get(
-//   "/employee/:employeeId",
-//   asyncHandler(async (req, res) => {
-//     const { employeeId } = req.params;
-//     const userId = parseInt(employeeId);
+    if (customerId === appointmentToUpdate.customerId) {
+      await appointmentToUpdate.update({
+        date,
+        startTime,
+        endTime,
+        hours,
+        customerId,
+      });
+    }
 
-//     const user = await User.findOne({
-//       where: userId,
-//       include: Service,
-//     });
+    res.json({
+      appointmentToUpdate,
+    });
+  })
+);
 
-//     return res.json({
-//       user,
-//     });
-//   })
-// );
-// const userServiceValidation = [
-//   check("userId")
-//     .exists({ checkFalsy: true })
-//     .withMessage("Please contact your development team if this issue persists"),
-//   check("serviceId")
-//     .exists({ checkFalsy: true })
-//     .withMessage("Please contact your development team if this issue persists"),
-//   handleValidationErrors,
-// ];
+//cancelling appointment
+router.delete(
+  "/:appointmentId",
+  asyncHandler(async (req, res) => {
+    const { appointmentId } = req.params;
 
-// //create join table instance for user service
-// router.post(
-//   "/:userId/:serviceId",
-//   requireAuth,
-//   userServiceValidation,
-//   asyncHandler(async (req, res) => {
-//     const { userId, serviceId } = req.body;
-
-//     const newUserService = await userService.build({
-//       userId,
-//       serviceId,
-//     });
-//     await newUserService.save();
-//     return res.json({
-//       newUserService,
-//     });
-//   })
-// );
-
-// //removing employee's service
-// router.delete(
-//   "/userServices",
-//   asyncHandler(async (req, res) => {
-//     const { userId, serviceId } = req.body;
-
-//     const deletedService = await userService.findOne({
-//       where: { userId: userId, serviceId: serviceId },
-//     });
-//     if (deletedService) {
-//       await deletedService.destroy();
-//       res.json({ message: "Successfully removed service" });
-//     }
-//   })
-// );
+    const deletedService = await Appointment.findByPk(appointmentId);
+    if (deletedService) {
+      await deletedService.destroy();
+      res.json({ message: "Successfully cancelled appointment" });
+    }
+  })
+);
 
 module.exports = router;

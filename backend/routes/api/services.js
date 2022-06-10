@@ -19,6 +19,18 @@ const serviceValidations = [
   handleValidationErrors,
 ];
 
+//get all services
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
+    const services = await Service.findAll();
+
+    return res.json({
+      services,
+    });
+  })
+);
+
 //posts new service
 router.post(
   "/",
@@ -49,7 +61,7 @@ router.put(
   asyncHandler(async (req, res) => {
     const { serviceId } = req.params;
 
-    const { userId, title, description, price } = req.body;
+    const { userId, title, description, price, hours } = req.body;
 
     const serviceToUpdate = await Service.findByPk(serviceId);
 
@@ -58,6 +70,7 @@ router.put(
         title,
         description,
         price,
+        hours,
         employeeId: userId,
       });
     }

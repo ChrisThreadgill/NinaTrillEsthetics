@@ -188,3 +188,89 @@
 //   };
 //   return Service;
 // };
+
+// "use strict";
+// module.exports = (sequelize, DataTypes) => {
+//   const appointmentService = sequelize.define(
+//     "appointmentService",
+//     {
+//       serviceId: DataTypes.INTEGER,
+//       appointmentId: DataTypes.INTEGER,
+//     },
+//     {}
+//   );
+//   appointmentService.associate = function (models) {
+//     // associations can be defined here
+//   };
+//   return appointmentService;
+// };
+
+// "use strict";
+// module.exports = {
+//   up: (queryInterface, Sequelize) => {
+//     return queryInterface.createTable("appointmentServices", {
+//       id: {
+//         allowNull: false,
+//         autoIncrement: true,
+//         primaryKey: true,
+//         type: Sequelize.INTEGER,
+//       },
+//       serviceId: {
+//         type: Sequelize.INTEGER,
+//         references: { model: "Services" },
+//         allowNull: false,
+//       },
+//       appointmentId: {
+//         type: Sequelize.INTEGER,
+//         references: { model: "Appointments" },
+//         allowNull: false,
+//       },
+//       createdAt: {
+//         allowNull: false,
+//         type: Sequelize.DATE,
+//         defaultValue: Sequelize.fn("now"),
+//       },
+//       updatedAt: {
+//         allowNull: false,
+//         type: Sequelize.DATE,
+//         defaultValue: Sequelize.fn("now"),
+//       },
+//     });
+//   },
+//   down: (queryInterface, Sequelize) => {
+//     return queryInterface.dropTable("appointmentServices");
+//   },
+// };
+
+// {
+//   serviceId: 1,
+//   appointmentId: 2,
+// },
+// {
+//   serviceId: 2,
+//   appointmentId: 2,
+// },
+// {
+//   serviceId: 2,
+//   appointmentId: 2,
+// },
+// {
+//   serviceId: 1,
+//   appointmentId: 2,
+// },
+// {
+//   serviceId: 3,
+//   appointmentId: 2,
+// },
+// {
+//   serviceId: 4,
+//   appointmentId: 2,
+// },
+// {
+//   serviceId: 3,
+//   appointmentId: 3,
+// },
+// {
+//   serviceId: 2,
+//   appointmentId: 4,
+// },
