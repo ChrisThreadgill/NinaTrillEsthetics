@@ -85,8 +85,10 @@ module.exports = (sequelize, DataTypes) => {
       through: "userService",
       otherKey: "serviceId",
       foreignKey: "userId",
+      onDelete: "CASCADE",
+      hooks: true,
     };
-    User.belongsToMany(models.Service, columnMapping);
+    User.belongsTo(models.Service, columnMapping);
     User.hasMany(models.Appointment, { foreignKey: "customerId" });
     User.hasMany(models.Appointment, { foreignKey: "employeeId" });
     User.hasOne(models.Schedule, { foreignKey: "userId" });

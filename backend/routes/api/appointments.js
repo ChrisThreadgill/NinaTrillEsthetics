@@ -84,7 +84,7 @@ router.get(
 router.get(
   "/employee/:employeeId",
   requireAuth,
-  serviceValidations,
+  // serviceValidations,
   asyncHandler(async (req, res) => {
     const { employeeId } = req.params;
 
@@ -100,7 +100,7 @@ router.get(
 router.get(
   "/:appointmentId",
   requireAuth,
-  serviceValidations,
+  // serviceValidations,
   asyncHandler(async (req, res) => {
     const { appointmentId } = req.params;
     const appointment = await Appointment.findByPk(appointmentId);
@@ -112,7 +112,7 @@ router.get(
 router.put(
   "/:appointmentId",
   requireAuth,
-  serviceValidations,
+  // serviceValidations,
   asyncHandler(async (req, res) => {
     const { appointmentId } = req.params;
 

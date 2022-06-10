@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       hooks: true,
     };
 
-    Service.belongsToMany(models.User, columnMapping);
+    Service.belongsTo(models.User, columnMapping);
 
     const appointmentMapping = {
       through: "appointmentService",
