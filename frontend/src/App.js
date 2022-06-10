@@ -26,7 +26,7 @@ function App() {
             <SignupFormPage></SignupFormPage>
           </Route>
           <Route path="/test">
-            <DatePicker></DatePicker>
+            <DatePickerTest></DatePickerTest>
           </Route>
         </Switch>
       )}
