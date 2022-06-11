@@ -156,10 +156,12 @@ router.delete(
   "/userServices",
   asyncHandler(async (req, res) => {
     const { userId, serviceId } = req.body;
+    console.log(userId, serviceId);
 
     const deletedService = await userService.findOne({
       where: { userId: userId, serviceId: serviceId },
     });
+    console.log(deletedService);
     if (deletedService) {
       await deletedService.destroy();
       res.json({ message: "Successfully removed service" });
