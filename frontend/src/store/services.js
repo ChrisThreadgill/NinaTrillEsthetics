@@ -8,6 +8,7 @@ const UPDATE = "/services/update";
 const CLEAN = "services/clean";
 const DELETE = "services/delete";
 const ADD_SERVICE = "services/add";
+const ADD_RELATION = "services/addRELATION";
 
 const allServices = (services) => {
   return {
@@ -22,9 +23,9 @@ const addService = (service) => {
   };
 };
 
-const oneService = (service) => {
+const addServiceRelation = (service) => {
   return {
-    type: GET_ONE,
+    type: ADD_RELATION,
     payload: service,
   };
 };
