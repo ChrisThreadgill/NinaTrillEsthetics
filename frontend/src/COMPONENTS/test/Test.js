@@ -21,10 +21,20 @@ function DatePickerTest() {
   const [weekDay, setWeekDay] = useState("");
   const [currentAppointments, setCurrentAppointments] = useState([]);
 
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [hours, setHours] = useState("");
+
   // console.log(startDate);
 
   const handleDelete = (serviceId) => {
     dispatch(servicesActions.deleteOneService(serviceId));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const service = { title, description, price, hours };
+    dispatch(servicesActions.addOneService(service));
   };
   let schedule = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
@@ -145,12 +155,61 @@ function DatePickerTest() {
           setWeekDay(weekDay);
           setStartDate(date);
         }}
-        showTimeSelect
-        minTime={setHours(setMinutes(new Date(), 0), minHour)}
-        maxTime={setHours(setMinutes(new Date(), 0), 17)}
         dateFormat="MMMM d, yyyy h:mm aa"
         inline
       />
+      <form onSubmit={handleSubmit}>
+        <label>Title</label>
+        <input
+          className="add__boat__inputs"
+          type="text"
+          name="model"
+          value={title}
+          maxLength={85}
+          required
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
+        <label>description</label>
+        <input
+          className="add__boat__inputs"
+          type="text"
+          name="model"
+          value={description}
+          maxLength={85}
+          required
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+        />
+        <label>price</label>
+        <input
+          className="add__boat__inputs"
+          type="text"
+          name="model"
+          value={price}
+          maxLength={85}
+          required
+          onChange={(e) => {
+            setPrice(e.target.value);
+          }}
+        />
+        <label>hours</label>
+        <input
+          className="add__boat__inputs"
+          type="text"
+          name="model"
+          value={hours}
+          maxLength={85}
+          required
+          onChange={(e) => {
+            setHours(e.target.value);
+          }}
+        />
+        <button>new service</button>
+      </form>
+
       {Object.values(services).map((service, idx) => {
         return (
           <div key={idx}>
@@ -159,7 +218,14 @@ function DatePickerTest() {
             <div>Price: {service.price}</div>
             <div>Hours: {service.hours}</div>
             <EditServiceModal service={service}></EditServiceModal>
-            <button onClick={() => handleDelete(service.id)}>Delete</button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleDelete(service.id);
+              }}
+            >
+              Delete
+            </button>
           </div>
         );
       })}
