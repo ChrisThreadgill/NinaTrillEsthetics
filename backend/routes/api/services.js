@@ -37,10 +37,9 @@ router.post(
   requireAuth,
   serviceValidations,
   asyncHandler(async (req, res) => {
-    const { employeeId, title, description, price, hours } = req.body;
+    const { title, description, price, hours } = req.body;
 
     const newService = await Service.build({
-      employeeId,
       title,
       description,
       price,
@@ -83,11 +82,22 @@ router.put(
 
 //removing service
 router.delete(
-  "/:serviceId",
+  "/managerDelete",
   asyncHandler(async (req, res) => {
-    const { serviceId } = req.params;
+    const { serviceId } = req.body;
 
     const deletedService = await Service.findByPk(serviceId);
+
+    const serviceToDeleteRelations = await userService.findAll({
+      where: { serviceId },
+    });
+
+    if (serviceToDeleteRelations.length) {
+      for (const relation of serviceToDeleteRelations) {
+        await relation.destroy();
+      }
+    }
+
     if (deletedService) {
       await deletedService.destroy();
       res.json({ message: "Successfully removed service" });

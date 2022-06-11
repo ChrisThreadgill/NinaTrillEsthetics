@@ -7,11 +7,18 @@ const GET_ONE = "services/getone";
 const UPDATE = "/services/update";
 const CLEAN = "services/clean";
 const DELETE = "services/delete";
+const ADD_SERVICE = "services/add";
 
 const allServices = (services) => {
   return {
     type: GET_ALL,
     payload: services,
+  };
+};
+const addService = (service) => {
+  return {
+    type: ADD_SERVICE,
+    payload: service,
   };
 };
 
@@ -28,9 +35,10 @@ const updateService = (service) => {
     payload: service,
   };
 };
-const deleteService = () => {
+const deleteService = (serviceId) => {
   return {
-    type: CLEAN,
+    type: DELETE,
+    payload: serviceId,
   };
 };
 const cleanServices = () => {
@@ -48,6 +56,18 @@ export const getAllServices = () => async (dispatch) => {
   dispatch(allServices(services));
   return services;
 };
+
+export const addOneService = (service) => async (dispatch) => {
+  const newService = await csrfFetch(`/api/services`, {
+    method: "POST",
+    body: JSON.stringify(service),
+  });
+  const response = await newService.json();
+  console.log(response);
+
+  dispatch(addService(response.newService));
+};
+
 export const updateOneService = (serviceId, body) => async (dispatch) => {
   const response = await csrfFetch(`/api/services/${serviceId}`, {
     method: "PUT",
@@ -59,14 +79,15 @@ export const updateOneService = (serviceId, body) => async (dispatch) => {
   dispatch(updateService(service.serviceToUpdate));
 };
 export const deleteOneService = (serviceId) => async (dispatch) => {
-  const serviceToDelete = await csrfFetch(`/api/services/${serviceId}`, {
+  console.log("in the thunk");
+  const serviceToDelete = await csrfFetch(`/api/services/managerDelete`, {
     method: "DELETE",
+    body: JSON.stringify({ serviceId }),
   });
   const response = await serviceToDelete.json();
   console.log(response);
 
   dispatch(deleteService(serviceId));
-  return serviceToDelete;
 };
 
 export const clean = () => (dispatch) => {
@@ -77,6 +98,9 @@ const initialState = {};
 const servicesReducer = (state = initialState, action) => {
   let newState = clone(state);
   switch (action.type) {
+    case ADD_SERVICE:
+      newState[action.payload.id] = action.payload;
+      return newState;
     case GET_ALL:
       const services = {};
 
@@ -93,6 +117,7 @@ const servicesReducer = (state = initialState, action) => {
       return newState;
 
     case DELETE:
+      console.log(newState, "this is the new state");
       delete newState[action.payload];
       return newState;
     case CLEAN:

@@ -11,6 +11,7 @@ module.exports = {
       serviceId: {
         type: Sequelize.INTEGER,
         references: { model: "Services" },
+        onDelete: "CASCADE",
       },
       userId: {
         type: Sequelize.INTEGER,
