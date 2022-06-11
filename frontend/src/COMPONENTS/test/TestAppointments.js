@@ -1,26 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
+import * as appointmentsActions from "../../store/appointments";
 const moment = require("moment");
 
 function TestAppointments() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session);
-
-  const [startDate, setStartDate] = useState(new Date());
-  const [minHour, setMinHour] = useState(6);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [weekDay, setWeekDay] = useState("");
-  const [currentAppointments, setCurrentAppointments] = useState([]);
-
-  //
-  let schedule = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
-
-  let testApts = [
-    [1122023, 12, 3],
-    [1122023, 16, 2],
-    [1122023, 8, 3],
-  ];
+  const allAppointments = useSelector((state) => state.appointments);
 
   const formatDate = (date) => {
     console.log(date);
@@ -78,14 +65,26 @@ function TestAppointments() {
     let formattedDate = month + day + year;
     return { formattedDate, weekDay };
   };
+  const [startDate, setStartDate] = useState(new Date());
+  const [minHour, setMinHour] = useState(6);
+  const { formattedDate: todaysDate } = formatDate(new Date());
+  console.log(todaysDate);
+  const [selectedDate, setSelectedDate] = useState(todaysDate);
+  const [weekDay, setWeekDay] = useState("");
+  const [currentAppointments, setCurrentAppointments] = useState([]);
+  console.log(allAppointments, "all appointments");
+  console.log(currentAppointments);
+  //
+  console.log(moment(13, "HH:mm").format("hh:mm a"));
+  let schedule = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 
   const checkAvailableTimes = (appointments, schedule) => {
     let bookedTimes = [];
     let availableTimes = schedule;
     for (let i = 0; i < appointments.length; i++) {
       let currAPP = appointments[i];
-      let hours = currAPP[2];
-      let startTime = currAPP[1];
+      let hours = currAPP.hours;
+      let startTime = currAPP.startTime;
       bookedTimes.push(startTime);
       if (hours > 1) {
         let appointmentOverlay = startTime;
@@ -109,16 +108,27 @@ function TestAppointments() {
 
     return availableTimes;
   };
+  console.log(allAppointments);
 
   useEffect(() => {
-    setCurrentAppointments(checkAvailableTimes(testApts, schedule));
+    if (allAppointments.length) {
+      const currentAppointments = allAppointments?.filter((appointment) => appointment.date == selectedDate);
+      setCurrentAppointments(checkAvailableTimes(currentAppointments, schedule));
+    }
   }, [selectedDate]);
-
-  useEffect(() => {}, [dispatch]);
+  console.log(currentAppointments);
+  useEffect(() => {
+    //setting date to today's formatted date on component mount
+    const { formattedDate } = formatDate(new Date());
+    dispatch(appointmentsActions.getAllAppointments());
+    return () => {
+      const { formattedDate } = formatDate(new Date());
+      setSelectedDate(formattedDate);
+    };
+  }, [dispatch]);
   return (
     <div>
       <DatePicker
-        selected={startDate}
         onChange={(date) => {
           const { formattedDate, weekDay } = formatDate(date);
           console.log(formattedDate, weekDay);
@@ -129,12 +139,9 @@ function TestAppointments() {
         dateFormat="MMMM d, yyyy h:mm aa"
         inline
       />
-      {currentAppointments.map((timeSlot) => {
-        return (
-          <>
-            <li>{moment(timeSlot, "HH:mm").format("hh:mm A")}</li>
-          </>
-        );
+      {currentAppointments.map((timeSlot, idx) => {
+        console.log(timeSlot);
+        return <li key={idx}>{moment(timeSlot, "HH:mm").format("hh:mm A")}</li>;
       })}
     </div>
   );
