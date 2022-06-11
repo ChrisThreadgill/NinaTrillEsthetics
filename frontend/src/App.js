@@ -7,6 +7,7 @@ import SignupFormPage from "./COMPONENTS/FORMS/Auth/Signup";
 import * as sessionActions from "./store/session";
 import Navigation from "./COMPONENTS/NAVBAR/Navbar";
 import DatePickerTest from "./COMPONENTS/test/Test";
+import TestAppointments from "./COMPONENTS/test/TestAppointments";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route path="/test">
             <DatePickerTest></DatePickerTest>
+          </Route>
+          <Route path="/testAppointments">
+            <TestAppointments></TestAppointments>
           </Route>
         </Switch>
       )}

@@ -1,10 +1,9 @@
-// import "./DatePickerTest.css";
-import DatePicker from "react-datepicker";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import * as servicesActions from "../../store/services.js";
+import * as employeeServicesActions from "../../store/employeeServices";
 import EditServiceModal from "../Modals/EditService.js";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -15,149 +14,47 @@ function DatePickerTest() {
 
   const services = useSelector((state) => state.services);
   const sessionUser = useSelector((state) => state.session);
-  const [startDate, setStartDate] = useState(new Date());
-  const [minHour, setMinHour] = useState(6);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [weekDay, setWeekDay] = useState("");
-  const [currentAppointments, setCurrentAppointments] = useState([]);
+  const employeeServices = useSelector((state) => state.employeeServices);
+  // console.log(employeeServices, "----------------------");
 
+  //MANAGER ADDITION OF SERVICE
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [hours, setHours] = useState("");
+
+  //EMPLOYEE ADDING SERVICE
+  const [employeeServiceId, setEmployeeServiceId] = useState("");
 
   // console.log(startDate);
 
   const handleDelete = (serviceId) => {
     dispatch(servicesActions.deleteOneService(serviceId));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const service = { title, description, price, hours };
     dispatch(servicesActions.addOneService(service));
   };
-  let schedule = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
-  let testApts = [
-    [1122023, 12, 3],
-    [1122023, 16, 2],
-    [1122023, 8, 3],
-  ];
-
-  const formatDate = (date) => {
-    console.log(date);
-    // convert date from date picker to js string object
-    const dateString = new String(date);
-    //split by the space
-    const dateArr = dateString.split(" ");
-    console.log(dateArr);
-
-    //define the day,month, and year of client selection
-    let day = dateArr[2];
-    let year = dateArr[3];
-    let month = dateArr[1];
-    let weekDay = dateArr[0];
-
-    //set selection to match db storage
-    switch (month) {
-      case "Jan":
-        month = "1";
-        break;
-      case "Feb":
-        month = "2";
-        break;
-      case "Mar":
-        month = "3";
-        break;
-      case "Apr":
-        month = "4";
-        break;
-      case "May":
-        month = "5";
-        break;
-      case "Jun":
-        month = "6";
-        break;
-      case "Jul":
-        month = "7";
-        break;
-      case "Aug":
-        month = "8";
-        break;
-      case "Sep":
-        month = "9";
-        break;
-      case "Oct":
-        month = "10";
-        break;
-      case "Nov":
-        month = "11";
-        break;
-      case "Dec":
-        month = "12";
-        break;
-    }
-    let formattedDate = month + day + year;
-    // console.log("this is at the bottom of the function ", weekDay, date);
-    return { formattedDate, weekDay };
+  const addEmployeeService = async (e) => {
+    e.preventDefault();
+    dispatch(employeeServicesActions.addServiceRelation(sessionUser.user.id, employeeServiceId));
   };
 
-  const checkAvailableTimes = (appointments, schedule) => {
-    let bookedTimes = [];
-    let availableTimes = [];
-    // let newSchedule = schedule;
-    for (let i = 0; i < appointments.length; i++) {
-      let currAPP = appointments[i];
-      let hours = currAPP[2];
-      let startTime = currAPP[1];
-      bookedTimes.push(startTime);
-      if (hours > 1) {
-        let appointmentOverlay = startTime;
-        for (let i = 1; i < hours; i++) {
-          appointmentOverlay++;
-          bookedTimes.push(appointmentOverlay);
-        }
-      }
-    }
-
-    //logic for creating an available times array based on the booked times.
-    // console.log(bookedTimes);
-    // while (bookedTimes.length) {
-    //   let currentBook = bookedTimes.pop();
-    //   if (newSchedule.includes(currentBook)) {
-    //     for(let i = 0; i < newSchedule.length; i++){
-
-    //     }
-    //     console.log("this is inside the newSchedule.includes current book", currentBook);
-    //   }
-    // }
-
-    return bookedTimes;
+  const removeService = (serviceId, userId) => {
+    dispatch(employeeServicesActions.deleteOneService(serviceId, userId));
   };
 
-  useEffect(() => {
-    setCurrentAppointments(checkAvailableTimes(testApts, schedule));
-  }, [selectedDate]);
-
-  console.log(currentAppointments);
-  console.log(weekDay);
   useEffect(() => {
     dispatch(servicesActions.getAllServices());
+    dispatch(employeeServicesActions.getAllEmployeeServices(sessionUser.user.id));
   }, [dispatch]);
+
   return (
     <>
-      <DatePicker
-        selected={startDate}
-        onChange={(date) => {
-          const { formattedDate, weekDay } = formatDate(date);
-          console.log(formattedDate, weekDay);
-          setSelectedDate(formattedDate);
-          setWeekDay(weekDay);
-          setStartDate(date);
-        }}
-        dateFormat="MMMM d, yyyy h:mm aa"
-        inline
-      />
+      <h1>SUBMIT NEW SERVICE FORM</h1>
       <form onSubmit={handleSubmit}>
         <label>Title</label>
         <input
@@ -225,6 +122,34 @@ function DatePickerTest() {
               }}
             >
               Delete
+            </button>
+          </div>
+        );
+      })}
+      <div>==================================================================================================</div>
+      <h1>ADD USER/EMPLOYEE SERVICE</h1>
+      <form onSubmit={addEmployeeService}>
+        <select value={employeeServiceId} onChange={(e) => setEmployeeServiceId(e.target.value)}>
+          {Object.values(services).map((service, idx) => {
+            return <option value={service.id}>{service.title}</option>;
+          })}
+        </select>
+        <button>submit</button>
+      </form>
+      <h3>Employee's Services</h3>
+      {Object.values(employeeServices).map((employeeService) => {
+        return (
+          <div>
+            <h1>{employeeService.title}</h1>
+            <div>{employeeService.description}</div>
+            <div>{employeeService.price}</div>
+            <div>{employeeService.hours}</div>
+            <button
+              onClick={() => {
+                removeService(employeeService.id, sessionUser.user.id);
+              }}
+            >
+              Remove Service
             </button>
           </div>
         );
