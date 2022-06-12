@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     "Appointment",
     {
       date: DataTypes.INTEGER,
-      startTime: DataTypes.INTEGER,
-      hours: DataTypes.INTEGER,
+      startTime: DataTypes.NUMERIC,
+      hours: DataTypes.NUMERIC,
       employeeId: DataTypes.INTEGER,
       customerId: DataTypes.INTEGER,
       services: DataTypes.STRING,

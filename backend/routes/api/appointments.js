@@ -8,26 +8,61 @@ const { Op } = require("sequelize");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { User, Service, Appointment, userService } = require("../../db/models");
 
-// const serviceValidations = [
-//   check("date").custom((value) => {
-//     console.log(value, "the valueeeeeeeeee");
-//     // return Appointment.findAll({ where: { date: value } }).then((appointments) => {
-//     //   if (appointments) {
-//     //     console.log(value, "the original value");
-//     //     appointments.forEach((el) => {
-//     //       console.log(el.dataValues.date);
-//     //     });
-//     //     console.log(appointments);
-//     //     return Promise.reject("The provided Email Address is already in use by another account");
-//     //   }
-//     // });
-//   }),
-//   handleValidationErrors,
-// ];
+const appointmentValidations = [
+  check("startTime").exists({ checkFalsy: true }).withMessage("Please select an appointment time."),
+  check("hours").exists({ checkFalsy: true }).withMessage("Error calculating appointment hours"),
+  check("employeeId").exists({ checkFalsy: true }).withMessage("Error with employeeId"),
+  check("customerId").exists({ checkFalsy: true }).withMessage("Error with customerId"),
+  check("date")
+    .exists({ checkFalsy: true })
+    .withMessage("Please Select a date")
+    .custom((value, { req }) => {
+      return Appointment.findAll({ where: { date: value } }).then((appointments) => {
+        if (appointments) {
+          const bookedTimes = [];
+
+          const selectedStartTime = req.body.startTime;
+          const selectedAppointmentHours = req.body.hours;
+          var selectedAppointmentEndTime;
+
+          if (selectedAppointmentHours > 0.5) {
+            selectedAppointmentEndTime = selectedStartTime;
+            for (let i = 0.5; i < selectedAppointmentHours; i += 0.5) {
+              selectedAppointmentEndTime += 0.5;
+            }
+          }
+
+          for (let i = 0; i < appointments.length; i++) {
+            let currAPP = appointments[i].dataValues;
+            let hours = currAPP.hours;
+            let startTime = currAPP.startTime;
+
+            bookedTimes.push(Number(startTime));
+
+            if (hours > 0.5) {
+              var bookedSlots = Number(startTime);
+
+              for (let i = 0.5; i < hours; i += 0.5) {
+                bookedSlots += 0.5;
+                bookedTimes.push(bookedSlots);
+              }
+            }
+          }
+          if (bookedTimes.includes(selectedStartTime))
+            return Promise.reject("This time slot has been booked, please select another time.");
+
+          if (bookedTimes.includes(selectedAppointmentEndTime))
+            return Promise.reject("This time slot overlaps an already booked appointment, please select another time.");
+        }
+      });
+    }),
+
+  handleValidationErrors,
+];
 
 router.get(
   "/",
-  // requireAuth,
+  requireAuth,
   // serviceValidations,
   asyncHandler(async (req, res) => {
     // const { appointmentId } = req.params;
@@ -42,10 +77,10 @@ router.get(
 
 router.post(
   "/",
-  // requireAuth,
-  // serviceValidations,
+  requireAuth,
+  appointmentValidations,
   asyncHandler(async (req, res) => {
-    const { startTime, endTime, hours, employeeId, customerId, date } = req.body;
+    const { startTime, endTime, hours, employeeId, customerId, date, services } = req.body;
     // let date = 20220817;
 
     const newAppointment = await Appointment.build({
@@ -55,6 +90,7 @@ router.post(
       employeeId,
       customerId,
       date,
+      services,
     });
     await newAppointment.save();
     return res.json({
@@ -66,8 +102,7 @@ router.post(
 //get all customer appointments
 router.get(
   "/customer/:customerId",
-  // requireAuth,
-  // serviceValidations,
+  requireAuth,
   asyncHandler(async (req, res) => {
     const { customerId } = req.params;
 
@@ -84,7 +119,6 @@ router.get(
 router.get(
   "/employee/:employeeId",
   requireAuth,
-  // serviceValidations,
   asyncHandler(async (req, res) => {
     const { employeeId } = req.params;
 
@@ -100,7 +134,6 @@ router.get(
 router.get(
   "/:appointmentId",
   requireAuth,
-  // serviceValidations,
   asyncHandler(async (req, res) => {
     const { appointmentId } = req.params;
     const appointment = await Appointment.findByPk(appointmentId);
@@ -139,6 +172,7 @@ router.put(
 //cancelling appointment
 router.delete(
   "/:appointmentId",
+  requireAuth,
   asyncHandler(async (req, res) => {
     const { appointmentId } = req.params;
 
