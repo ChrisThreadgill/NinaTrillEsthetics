@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
+import { csrfFetch } from "../../store/csrf";
 import * as appointmentsActions from "../../store/appointments";
 const moment = require("moment");
 
@@ -10,12 +11,12 @@ function TestAppointments() {
   const allAppointments = useSelector((state) => state.appointments);
 
   const formatDate = (date) => {
-    console.log(date);
+    // console.log(date);
     // convert date from date picker to js string object
     const dateString = new String(date);
     //split by the space
     const dateArr = dateString.split(" ");
-    console.log(dateArr);
+    // console.log(dateArr);
 
     //define the day,month, and year of client selection
     let day = dateArr[2];
@@ -68,29 +69,35 @@ function TestAppointments() {
   const [startDate, setStartDate] = useState(new Date());
   const [minHour, setMinHour] = useState(6);
   const { formattedDate: todaysDate } = formatDate(new Date());
-  console.log(todaysDate);
+  // console.log(todaysDate);
   const [selectedDate, setSelectedDate] = useState(todaysDate);
+  const [selectedTime, setSelectedTime] = useState("");
   const [weekDay, setWeekDay] = useState("");
   const [currentAppointments, setCurrentAppointments] = useState([]);
-  console.log(allAppointments, "all appointments");
-  console.log(currentAppointments);
+  const [trigger, setTrigger] = useState(false);
+  // console.log(allAppointments, "all appointments");
+  // console.log(currentAppointments);
   //
-  console.log(moment(13, "HH:mm").format("hh:mm a"));
-  let schedule = [10, 11, 12, 13, 14, 15, 16, 17, 18];
+  // console.log(moment(13, "HH:mm").format("hh:mm a"));
+  let schedule = [10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5];
 
   const checkAvailableTimes = (appointments, schedule) => {
     let bookedTimes = [];
     let availableTimes = schedule;
+
     for (let i = 0; i < appointments.length; i++) {
       let currAPP = appointments[i];
       let hours = currAPP.hours;
       let startTime = currAPP.startTime;
-      bookedTimes.push(startTime);
-      if (hours > 1) {
-        let appointmentOverlay = startTime;
-        for (let i = 1; i < hours; i++) {
-          appointmentOverlay++;
-          bookedTimes.push(appointmentOverlay);
+
+      bookedTimes.push(Number(startTime));
+
+      if (hours > 0.5) {
+        var bookedSlots = Number(startTime);
+
+        for (let i = 0.5; i < hours; i += 0.5) {
+          bookedSlots += 0.5;
+          bookedTimes.push(bookedSlots);
         }
       }
     }
@@ -105,18 +112,38 @@ function TestAppointments() {
         }
       }
     }
-
     return availableTimes;
   };
-  console.log(allAppointments);
+  // console.log(allAppointments);
 
+  const bookAppointment = async (e) => {
+    e.preventDefault();
+    const appointment = {
+      date: selectedDate,
+      startTime: 12,
+      hours: 2,
+      employeeId: 1,
+      customerId: 3,
+      services: "1 2 3 4",
+    };
+    const newAppointment = await csrfFetch(`/api/appointments`, {
+      method: "POST",
+      body: JSON.stringify(appointment),
+    }).catch(async (res) => {
+      const data = await res.json();
+
+      console.log(data.errors);
+    });
+    // if (response.newAppointment) {
+    // }
+  };
   useEffect(() => {
     if (allAppointments.length) {
       const currentAppointments = allAppointments?.filter((appointment) => appointment.date == selectedDate);
       setCurrentAppointments(checkAvailableTimes(currentAppointments, schedule));
     }
   }, [selectedDate]);
-  console.log(currentAppointments);
+  // console.log(currentAppointments);
   useEffect(() => {
     //setting date to today's formatted date on component mount
     const { formattedDate } = formatDate(new Date());
@@ -131,18 +158,43 @@ function TestAppointments() {
       <DatePicker
         onChange={(date) => {
           const { formattedDate, weekDay } = formatDate(date);
-          console.log(formattedDate, weekDay);
+          // console.log(formattedDate, weekDay);
           setSelectedDate(formattedDate);
           setWeekDay(weekDay);
           setStartDate(date);
+          setSelectedTime("");
         }}
         dateFormat="MMMM d, yyyy h:mm aa"
         inline
       />
       {currentAppointments.map((timeSlot, idx) => {
-        console.log(timeSlot);
-        return <li key={idx}>{moment(timeSlot, "HH:mm").format("hh:mm A")}</li>;
+        {
+          timeSlot % 1 === 0 ? (timeSlot = timeSlot) : (timeSlot = `${timeSlot}:30`);
+        }
+        return (
+          <li
+            key={idx}
+            onClick={
+              () => {
+                if (typeof timeSlot === "string") {
+                  const decimalTime = timeSlot.split(":")[0];
+                  console.log(Number(decimalTime));
+                  setSelectedTime(Number(decimalTime));
+                } else {
+                  console.log(timeSlot);
+                  setSelectedTime(timeSlot);
+                }
+              }
+              // setSelectedTime()
+            }
+          >
+            {moment(timeSlot, "HH:mm").format("hh:mm A")}
+          </li>
+        );
       })}
+      <form onSubmit={(e) => bookAppointment(e)}>
+        <button>NEW APPOINTMENT</button>
+      </form>
     </div>
   );
 }

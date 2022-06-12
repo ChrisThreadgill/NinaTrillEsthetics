@@ -18,11 +18,11 @@ module.exports = {
       },
       price: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.NUMERIC(5, 2),
       },
       hours: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.NUMERIC(3, 1),
       },
       createdAt: {
         allowNull: false,

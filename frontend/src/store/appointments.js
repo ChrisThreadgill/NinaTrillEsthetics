@@ -41,25 +41,23 @@ export const getAllAppointments = () => async (dispatch) => {
   dispatch(allAppointments(appointments));
   return appointments;
 };
+// export const bookAppointment = (appointment) => async (dispatch) => {
 
-// export const addServiceRelation = (userId, serviceId) => async (dispatch) => {
-//   const data = { userId, serviceId };
-//   console.log(data);
-//   const newService = await csrfFetch(`/api/services/${userId}/${serviceId}`, {
+//   const appointment = {
+//     date: selectedDate,
+//     startTime: 12,
+//     hours: 2,
+//     employeeId: 1,
+//     customerId: 3,
+//     services: "1 2 3 4",
+//   };
+//   const newAppointment = await csrfFetch(`/api/appointments`, {
 //     method: "POST",
-//     body: JSON.stringify(data),
+//     body: JSON.stringify(appointment),
 //   });
-//   const response = await newService.json();
+//   const data = await newAppointment.json();
 //   console.log(response);
-//   if (response.newUserService) {
-//     const response = await csrfFetch(`/api/services/employee/${userId}`, {
-//       method: "GET",
-//     });
-//     const employeeServices = await response.json();
-//     console.log(employeeServices.user.Services);
-
-//     dispatch(allEmployeeServices(employeeServices.user.Services));
-//     return employeeServices;
+//   if (response.newAppointment) {
 //   }
 // };
 

@@ -14,11 +14,11 @@ module.exports = {
       },
       startTime: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.NUMERIC(3, 1),
       },
       hours: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.NUMERIC(3, 1),
       },
       employeeId: {
         allowNull: false,
