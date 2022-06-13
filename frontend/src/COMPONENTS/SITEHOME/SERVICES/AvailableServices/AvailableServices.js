@@ -8,12 +8,14 @@ function AvailableServices({ selectedEmployee }) {
     <div className="available__services__container">
       {selectedEmployee?.Services.map((service) => {
         return (
-          <div className="available__service__card">
-            <div>{service.title}</div>
-            <div>{service.description}</div>
+          <div className="available__service__card" key={service.id}>
+            <div className="available__service__info__container">
+              <div className="available__service__title">{service.title}</div>
+              <div className="available__service__description">{service.description}</div>
+            </div>
             <div className="available__service__add__container">
-              <div>{service.price}</div>
-              <div>Add Service</div>
+              <div className="available__service__price">{service.price}</div>
+              <button className="available__service__add">Add Service</button>
             </div>
           </div>
         );

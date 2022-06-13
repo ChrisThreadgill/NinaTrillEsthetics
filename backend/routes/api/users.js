@@ -6,7 +6,7 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
 
-const { User, userService, Service } = require("../../db/models");
+const { User, userService, Service, Schedule } = require("../../db/models");
 
 const router = express.Router();
 
@@ -88,7 +88,7 @@ router.get(
     console.log("inside the route");
     const employees = await User.findAll({
       where: { role: { [Op.gt]: 1 } },
-      include: Service,
+      include: [Service, Schedule],
     });
 
     // console.log(employees);

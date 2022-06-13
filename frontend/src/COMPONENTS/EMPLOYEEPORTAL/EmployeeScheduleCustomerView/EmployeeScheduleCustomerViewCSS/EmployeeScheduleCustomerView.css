@@ -57,6 +57,7 @@
   width: 100px;
   text-align: center;
   color: rgb(35, 33, 33);
+  cursor: pointer;
 }
 
 .react-datepicker {
@@ -108,4 +109,5 @@
   color: #a45ee5;
   border-radius: 5px;
   border: 1px solid #a45ee5;
+  cursor: pointer;
 }
