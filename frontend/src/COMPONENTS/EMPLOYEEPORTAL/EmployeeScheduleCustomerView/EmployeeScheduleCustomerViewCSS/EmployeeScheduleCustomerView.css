@@ -1,0 +1,111 @@
+.employee__schedule__customer__view__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+  /* flex-direction: column; */
+  /* background-color: whitesmoke; */
+  border: 2px solid rgb(35, 33, 33);
+  border-top: none;
+  border-bottom: none;
+  background-color: rgb(246, 241, 241);
+  /* border-radius: 5px; */
+  width: 80%;
+  height: 420px;
+}
+
+.employee__schedule__customer__calendar__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding-top: 50px; */
+  margin-top: 15px;
+}
+.employee__schedule__customer__calendar__container > h2 {
+  display: flex;
+  justify-self: flex-start;
+  color: #a45ee5;
+}
+.employee__schedule__customer__calendar__container > div {
+  padding-left: 30px;
+}
+
+.available__appointment__times__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 235px;
+  width: 50%;
+}
+
+.available__appointment__times__container > h2 {
+  color: #a45ee5;
+}
+.available__appointment__times {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  max-height: 235px;
+  width: 50%;
+}
+
+.available__appointment__time__slot {
+  border: 1px solid #a45ee5;
+  margin: 2px 0px 2px 0px;
+  border-radius: 3px;
+  width: 100px;
+  text-align: center;
+  color: rgb(35, 33, 33);
+}
+
+.react-datepicker {
+  margin-right: 2rem;
+}
+.react-datepicker__month-container {
+  background-color: whitesmoke;
+  outline: 0;
+  border: none;
+}
+.react-datepicker__header {
+  background-color: rgb(35, 33, 33);
+}
+.react-datepicker__current-month {
+  color: #a45ee5;
+}
+.react-datepicker__day-name {
+  color: #a45ee5;
+}
+.react-datepicker__day {
+  color: black;
+  font-weight: bold;
+}
+.react-datepicker__day:hover {
+  background-color: #a45ee5;
+}
+.react-datepicker__day--keyboard-selected {
+  background-color: #a45ee5;
+}
+
+.customer__appointment__form__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 235px;
+  margin-top: 50px;
+  padding-right: 20px;
+}
+.customer__appointment__selected__options {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+.customer__appointment__form > button {
+  background-color: rgb(35, 33, 33);
+  width: 100%;
+  height: 34px;
+  color: #a45ee5;
+  border-radius: 5px;
+  border: 1px solid #a45ee5;
+}

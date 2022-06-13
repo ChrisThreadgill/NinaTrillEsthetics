@@ -8,6 +8,8 @@ import * as sessionActions from "./store/session";
 import Navigation from "./COMPONENTS/NAVBAR/Navbar";
 import DatePickerTest from "./COMPONENTS/test/Test";
 import TestAppointments from "./COMPONENTS/test/TestAppointments";
+import EmployeePortal from "./COMPONENTS/EMPLOYEEPORTAL/EmployeePortal";
+import HomePageServices from "./COMPONENTS/SITEHOME/SERVICES/HomePageServices";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +33,12 @@ function App() {
           </Route>
           <Route path="/testAppointments">
             <TestAppointments></TestAppointments>
+          </Route>
+          <Route path="/home">
+            <HomePageServices></HomePageServices>
+          </Route>
+          <Route path="/portal">
+            <EmployeePortal></EmployeePortal>
           </Route>
         </Switch>
       )}

@@ -12,6 +12,58 @@ module.exports = {
       "userServices",
       [
         {
+          userId: 1,
+          serviceId: 1,
+        },
+        {
+          userId: 1,
+          serviceId: 2,
+        },
+        {
+          userId: 1,
+          serviceId: 3,
+        },
+        {
+          userId: 1,
+          serviceId: 4,
+        },
+        {
+          userId: 1,
+          serviceId: 5,
+        },
+        {
+          userId: 1,
+          serviceId: 6,
+        },
+        {
+          userId: 1,
+          serviceId: 7,
+        },
+        {
+          userId: 1,
+          serviceId: 8,
+        },
+        {
+          userId: 1,
+          serviceId: 9,
+        },
+        {
+          userId: 1,
+          serviceId: 10,
+        },
+        {
+          userId: 1,
+          serviceId: 11,
+        },
+        {
+          userId: 1,
+          serviceId: 12,
+        },
+        {
+          userId: 1,
+          serviceId: 13,
+        },
+        {
           userId: 2,
           serviceId: 1,
         },
@@ -24,8 +76,16 @@ module.exports = {
           serviceId: 3,
         },
         {
-          userId: 2,
+          userId: 3,
           serviceId: 4,
+        },
+        {
+          userId: 3,
+          serviceId: 5,
+        },
+        {
+          userId: 3,
+          serviceId: 6,
         },
       ],
       {}
