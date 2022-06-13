@@ -4,12 +4,14 @@ import sessionReducer from "./session";
 import servicesReducer from "./services";
 import employeeServicesReducer from "./employeeServices";
 import appointmentsReducer from "./appointments";
+import employeesReducer from "./employees";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   services: servicesReducer,
   employeeServices: employeeServicesReducer,
   appointments: appointmentsReducer,
+  employees: employeesReducer,
 });
 
 let enhancer;

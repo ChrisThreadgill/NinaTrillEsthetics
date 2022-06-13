@@ -13,8 +13,18 @@ module.exports = {
       [
         {
           days: "SUN Mon Tue Wed Thu Fri Sat",
-          hours: "8 9 10 11 12 13 14 15 16 17 18",
+          hours: "10 10.5 11 11.5 12 12.5 13 13.5 14 14.5 15 15.5 16 16.5 17 17.5 18 18.5",
+          userId: 1,
+        },
+        {
+          days: "SUN MON TUE WED THU FRI SAT",
+          hours: "10 10.5 11 11.5 12 12.5 13 13.5 14 14.5 15 15.5 16 16.5 17 17.5 18 18.5",
           userId: 2,
+        },
+        {
+          days: "SUN MON TUE WED THU FRI SAT",
+          hours: "10 10.5 11 11.5 12 12.5 13 13.5 14 14.5 15 15.5 16 16.5 17 17.5 18",
+          userId: 3,
         },
       ],
       {}

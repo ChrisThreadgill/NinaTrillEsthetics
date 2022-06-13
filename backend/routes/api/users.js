@@ -4,8 +4,9 @@ const db = require("../../db/models");
 const { setJWT } = require("../../utils/auth");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const { Op } = require("sequelize");
 
-const { User, userService } = require("../../db/models");
+const { User, userService, Service } = require("../../db/models");
 
 const router = express.Router();
 
@@ -81,19 +82,21 @@ router.post(
     });
   })
 );
-// router.get(
-//   "/test",
-//   asyncHandler(async (req, res) => {
-//     // const { userId } = req.body;
-//     // const serviceId = 3;
-//     // const users = await User.findAll();
-//     // console.log(users);
-//     let res2 = "hello world";
-//     return res.json({
-//       res2,
-//     });
-//   })
-// );
+router.get(
+  "/employees",
+  asyncHandler(async (req, res) => {
+    console.log("inside the route");
+    const employees = await User.findAll({
+      where: { role: { [Op.gt]: 1 } },
+      include: Service,
+    });
+
+    // console.log(employees);
+    return res.json({
+      employees,
+    });
+  })
+);
 
 // router.get(
 //   "/",
