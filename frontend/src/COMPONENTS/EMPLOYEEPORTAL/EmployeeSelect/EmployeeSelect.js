@@ -8,11 +8,7 @@ function EmployeeSelect({ employeeId, setEmployeeId }) {
   return (
     <div className="employee__select__container">
       <div className="employee__picture"></div>
-      <select
-        className="employee__select"
-        value={employeeId ? employeeId : 1}
-        onChange={(e) => setEmployeeId(e.target.value)}
-      >
+      <select className="employee__select" onChange={(e) => setEmployeeId(e.target.value)}>
         <option className="option__placeholder" disabled selected hidden>
           Select an Employee
         </option>
