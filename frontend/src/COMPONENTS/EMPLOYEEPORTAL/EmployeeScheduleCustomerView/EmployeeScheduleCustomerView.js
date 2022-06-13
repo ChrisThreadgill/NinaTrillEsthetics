@@ -7,12 +7,14 @@ import * as appointmentsActions from "../../../store/appointments";
 import { checkAvailableTimes, formatDate } from "../../utils/utils";
 const moment = require("moment");
 
-function EmployeeScheduleCustomerView({ schedule }) {
+function EmployeeScheduleCustomerView({ schedule, setSchedule, selectedEmployee, employeeId }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session);
   const allAppointments = useSelector((state) => state.appointments);
   const { formattedDate: todaysDate } = formatDate(new Date());
-  console.log(schedule);
+  // const schedule = selectedEmployee?.Schedule.hours.split(" ");
+  console.log(selectedEmployee?.Schedule.hours.split(" "));
+  const testSchedule = selectedEmployee?.Schedule.hours.split(" ");
 
   const [startDate, setStartDate] = useState(new Date());
   const [currentAppointments, setCurrentAppointments] = useState([]);
@@ -45,14 +47,28 @@ function EmployeeScheduleCustomerView({ schedule }) {
 
   //FILTERS ALL APPOINTMENTS BY DAY AND EMPLOYEEID
   useEffect(() => {
-    if (allAppointments.length) {
-      const currentAppointments = allAppointments?.filter(
-        (appointment) => appointment.date == selectedDate && appointment.employeeId == 2
-      );
-      setCurrentAppointments(checkAvailableTimes(currentAppointments, schedule));
+    if (selectedEmployee) {
+      const schedule = selectedEmployee.Schedule.hours.split(" ");
+      setSchedule(schedule);
+      if (allAppointments.length && schedule) {
+        // console.log("inside the filter");
+        const currentAppointments = allAppointments?.filter(
+          (appointment) => appointment.date == selectedDate && appointment.employeeId == employeeId
+        );
+
+        setCurrentAppointments(checkAvailableTimes(currentAppointments, testSchedule));
+      }
+      // console.log(currentAppointments, "current appoints");
+
+      return () => {};
+
+      // setCurrentAppointments(checkAvailableTimes(currentAppointments, schedule));
     }
-  }, [selectedDate]);
-  console.log(currentAppointments);
+  }, [selectedDate, employeeId]);
+  console.log(employeeId, "employeeID");
+  console.log("all appointments", allAppointments);
+  console.log("scheuldeeeeeeeeeeeeee", schedule);
+  console.log(currentAppointments, "current appointments in the customer view");
 
   useEffect(() => {
     //setting date to today's formatted date on component mount NOT WORKING
@@ -63,7 +79,7 @@ function EmployeeScheduleCustomerView({ schedule }) {
       // setSelectedDate(formattedDate);
     };
   }, [dispatch]);
-  console.log(selectedDate);
+  // console.log(selectedDate);
 
   return (
     <div className="employee__schedule__customer__view__container">

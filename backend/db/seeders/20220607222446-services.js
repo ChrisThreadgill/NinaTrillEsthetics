@@ -74,14 +74,14 @@ module.exports = {
         {
           title: "Lash Lift & Tint",
           description: "Most clients will choose to do this lift and tint together!",
-          price: 20,
+          price: 75,
           hours: 1,
         },
         {
           title: "Teeth Whitening",
           description:
             "Teeth whitening service using a carbamide peroxide product and a professional teeth-whitening LED Lamp to whiten the teeth.  This will be an hour long service split into 3 20 minute sessions.  Your sensitivity will be monitored throughout the entire service and adjusted as needed.  Results last depending on your lifestyle!",
-          price: 20,
+          price: 100,
           hours: 1.5,
         },
         {

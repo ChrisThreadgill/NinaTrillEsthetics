@@ -1,6 +1,9 @@
 export const checkAvailableTimes = (appointments, schedule) => {
+  console.log(schedule);
+  console.log(appointments, "apppts and schedu inside utils");
   let bookedTimes = [];
   let availableTimes = [...schedule];
+  console.log(availableTimes);
 
   for (let i = 0; i < appointments.length; i++) {
     let currAPP = appointments[i];
@@ -18,18 +21,25 @@ export const checkAvailableTimes = (appointments, schedule) => {
       }
     }
   }
+  console.log(bookedTimes);
 
   while (bookedTimes.length) {
     let currentBook = bookedTimes.pop();
     // console.log(availableTimes);
-    if (availableTimes.includes(currentBook)) {
-      for (let i = 0; i < availableTimes.length; i++) {
-        if (availableTimes[i] === currentBook) {
-          availableTimes.splice(i, 1);
-        }
+    // console.log(currentBook, "current book next to available times");
+
+    // if (availableTimes.includes(currentBook)) {
+    console.log("in the includes");
+    for (let i = 0; i < availableTimes.length; i++) {
+      console.log(availableTimes[i], currentBook, "current book available times next to each other");
+      if (availableTimes[i] == currentBook) {
+        availableTimes.splice(i, 1);
+        console.log("available times after the splice", availableTimes);
       }
+      // }
     }
   }
+  // console.log(availableTimes, "3999999999999999999999999999");
   return availableTimes;
 };
 

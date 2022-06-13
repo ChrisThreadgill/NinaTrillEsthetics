@@ -10,8 +10,9 @@
   height: 50px;
   background-color: rgb(246, 241, 241);
   border: 2px solid rgb(35, 33, 33);
-  color: #a45ee5;
+  color: rgb(35, 33, 33);
   text-decoration: underline;
+  margin-top: 50px;
   font-weight: 800;
   font-size: 2rem;
   border-bottom: none;

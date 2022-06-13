@@ -3,8 +3,8 @@
   justify-content: space-between;
   padding: 0 7% 0 7%;
   background-color: rgb(35, 33, 33);
-  border-radius: 5px;
-  border: 1px solid #a45ee5;
+  border-radius: 0 0 5px 0;
+  /* border: 1px solid #a45ee5; */
 }
 .home__logo {
   width: 75px;
