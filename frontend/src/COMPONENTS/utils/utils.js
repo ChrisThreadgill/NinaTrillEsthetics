@@ -1,9 +1,10 @@
-export const checkAvailableTimes = (appointments, schedule) => {
-  console.log(schedule);
-  console.log(appointments, "apppts and schedu inside utils");
+export const checkAvailableTimes = (appointments, schedule, selectedHours) => {
+  // console.log("selected hours in the check times function", selectedHours);
+  // console.log(schedule);
+  // console.log(appointments, "apppts and schedu inside utils");
   let bookedTimes = [];
   let availableTimes = [...schedule];
-  console.log(availableTimes);
+  // console.log(availableTimes);
 
   for (let i = 0; i < appointments.length; i++) {
     let currAPP = appointments[i];
@@ -21,7 +22,7 @@ export const checkAvailableTimes = (appointments, schedule) => {
       }
     }
   }
-  console.log(bookedTimes);
+  // console.log(bookedTimes);
 
   while (bookedTimes.length) {
     let currentBook = bookedTimes.pop();
@@ -29,17 +30,46 @@ export const checkAvailableTimes = (appointments, schedule) => {
     // console.log(currentBook, "current book next to available times");
 
     // if (availableTimes.includes(currentBook)) {
-    console.log("in the includes");
+    // console.log("in the includes");
     for (let i = 0; i < availableTimes.length; i++) {
-      console.log(availableTimes[i], currentBook, "current book available times next to each other");
+      // console.log(availableTimes[i], currentBook, "current book available times next to each other");
       if (availableTimes[i] == currentBook) {
         availableTimes.splice(i, 1);
-        console.log("available times after the splice", availableTimes);
+        // console.log("available times after the splice", availableTimes);
       }
       // }
     }
   }
+
+  //TODO CHANGE AVAILABLE TIMES ARRAY BASED ON USER INPUT HOURS
+  // console.log(availableTimes, "before this selected hours if");
+  // if (selectedHours >= 0.5) {
+  //   let selectedHoursCheck = [...availableTimes];
+  //   console.log(selectedHours);
+  //   let newAvailableTimes = [];
+  //   const endCount = (selectedHours *= 2);
+
+  //   while (selectedHoursCheck.length) {
+  //     let currentTimeCheck = selectedHoursCheck.shift();
+  //     // const suggestedEndTime = currentTimeCheck + selectedHours;
+  //     let currentTimeCheckNumber = Number(currentTimeCheck);
+  //     let suggestedEndTime = (currentTimeCheckNumber += selectedHours -= 0.5);
+  //     console.log(suggestedEndTime, "suggested end time added and subtracted");
+  //     for (let i = 0; i < selectedHoursCheck.length; i++) {
+  //       if (selectedHoursCheck[i] == suggestedEndTime) {
+  //         console.log("inside the if of the for");
+  //         console.log(selectedHoursCheck[i], suggestedEndTime, "-------------------");
+  //         // newAvailableTimes.push(currentTimeCheck);
+  //       }
+  //     }
+
+  //     console.log(newAvailableTimes, "NEW AVAILABLE TIMES? IT WAS THAT EASY?");
+  //     console.log(suggestedEndTime, "checking suggested end time calculation");
+  //     console.log(Number(currentTimeCheck), "checking suggested end time calculation");
+  //   }
+  // }
   // console.log(availableTimes, "3999999999999999999999999999");
+  console.log(availableTimes, "after this selected hours if");
   return availableTimes;
 };
 

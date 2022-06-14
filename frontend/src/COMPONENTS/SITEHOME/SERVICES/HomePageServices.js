@@ -13,17 +13,19 @@ function HomePageServices() {
   const [schedule, setSchedule] = useState([]);
   const employeesObj = useSelector((state) => state.employees);
   const [selectedEmployee, setSelectedEmployee] = useState(Object.values(employeesObj)[0]);
-  console.log(employeesObj, "employees object==========================");
-  //
-  // let schedule = [10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5];
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [selectedServicesInfo, setSelectedServicesInfo] = useState([]);
+  let serviceSet = new Set();
 
   useEffect(() => {
-    // const selectedEmployee = employeesArr.filter((employee) => employee.id == employeeId);
     setSelectedEmployee(employeesObj[employeeId]);
-  }, [employeeId]);
+    console.log(selectedServicesInfo);
+  }, [employeeId, selectedServicesInfo]);
 
-  console.log(schedule);
   useEffect(() => {
+    serviceSet = new Set();
+    setSelectedServices(serviceSet);
+    console.log(serviceSet);
     dispatch(employeesActions.getAllEmployees()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
@@ -38,8 +40,20 @@ function HomePageServices() {
             setSchedule={setSchedule}
             selectedEmployee={selectedEmployee}
             employeeId={employeeId}
+            selectedServices={selectedServices}
+            selectedServicesInfo={selectedServicesInfo}
+            setSelectedServicesInfo={setSelectedServicesInfo}
+            serviceSet={serviceSet}
           ></EmployeeScheduleCustomerView>
-          <AvailableServices selectedEmployee={selectedEmployee}></AvailableServices>
+          <AvailableServices
+            selectedEmployee={selectedEmployee}
+            selectedServices={selectedServices}
+            setSelectedServices={setSelectedServices}
+            selectedServicesInfo={selectedServicesInfo}
+            setSelectedServicesInfo={setSelectedServicesInfo}
+            employeeId={employeeId}
+            serviceSet={serviceSet}
+          ></AvailableServices>
         </div>
       )}
     </>

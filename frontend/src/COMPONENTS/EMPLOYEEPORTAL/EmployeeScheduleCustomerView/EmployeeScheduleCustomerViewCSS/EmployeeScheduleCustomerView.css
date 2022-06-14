@@ -111,3 +111,6 @@
   border: 1px solid #a45ee5;
   cursor: pointer;
 }
+.customer__appointment__selected__services {
+  height: 100%;
+}

@@ -7,21 +7,29 @@ import * as appointmentsActions from "../../../store/appointments";
 import { checkAvailableTimes, formatDate } from "../../utils/utils";
 const moment = require("moment");
 
-function EmployeeScheduleCustomerView({ schedule, setSchedule, selectedEmployee, employeeId }) {
+function EmployeeScheduleCustomerView({
+  schedule,
+  setSchedule,
+  selectedEmployee,
+  employeeId,
+  selectedServices,
+  selectedServicesInfo,
+  serviceSet,
+}) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session);
   const allAppointments = useSelector((state) => state.appointments);
   const { formattedDate: todaysDate } = formatDate(new Date());
-  // const schedule = selectedEmployee?.Schedule.hours.split(" ");
-  console.log(selectedEmployee?.Schedule.hours.split(" "));
-  const testSchedule = selectedEmployee?.Schedule.hours.split(" ");
 
   const [startDate, setStartDate] = useState(new Date());
   const [currentAppointments, setCurrentAppointments] = useState([]);
+  // const [selected, setSelected] = useState(false);
   const [selectedDate, setSelectedDate] = useState(todaysDate);
   const [selectedTime, setSelectedTime] = useState("");
+  const [price, setPrice] = useState("");
+  const [selectedHours, setSelectedHours] = useState("");
+
   const [weekDay, setWeekDay] = useState("");
-  // let schedule = [10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5];
 
   const bookAppointment = async (e) => {
     e.preventDefault();
@@ -56,7 +64,7 @@ function EmployeeScheduleCustomerView({ schedule, setSchedule, selectedEmployee,
           (appointment) => appointment.date == selectedDate && appointment.employeeId == employeeId
         );
 
-        setCurrentAppointments(checkAvailableTimes(currentAppointments, testSchedule));
+        setCurrentAppointments(checkAvailableTimes(currentAppointments, schedule));
       }
       // console.log(currentAppointments, "current appoints");
 
@@ -65,10 +73,41 @@ function EmployeeScheduleCustomerView({ schedule, setSchedule, selectedEmployee,
       // setCurrentAppointments(checkAvailableTimes(currentAppointments, schedule));
     }
   }, [selectedDate, employeeId]);
-  console.log(employeeId, "employeeID");
-  console.log("all appointments", allAppointments);
-  console.log("scheuldeeeeeeeeeeeeee", schedule);
-  console.log(currentAppointments, "current appointments in the customer view");
+
+  // const calculateServices = (servicesArr)=>{
+  //   for (let i = 0; i < servicesArr.length; i++) {
+  //     console.log(selectedServicesInfoArray[i]);
+  //   }
+  // }
+  useEffect(() => {
+    const selectedServicesInfoArray = Object.values(selectedServicesInfo);
+    // console.log(selectedServicesInfoArray);
+    let total = 0;
+    let hours = 0;
+    for (let i = 0; i < selectedServicesInfoArray.length; i++) {
+      let curService = selectedServicesInfoArray[i];
+      let curPrice = parseInt(curService.price);
+      let curHours = Number(curService.hours);
+      console.log(curHours);
+      total += curPrice;
+      hours += curHours;
+
+      // console.log(total);
+    }
+    setPrice(total);
+    setSelectedHours(hours);
+
+    // if (allAppointments.length) {
+    //   // console.log("inside the filter");
+    //   const currentAppointments = allAppointments?.filter(
+    //     (appointment) => appointment.date == selectedDate && appointment.employeeId == employeeId
+    //   );
+
+    //   setCurrentAppointments(checkAvailableTimes(currentAppointments, schedule, selectedHours));
+    // }
+    // setCurrentAppointments(checkAvailableTimes(currentAppointments, schedule, selectedHours));
+  }, [selectedServicesInfo]);
+  // console.log(selectedHours, "hourssssssssssssssssssssssssssssss");
 
   useEffect(() => {
     //setting date to today's formatted date on component mount NOT WORKING
@@ -79,7 +118,7 @@ function EmployeeScheduleCustomerView({ schedule, setSchedule, selectedEmployee,
       // setSelectedDate(formattedDate);
     };
   }, [dispatch]);
-  // console.log(selectedDate);
+  // console.log(selectedTime);
 
   return (
     <div className="employee__schedule__customer__view__container">
@@ -111,15 +150,19 @@ function EmployeeScheduleCustomerView({ schedule, setSchedule, selectedEmployee,
                 key={idx}
                 onClick={
                   () => {
-                    if (typeof timeSlot === "string") {
-                      const decimalTime = timeSlot.split(":")[0];
-                      console.log(Number(decimalTime));
-                      setSelectedTime(Number(decimalTime));
+                    if (typeof timeSlot === "string" && !Number(timeSlot)) {
+                      // console.log(Number(timeSlot), "time slotttttttt");
+
+                      const halfHourTime = timeSlot.split(".")[0];
+                      // console.log(decimalTime, "decimal timeeeeeeeeeeeeeeeee");
+                      setSelectedTime(`${halfHourTime}:30`);
+                      // console.log(selectedTime, "new selected timeeeeeeeee");
                     } else {
-                      console.log(timeSlot);
+                      // console.log(timeSlot);
                       setSelectedTime(timeSlot);
                     }
                   }
+
                   // setSelectedTime()
                 }
               >
@@ -131,9 +174,17 @@ function EmployeeScheduleCustomerView({ schedule, setSchedule, selectedEmployee,
       </div>
       <div className="customer__appointment__form__container">
         <div className="customer__appointment__selected__options">
-          <div>SELECTED APPOINTMENT TIME</div>
-          <div>SELECTED SERVICES</div>
-          <div>PRICE</div>
+          {/* {selectedTime % 1 === 0
+            ? setSelectedTime(moment(selectedTime, "HH:mm").format("hh:mm a"))
+          : setSelectedTime(moment(selectedTime.split(":")[0], "HH:mm").format("hh:mm a"))} */}
+          <div>{selectedTime ? moment(selectedTime, "HH:mm").format("hh:mm a") : "Choose a time!"}</div>
+          <div className="customer__appointment__selected__services">
+            {selectedServicesInfo &&
+              Object.values(selectedServicesInfo).map((service) => {
+                return <li>{service.title}</li>;
+              })}
+          </div>
+          <div>{`$${price}`}</div>
         </div>
         <div className="customer__appointment__errors"></div>
         <form className="customer__appointment__form" onSubmit={(e) => bookAppointment(e)}>

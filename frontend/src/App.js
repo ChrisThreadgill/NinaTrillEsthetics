@@ -37,6 +37,9 @@ function App() {
           <Route path="/home">
             <HomePageServices></HomePageServices>
           </Route>
+          <Route path="/employees">
+            <HomePageServices></HomePageServices>
+          </Route>
           <Route path="/portal">
             <EmployeePortal></EmployeePortal>
           </Route>
