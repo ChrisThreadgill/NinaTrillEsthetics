@@ -19,12 +19,17 @@ function HomePageServices() {
 
   useEffect(() => {
     setSelectedEmployee(employeesObj[employeeId]);
-    console.log(selectedServicesInfo);
-  }, [employeeId, selectedServicesInfo]);
-
-  useEffect(() => {
     serviceSet = new Set();
     setSelectedServices(serviceSet);
+    console.log(serviceSet, "--------------------");
+    return () => {
+      setSelectedServicesInfo("");
+    };
+  }, [employeeId]);
+
+  useEffect(() => {
+    // serviceSet = new Set();
+    // setSelectedServices(serviceSet);
     console.log(serviceSet);
     dispatch(employeesActions.getAllEmployees()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -41,6 +46,7 @@ function HomePageServices() {
             selectedEmployee={selectedEmployee}
             employeeId={employeeId}
             selectedServices={selectedServices}
+            setSelectedServices={setSelectedServices}
             selectedServicesInfo={selectedServicesInfo}
             setSelectedServicesInfo={setSelectedServicesInfo}
             serviceSet={serviceSet}
