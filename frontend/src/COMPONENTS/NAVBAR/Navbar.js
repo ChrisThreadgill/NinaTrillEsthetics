@@ -2,9 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Navbar.css/Navbar.css";
+import { useHistory } from "react-router-dom";
 import HamburgerMenu from "./Hamburger";
 
 function Navigation({ isLoaded }) {
+  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
 
   let sessionLinks;
@@ -21,11 +23,13 @@ function Navigation({ isLoaded }) {
 
   return (
     <div className="nav__bar__container">
-      <div className="home__logo">{/* <NavLink className="home__logo" exact to="/"></NavLink> */}</div>
+      <div className="home__logo" onClick={() => history.push("/")}>
+        {/* <NavLink className="home__logo" exact to="/"></NavLink> */}
+      </div>
       <div className="home__page__categories__container">
-        <div>SERVICES</div>
-        <div>EMPLOYEES</div>
-        <div>ABOUT</div>
+        <div onClick={() => history.push("/home")}>SERVICES</div>
+        <div onClick={() => history.push("/employees")}>EMPLOYEES</div>
+        <div onClick={() => history.push("/about")}>ABOUT</div>
       </div>
       <div>{isLoaded && sessionLinks}</div>
     </div>
