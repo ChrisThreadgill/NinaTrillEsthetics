@@ -87,6 +87,15 @@
 .react-datepicker__day--keyboard-selected {
   background-color: #a45ee5;
 }
+.react-datepicker__day--selected {
+  background-color: #a45ee5;
+}
+
+.react-datepicker__day--disabled {
+  border-radius: 5px;
+  background-color: #a45ee5;
+  opacity: 50%;
+}
 
 .customer__appointment__form__container {
   display: flex;
@@ -112,5 +121,6 @@
   cursor: pointer;
 }
 .customer__appointment__selected__services {
-  height: 100%;
+  overflow-y: scroll;
+  max-height: 60%;
 }

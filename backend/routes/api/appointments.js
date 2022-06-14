@@ -17,7 +17,7 @@ const appointmentValidations = [
     .exists({ checkFalsy: true })
     .withMessage("Please Select a date")
     .custom((value, { req }) => {
-      return Appointment.findAll({ where: { date: value } }).then((appointments) => {
+      return Appointment.findAll({ where: { date: value, employeeId: req.body.employeeId } }).then((appointments) => {
         if (appointments) {
           const bookedTimes = [];
 
@@ -80,12 +80,11 @@ router.post(
   requireAuth,
   appointmentValidations,
   asyncHandler(async (req, res) => {
-    const { startTime, endTime, hours, employeeId, customerId, date, services } = req.body;
+    const { startTime, hours, employeeId, customerId, date, services } = req.body;
     // let date = 20220817;
 
     const newAppointment = await Appointment.build({
       startTime,
-      endTime,
       hours,
       employeeId,
       customerId,
