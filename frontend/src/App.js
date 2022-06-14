@@ -10,6 +10,7 @@ import DatePickerTest from "./COMPONENTS/test/Test";
 import TestAppointments from "./COMPONENTS/test/TestAppointments";
 import EmployeePortal from "./COMPONENTS/EMPLOYEEPORTAL/EmployeePortal";
 import HomePageServices from "./COMPONENTS/SITEHOME/SERVICES/HomePageServices";
+import HomePageEmployees from "./COMPONENTS/SITEHOME/EMPLOYEES/HomePageEmployees";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ function App() {
             <HomePageServices></HomePageServices>
           </Route>
           <Route path="/employees">
-            <HomePageServices></HomePageServices>
+            <HomePageEmployees></HomePageEmployees>
           </Route>
           <Route path="/portal">
             <EmployeePortal></EmployeePortal>

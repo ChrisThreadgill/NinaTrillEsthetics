@@ -81,9 +81,10 @@ function EmployeeScheduleCustomerView({
   // }
   useEffect(() => {
     const selectedServicesInfoArray = Object.values(selectedServicesInfo);
-    // console.log(selectedServicesInfoArray);
+
     let total = 0;
     let hours = 0;
+
     for (let i = 0; i < selectedServicesInfoArray.length; i++) {
       let curService = selectedServicesInfoArray[i];
       let curPrice = parseInt(curService.price);
@@ -91,32 +92,23 @@ function EmployeeScheduleCustomerView({
       console.log(curHours);
       total += curPrice;
       hours += curHours;
-
-      // console.log(total);
     }
+
     setPrice(total);
     setSelectedHours(hours);
-
-    // if (allAppointments.length) {
-    //   // console.log("inside the filter");
-    //   const currentAppointments = allAppointments?.filter(
-    //     (appointment) => appointment.date == selectedDate && appointment.employeeId == employeeId
-    //   );
-
-    //   setCurrentAppointments(checkAvailableTimes(currentAppointments, schedule, selectedHours));
-    // }
-    // setCurrentAppointments(checkAvailableTimes(currentAppointments, schedule, selectedHours));
   }, [selectedServicesInfo]);
-  // console.log(selectedHours, "hourssssssssssssssssssssssssssssss");
 
   useEffect(() => {
     //setting date to today's formatted date on component mount NOT WORKING
     // const { formattedDate } = formatDate(new Date());
+
     dispatch(appointmentsActions.getAllAppointments());
-    return () => {
-      // const { formattedDate } = formatDate(new Date());
-      // setSelectedDate(formattedDate);
-    };
+
+    // return () => {
+
+    //   // const { formattedDate } = formatDate(new Date());
+    //   // setSelectedDate(formattedDate);
+    // };
   }, [dispatch]);
   // console.log(selectedTime);
 
