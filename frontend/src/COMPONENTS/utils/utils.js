@@ -130,6 +130,10 @@ export const formatDate = (date) => {
   return { formattedDate, weekDay };
 };
 
+export const unFormatDate = (stringDate) => {
+  // console.log(stringDate.slice(-4));
+};
+
 // export const bookAppointment = async (e) => {
 //   e.preventDefault();
 //   const appointment = {

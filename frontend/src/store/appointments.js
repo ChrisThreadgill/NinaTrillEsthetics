@@ -3,6 +3,7 @@ import rfdc from "rfdc";
 const clone = rfdc();
 
 const GET_ALL = "appointments/getAll";
+const ALL_CUSTOMER = "appointments/customerAll";
 const CLEAN = "appointments/clean";
 const DELETE = "appointments/delete";
 const ADD_RELATION = "appointments/addRELATION";
@@ -13,18 +14,18 @@ const allAppointments = (appointments) => {
     payload: appointments,
   };
 };
-// const addRelation = (service) => {
-//   return {
-//     type: ADD_RELATION,
-//     payload: service,
-//   };
-// };
-// const deleteService = (serviceId) => {
-//   return {
-//     type: DELETE,
-//     payload: serviceId,
-//   };
-// };
+const allCustomerAppointments = (appointments) => {
+  return {
+    type: ALL_CUSTOMER,
+    payload: appointments,
+  };
+};
+const cancelOneAppointment = (appointmentId) => {
+  return {
+    type: DELETE,
+    payload: appointmentId,
+  };
+};
 // const cleanServices = () => {
 //   return {
 //     type: CLEAN,
@@ -39,6 +40,16 @@ export const getAllAppointments = () => async (dispatch) => {
   console.log(appointments);
 
   dispatch(allAppointments(appointments));
+  return appointments;
+};
+export const getAllAppointmentsForCustomer = (customerId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/appointments/customer/${customerId}`, {
+    method: "GET",
+  });
+  const appointments = await response.json();
+  console.log(appointments);
+
+  dispatch(allCustomerAppointments(appointments));
   return appointments;
 };
 // export const bookAppointment = (appointment) => async (dispatch) => {
@@ -61,24 +72,16 @@ export const getAllAppointments = () => async (dispatch) => {
 //   }
 // };
 
-// export const deleteOneService = (serviceId, userId) => async (dispatch) => {
-//   console.log("in the thunk");
-//   const serviceToDelete = await csrfFetch(`/api/services/appointments`, {
-//     method: "DELETE",
-//     body: JSON.stringify({ serviceId, userId }),
-//   });
-//   const response = await serviceToDelete.json();
+export const cancelAppointment = (appointmentId) => async (dispatch) => {
+  console.log("in the thunk");
+  const cancelledAppointment = await csrfFetch(`/api/appointments/${appointmentId}`, {
+    method: "DELETE",
+  });
+  const response = await cancelledAppointment.json();
 
-//   if (response.message) {
-//     const response = await csrfFetch(`/api/services/employee/${userId}`, {
-//       method: "GET",
-//     });
-//     const employeeServices = await response.json();
-
-//     dispatch(allEmployeeServices(employeeServices.user.Services));
-//     return employeeServices;
-//   }
-// };
+  dispatch(cancelOneAppointment(appointmentId));
+  return response;
+};
 
 // export const clean = () => (dispatch) => {
 //   dispatch(cleanServices());
@@ -100,10 +103,17 @@ const appointmentsReducer = (state = initialState, action) => {
       console.log(action.payload);
 
       return action.payload.appointments;
-    // case DELETE:
-    //   console.log(newState, "this is the new state");
-    //   delete newState[action.payload];
-    //   return newState;
+    case ALL_CUSTOMER:
+      const customerAppointments = {};
+      console.log(action.payload);
+      for (let appointment of action.payload.appointments) {
+        customerAppointments[appointment.id] = appointment;
+      }
+
+      return { ...customerAppointments };
+    case DELETE:
+      delete newState[action.payload];
+      return newState;
     // case CLEAN:
     //   return {};
     default:

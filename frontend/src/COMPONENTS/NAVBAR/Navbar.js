@@ -27,11 +27,11 @@ function Navigation({ isLoaded }) {
         {/* <NavLink className="home__logo" exact to="/"></NavLink> */}
       </div>
       <div className="home__page__categories__container">
-        <div onClick={() => history.push("/home")}>SERVICES</div>
+        <div onClick={() => history.push("/services")}>SERVICES</div>
         <div onClick={() => history.push("/employees")}>EMPLOYEES</div>
         <div onClick={() => history.push("/about")}>ABOUT</div>
       </div>
-      <div>{isLoaded && sessionLinks}</div>
+      <div className="hamburger__container">{isLoaded && sessionLinks}</div>
     </div>
   );
 }
