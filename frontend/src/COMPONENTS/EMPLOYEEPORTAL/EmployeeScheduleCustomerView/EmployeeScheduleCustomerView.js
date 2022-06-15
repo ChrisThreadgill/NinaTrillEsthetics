@@ -1,6 +1,7 @@
 import "./EmployeeScheduleCustomerViewCSS/EmployeeScheduleCustomerView.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { csrfFetch } from "../../../store/csrf";
 import DatePicker from "react-datepicker";
 import * as appointmentsActions from "../../../store/appointments";
@@ -18,6 +19,7 @@ function EmployeeScheduleCustomerView({
   serviceSet,
 }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const sessionUser = useSelector((state) => state.session);
   const allAppointments = useSelector((state) => state.appointments);
   const { formattedDate: todaysDate } = formatDate(new Date());
@@ -33,7 +35,6 @@ function EmployeeScheduleCustomerView({
   const [errors, setErrors] = useState({});
 
   const [weekDay, setWeekDay] = useState("");
-  console.log(errors);
   const bookAppointment = async (e) => {
     e.preventDefault();
     if (selectedTime.includes(":")) {
@@ -51,43 +52,47 @@ function EmployeeScheduleCustomerView({
       const newAppointment = await csrfFetch(`/api/appointments`, {
         method: "POST",
         body: JSON.stringify(appointment),
-      }).catch(async (res) => {
-        const data = await res.json();
-        if (data.errors) {
-          console.log("in data.errors");
-          let normErrs = {};
-          for (let i = 0; i < data.errors.length; i++) {
-            let error = data.errors[i];
-            console.log(error);
-            switch (error) {
-              case "Please select an appointment time.":
-                normErrs["startTime"] = "Please select an appointment time.";
-                break;
-              case "Error calculating appointment hours":
-                normErrs["noHours"] = "Make sure you've selected services.";
-                break;
-              case "Error with employeeId":
-                normErrs["noEmployee"] = "Please choose an employee to book with.";
-                break;
-              case "Error with customerId":
-                normErrs["customerId"] =
-                  "Please contact NinaTrill Esthetics directly for appointments at this time. 479-301-4455";
-                break;
-              case "Please select a date":
-                normErrs["date"] = "Make sure to choose a date";
-                break;
-              case "This time slot has been booked, please select another time.":
-                normErrs["booked"] = "This time slot has been booked, please select another time.";
-                break;
-              case "This time slot overlaps an already booked appointment, please select another time.":
-                normErrs["overlap"] =
-                  "This time slot overlaps an already booked appointment, please select another time.";
-                break;
+      })
+        .then(async (res) => {
+          const data = await res.json();
+          if (!data.errors) history.push("/profile");
+        })
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data.errors) {
+            let normErrs = {};
+            for (let i = 0; i < data.errors.length; i++) {
+              let error = data.errors[i];
+              switch (error) {
+                case "Please select an appointment time.":
+                  normErrs["startTime"] = "Please select an appointment time.";
+                  break;
+                case "Error calculating appointment hours":
+                  normErrs["noHours"] = "Make sure you've selected services.";
+                  break;
+                case "Error with employeeId":
+                  normErrs["noEmployee"] = "Please choose an employee to book with.";
+                  break;
+                case "Error with customerId":
+                  normErrs["customerId"] =
+                    "Please contact NinaTrill Esthetics directly for appointments at this time. 479-301-4455";
+                  break;
+                case "Please select a date":
+                  normErrs["date"] = "Make sure to choose a date";
+                  break;
+                case "This time slot has been booked, please select another time.":
+                  normErrs["booked"] = "This time slot has been booked, please select another time.";
+                  break;
+                case "This time slot overlaps an already booked appointment, please select another time.":
+                  normErrs["overlap"] =
+                    "This time slot overlaps an already booked appointment, please select another time.";
+                  break;
+              }
+              setErrors(normErrs);
             }
-            setErrors(normErrs);
+            return;
           }
-        }
-      });
+        });
     } else {
       const appointment = {
         date: selectedDate,
@@ -100,46 +105,49 @@ function EmployeeScheduleCustomerView({
       const newAppointment = await csrfFetch(`/api/appointments`, {
         method: "POST",
         body: JSON.stringify(appointment),
-      }).catch(async (res) => {
-        const data = await res.json();
+      })
+        .then(async (res) => {
+          const data = await res.json();
 
-        if (data.errors) {
-          console.log("in data.errors");
-          let normErrs = {};
-          for (let i = 0; i < data.errors.length; i++) {
-            let error = data.errors[i];
-            console.log(error);
-            switch (error) {
-              case "Please select an appointment time.":
-                normErrs["startTime"] = "Please select an appointment time.";
-                break;
-              case "Error calculating appointment hours":
-                normErrs["noHours"] = "Make sure you've selected services.";
-                break;
-              case "Error with employeeId":
-                normErrs["noEmployee"] = "Please choose an employee to book with.";
-                break;
-              case "Error with customerId":
-                normErrs["customerId"] =
-                  "Please contact NinaTrill Esthetics directly for appointments at this time. 479-301-4455";
-                break;
-              case "Please select a date":
-                normErrs["date"] = "Make sure to choose a date";
-                break;
-              case "This time slot has been booked, please select another time.":
-                normErrs["booked"] = "This time slot has been booked, please select another time.";
-                break;
-              case "This time slot overlaps an already booked appointment, please select another time.":
-                normErrs["overlap"] =
-                  "This time slot overlaps an already booked appointment, please select another time.";
-                break;
+          if (!data.errors) history.push("/profile");
+        })
+        .catch(async (res) => {
+          const data = await res.json();
+
+          if (data.errors) {
+            let normErrs = {};
+            for (let i = 0; i < data.errors.length; i++) {
+              let error = data.errors[i];
+              switch (error) {
+                case "Please select an appointment time.":
+                  normErrs["startTime"] = "Please select an appointment time.";
+                  break;
+                case "Error calculating appointment hours":
+                  normErrs["noHours"] = "Make sure you've selected services.";
+                  break;
+                case "Error with employeeId":
+                  normErrs["noEmployee"] = "Please choose an employee to book with.";
+                  break;
+                case "Error with customerId":
+                  normErrs["customerId"] =
+                    "Please contact NinaTrill Esthetics directly for appointments at this time. 479-301-4455";
+                  break;
+                case "Please select a date":
+                  normErrs["date"] = "Make sure to choose a date";
+                  break;
+                case "This time slot has been booked, please select another time.":
+                  normErrs["booked"] = "This time slot has been booked, please select another time.";
+                  break;
+                case "This time slot overlaps an already booked appointment, please select another time.":
+                  normErrs["overlap"] =
+                    "This time slot overlaps an already booked appointment, please select another time.";
+                  break;
+              }
+              setErrors(normErrs);
             }
-            setErrors(normErrs);
+            return;
           }
-        }
-      });
-      // if (response.newAppointment) {
-      // }
+        });
     }
   };
 
@@ -192,7 +200,6 @@ function EmployeeScheduleCustomerView({
       hours += curHours;
       services += curServiceId + ",";
     }
-    console.log(services);
     setPrice(total);
     setSelectedHours(hours);
     setFormServices(services);
@@ -216,7 +223,7 @@ function EmployeeScheduleCustomerView({
       <div className="employee__schedule__customer__calendar__container">
         <h2>Select a date!</h2>
         <DatePicker
-          selected={startDate}
+          // selected={startDate}
           minDate={new Date()}
           onChange={(date) => {
             const { formattedDate, weekDay } = formatDate(date);

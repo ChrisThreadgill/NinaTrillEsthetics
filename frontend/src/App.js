@@ -11,6 +11,7 @@ import TestAppointments from "./COMPONENTS/test/TestAppointments";
 import EmployeePortal from "./COMPONENTS/EMPLOYEEPORTAL/EmployeePortal";
 import HomePageServices from "./COMPONENTS/SITEHOME/SERVICES/HomePageServices";
 import HomePageEmployees from "./COMPONENTS/SITEHOME/EMPLOYEES/HomePageEmployees";
+import CustomerHomePage from "./COMPONENTS/CUSTOMERHOME/CustomerHomePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,20 +30,27 @@ function App() {
           <Route path="/signup">
             <SignupFormPage></SignupFormPage>
           </Route>
-          <Route path="/test">
-            <DatePickerTest></DatePickerTest>
-          </Route>
-          <Route path="/testAppointments">
-            <TestAppointments></TestAppointments>
-          </Route>
-          <Route path="/home">
+          <Route path="/services">
             <HomePageServices></HomePageServices>
           </Route>
           <Route path="/employees">
             <HomePageEmployees></HomePageEmployees>
           </Route>
+          <Route path="/about">
+            <HomePageEmployees></HomePageEmployees>
+          </Route>
+          <Route path="/profile">
+            <CustomerHomePage></CustomerHomePage>
+          </Route>
           <Route path="/portal">
             <EmployeePortal></EmployeePortal>
+          </Route>
+
+          <Route path="/test">
+            <DatePickerTest></DatePickerTest>
+          </Route>
+          <Route path="/testAppointments">
+            <TestAppointments></TestAppointments>
           </Route>
         </Switch>
       )}
