@@ -2,13 +2,30 @@
   display: flex;
   justify-content: center;
   min-width: 440px;
+  margin-top: 50px;
+  margin: 50px 0 50px 0;
+  /* min-height: 500px; */
+  height: 100%;
 }
 
 .sign__up__form__container {
+  border-radius: 10px;
+  background-color: rgb(35, 33, 33);
+  color: whitesmoke;
   display: flex;
   flex-direction: column;
-  max-width: 440px;
+  align-items: center;
+
+  /* max-width: 440px; */
   width: 100%;
+  min-width: 450px;
+  min-height: 450px;
+}
+.signup__label__name {
+  color: whitesmoke;
+}
+.signup__label__name > span {
+  color: #a45ee5;
 }
 
 .show__password {
@@ -27,4 +44,30 @@
 .signup__label > div {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.signup__errors {
+  color: rgb(218, 38, 38);
+  font-size: 9px;
+}
+
+.signup__button {
+  margin: 45px 0 20px 0;
+  width: 150px;
+  height: 25px;
+  border: none;
+  background: none;
+  color: #a45ee5;
+  font-weight: 600;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signup__input {
+  outline: 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #a45ee5;
+  font-weight: bold;
 }

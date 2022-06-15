@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import "./AvailableServicesCSS/AvailableServices.css";
 
 function AvailableServices({
@@ -10,7 +11,10 @@ function AvailableServices({
   setSelectedServicesInfo,
 }) {
   //
+  const sessionUser = useSelector((state) => state.session.user);
+  const history = useHistory();
 
+  console.log(sessionUser);
   const addService = (service) => {
     // console.log(service);
     // console.log(serviceSet.has(service));
@@ -31,21 +35,27 @@ function AvailableServices({
             </div>
             <div className="available__service__add__container">
               <div className="available__service__price">{`$${service.price}`}</div>
-              <button
-                className="available__service__add"
-                onClick={() => {
-                  let services = {};
-                  addService(service);
+              {sessionUser ? (
+                <button
+                  className="available__service__add"
+                  onClick={() => {
+                    let services = {};
+                    addService(service);
 
-                  setSelectedServices(selectedServices.add(service));
-                  for (let service of selectedServices) {
-                    services[service.id] = service;
-                  }
-                  setSelectedServicesInfo(services);
-                }}
-              >
-                Add Service
-              </button>
+                    setSelectedServices(selectedServices.add(service));
+                    for (let service of selectedServices) {
+                      services[service.id] = service;
+                    }
+                    setSelectedServicesInfo(services);
+                  }}
+                >
+                  Add Service
+                </button>
+              ) : (
+                <div className="available__services__un__auth" onClick={() => history.push("/login")}>
+                  Sign In to Schedule!
+                </div>
+              )}
             </div>
           </div>
         );

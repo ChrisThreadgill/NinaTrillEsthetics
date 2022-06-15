@@ -90,6 +90,33 @@
   height: 5px;
   width: 30px;
 }
+.nav__login__signup__container {
+  display: flex;
+}
+.nav__bar__login {
+  width: 90px;
+  height: 35px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: whitesmoke;
+  color: #a45ee5;
+  cursor: pointer;
+}
+.nav__bar__signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: whitesmoke;
+  margin-left: 5px;
+  width: 90px;
+  height: 35px;
+  background-color: #a45ee5;
+  border: 1px solid #a45ee5;
+  border-radius: 5px;
+  cursor: pointer;
+}
 /* .hamburger__menu__container {
   display: flex;
   align-self: center;

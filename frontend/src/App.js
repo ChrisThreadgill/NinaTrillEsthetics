@@ -12,6 +12,7 @@ import EmployeePortal from "./COMPONENTS/EMPLOYEEPORTAL/EmployeePortal";
 import HomePageServices from "./COMPONENTS/SITEHOME/SERVICES/HomePageServices";
 import HomePageEmployees from "./COMPONENTS/SITEHOME/EMPLOYEES/HomePageEmployees";
 import CustomerHomePage from "./COMPONENTS/CUSTOMERHOME/CustomerHomePage";
+import ProtectedRoute from "./COMPONENTS/FORMS/Auth/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,9 +40,10 @@ function App() {
           <Route path="/about">
             <HomePageEmployees></HomePageEmployees>
           </Route>
-          <Route path="/profile">
+          <ProtectedRoute path="/profile">
             <CustomerHomePage></CustomerHomePage>
-          </Route>
+          </ProtectedRoute>
+          {/* <Route path="/profile"></Route> */}
           <Route path="/portal">
             <EmployeePortal></EmployeePortal>
           </Route>

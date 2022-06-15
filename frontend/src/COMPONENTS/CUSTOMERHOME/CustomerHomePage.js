@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { unFormatDate } from "../utils/utils";
 import * as appointmentsActions from "../../store/appointments";
+import { Redirect } from "react-router-dom";
 import * as servicesActions from "../../store/services";
 import CustomerAppointmentCard from "./CustomerAppointments/CustomerAppointmentCard";
 const moment = require("moment");
@@ -13,17 +14,18 @@ function CustomerHomePage() {
   const customerAppointments = useSelector((state) => state.appointments);
   const allServices = useSelector((state) => state.services);
   console.log(sessionUser);
+  // if (!sessionUser) return <Redirect to="/" />;
   //
   const cancelAppointment = (appointmentId) => {
     dispatch(appointmentsActions.cancelAppointment(appointmentId));
   };
   useEffect(() => {
-    dispatch(appointmentsActions.getAllAppointmentsForCustomer(sessionUser.user.id));
+    dispatch(appointmentsActions.getAllAppointmentsForCustomer(sessionUser?.user?.id));
     dispatch(servicesActions.getAllServices());
   }, [dispatch]);
   return (
     <div className="customer__home__page__container">
-      <div className="customer__home__page__welcome">Welcome back {sessionUser.user.fName}</div>
+      <div className="customer__home__page__welcome">Welcome back {sessionUser?.user?.fName}</div>
       {Object.values(customerAppointments).map((appointment) => {
         console.log(appointment.startTime.split("."));
 

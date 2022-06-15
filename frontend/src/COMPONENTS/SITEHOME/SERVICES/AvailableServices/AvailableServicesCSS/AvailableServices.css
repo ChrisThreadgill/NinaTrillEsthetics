@@ -67,3 +67,18 @@
   font-size: 12px;
   cursor: pointer;
 }
+.available__services__un__auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 15px;
+  width: 150px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(35, 33, 33);
+  color: #a45ee5;
+  font-size: 12px;
+  cursor: pointer;
+}
