@@ -1,4 +1,46 @@
 .employee__portal__container {
   display: flex;
+  /* align-items: flex-start; */
+  /* justify-content: flex-start; */
+  margin: 15px 25px 0 25px;
+  height: 85vh;
+  border: 1px #a45ee5 solid;
+  background-color: grey;
+  display: flex;
+  border-radius: 5px;
+
   justify-content: center;
+}
+
+.employee__portal__left {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-end; */
+}
+.employee__profile__edit {
+  width: 100%;
+  display: flex;
+  align-items: CENTER;
+  justify-content: space-around;
+  /* height: auto; */
+  height: 400px;
+  border: 1px solid blue;
+}
+.employee__profile__pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+.employee__profile__pic__upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 175px;
+  height: 50px;
+  background-color: rgb(35, 33, 33);
+  border-radius: 5px;
+  color: #a45ee5;
+  cursor: pointer;
 }
