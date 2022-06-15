@@ -44,9 +44,9 @@ function App() {
             <CustomerHomePage></CustomerHomePage>
           </ProtectedRoute>
           {/* <Route path="/profile"></Route> */}
-          <Route path="/portal">
+          <ProtectedRoute path="/portal">
             <EmployeePortal></EmployeePortal>
-          </Route>
+          </ProtectedRoute>
 
           <Route path="/test">
             <DatePickerTest></DatePickerTest>
