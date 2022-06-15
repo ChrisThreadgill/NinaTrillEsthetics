@@ -49,38 +49,46 @@ function SignupFormPage() {
         <div className="sign__up__form__container">
           <label className="signup__label">
             {fNameErrors.map((error, idx) => (
-              <li key={idx}>{error}</li>
+              <div className="signup__errors" key={idx}>
+                {error}
+              </div>
             ))}
-            <div>
+            <div className="signup__label__name">
               First Name <span>*</span>
             </div>
           </label>
-          <input type="text" value={fName} onChange={(e) => setFName(e.target.value)} />
+          <input className="signup__input" type="text" value={fName} onChange={(e) => setFName(e.target.value)} />
           <label className="signup__label">
             {lNameErrors.map((error, idx) => (
-              <li key={idx}>{error}</li>
+              <div className="signup__errors" key={idx}>
+                {error}
+              </div>
             ))}
-            <div>
+            <div className="signup__label__name">
               Last Name <span>*</span>
             </div>
           </label>
-          <input type="text" value={lName} onChange={(e) => setLName(e.target.value)} />
+          <input className="signup__input" type="text" value={lName} onChange={(e) => setLName(e.target.value)} />
           <label className="signup__label">
             {emailErrors.map((error, idx) => (
-              <li key={idx}>{error}</li>
+              <div className="signup__errors" key={idx}>
+                {error}
+              </div>
             ))}
-            <div>
+            <div className="signup__label__name">
               Email <span>*</span>
             </div>
           </label>
-          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input className="signup__input" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
 
           <label className="signup__label">
             {passwordErrors.map((error, idx) => (
-              <li key={idx}>{error}</li>
+              <div className="signup__errors" key={idx}>
+                {error}
+              </div>
             ))}
             <div className="password__label__container">
-              <div>
+              <div className="signup__label__name">
                 Password<span>*</span>
               </div>
               <div
@@ -96,17 +104,26 @@ function SignupFormPage() {
               ></div>
             </div>
           </label>
-          <input type={passwordShow} value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input
+            className="signup__input"
+            type={passwordShow}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
           <label className="signup__label">
             {confirmErrors.map((error, idx) => (
-              <li key={idx}>{error}</li>
+              <div className="signup__errors" key={idx}>
+                {error}
+              </div>
             ))}
-            <div>
+            <div className="signup__label__name">
               Confirm Password <span>*</span>
             </div>
           </label>
           <input
+            className="signup__input"
             type={passwordShow}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -115,14 +132,24 @@ function SignupFormPage() {
 
           <label className="signup__label">
             {phoneNumErrors.map((error, idx) => (
-              <li key={idx}>{error}</li>
+              <div className="signup__errors" key={idx}>
+                {error}
+              </div>
             ))}
 
-            <div>Phone Number</div>
+            <div className="signup__label__name">Phone Number</div>
           </label>
-          <input type="text" value={phoneNum} maxLength={10} onChange={(e) => setPhoneNum(e.target.value)} />
+          <input
+            className="signup__input"
+            type="text"
+            value={phoneNum}
+            maxLength={10}
+            onChange={(e) => setPhoneNum(e.target.value)}
+          />
 
-          <button type="submit">Sign Up</button>
+          <button className="signup__button" type="submit">
+            Sign Up
+          </button>
         </div>
       </form>
     </div>

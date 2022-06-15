@@ -14,10 +14,14 @@ function Navigation({ isLoaded }) {
     sessionLinks = <HamburgerMenu user={sessionUser} />;
   } else {
     sessionLinks = (
-      <>
-        <NavLink to="/login">Log In</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
-      </>
+      <div className="nav__login__signup__container">
+        <div className="nav__bar__login" onClick={() => history.push("/login")}>
+          LOGIN
+        </div>
+        <div className="nav__bar__signup" onClick={() => history.push("/signup")}>
+          SIGN-UP
+        </div>
+      </div>
     );
   }
 

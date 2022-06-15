@@ -208,8 +208,9 @@ function EmployeeScheduleCustomerView({
   useEffect(() => {
     //setting date to today's formatted date on component mount NOT WORKING
     // const { formattedDate } = formatDate(new Date());
-
-    dispatch(appointmentsActions.getAllAppointments());
+    if (sessionUser.user) {
+      dispatch(appointmentsActions.getAllAppointments());
+    }
 
     return () => {
       // const { formattedDate } = formatDate(new Date());
@@ -224,79 +225,90 @@ function EmployeeScheduleCustomerView({
         <h2>Select a date!</h2>
         <DatePicker
           // selected={startDate}
+          showDateDisplay={false}
           minDate={new Date()}
-          onChange={(date) => {
-            const { formattedDate, weekDay } = formatDate(date);
-            // console.log(formattedDate, weekDay);
-            setSelectedDate(formattedDate);
-            setWeekDay(weekDay);
-            setStartDate(date);
-            setSelectedTime("");
-          }}
+          onChange={
+            sessionUser.user
+              ? (date) => {
+                  const { formattedDate, weekDay } = formatDate(date);
+                  // console.log(formattedDate, weekDay);
+                  setSelectedDate(formattedDate);
+                  setWeekDay(weekDay);
+                  setStartDate(date);
+                  setSelectedTime("");
+                }
+              : (date) => {
+                  setStartDate(date);
+                }
+          }
           dateFormat="MMMM d, yyyy h:mm aa"
           inline
         />
       </div>
       <div className="available__appointment__times__container">
-        <h2>Choose a time!</h2>
+        {sessionUser.user ? <h2>Choose a time!</h2> : <h2>Login To view Available Times</h2>}
         <div>{errors && errors.booked && `set this page to refresh if this error occurs`}</div>
-        <div className="available__appointment__times">
-          {currentAppointments.map((timeSlot, idx) => {
-            {
-              timeSlot % 1 === 0 ? (timeSlot = timeSlot) : (timeSlot = `${timeSlot}:30`);
-            }
-            return (
-              <div
-                className="available__appointment__time__slot"
-                key={idx}
-                onClick={
-                  () => {
-                    if (typeof timeSlot === "string" && !Number(timeSlot)) {
-                      // console.log(Number(timeSlot), "time slotttttttt");
+        {sessionUser.user ? (
+          <div className="available__appointment__times">
+            {currentAppointments.map((timeSlot, idx) => {
+              {
+                timeSlot % 1 === 0 ? (timeSlot = timeSlot) : (timeSlot = `${timeSlot}:30`);
+              }
+              return (
+                <div
+                  className="available__appointment__time__slot"
+                  key={idx}
+                  onClick={
+                    () => {
+                      if (typeof timeSlot === "string" && !Number(timeSlot)) {
+                        // console.log(Number(timeSlot), "time slotttttttt");
 
-                      const halfHourTime = timeSlot.split(".")[0];
-                      // console.log(decimalTime, "decimal timeeeeeeeeeeeeeeeee");
-                      setSelectedTime(`${halfHourTime}:30`);
-                      if (errors.startTime) errors.startTime = null;
-                      // console.log(selectedTime, "new selected timeeeeeeeee");
-                    } else {
-                      // console.log(timeSlot);
-                      if (errors.startTime) errors.startTime = null;
-                      setSelectedTime(timeSlot);
+                        const halfHourTime = timeSlot.split(".")[0];
+                        // console.log(decimalTime, "decimal timeeeeeeeeeeeeeeeee");
+                        setSelectedTime(`${halfHourTime}:30`);
+                        if (errors.startTime) errors.startTime = null;
+                        // console.log(selectedTime, "new selected timeeeeeeeee");
+                      } else {
+                        // console.log(timeSlot);
+                        if (errors.startTime) errors.startTime = null;
+                        setSelectedTime(timeSlot);
+                      }
                     }
-                  }
 
-                  // setSelectedTime()
-                }
-              >
-                {moment(timeSlot, "HH:mm").format("hh:mm A")}
-              </div>
-            );
-          })}
-        </div>
+                    // setSelectedTime()
+                  }
+                >
+                  {moment(timeSlot, "HH:mm").format("hh:mm A")}
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
-      <div className="customer__appointment__form__container">
-        <div className="customer__appointment__selected__options">
-          {/* {selectedTime % 1 === 0
+      {sessionUser.user ? (
+        <div className="customer__appointment__form__container">
+          <div className="customer__appointment__selected__options">
+            {/* {selectedTime % 1 === 0
             ? setSelectedTime(moment(selectedTime, "HH:mm").format("hh:mm a"))
           : setSelectedTime(moment(selectedTime.split(":")[0], "HH:mm").format("hh:mm a"))} */}
-          <div>{errors && errors.startTime}</div>
-          <div>{selectedTime ? moment(selectedTime, "HH:mm").format("hh:mm a") : "Choose a time!"}</div>
-          <div className="customer__appointment__selected__services">
-            {selectedServicesInfo &&
-              Object.values(selectedServicesInfo).map((service) => {
-                return <li>{service.title}</li>;
-              })}
+            <div>{errors && errors.startTime}</div>
+            <div>{selectedTime ? moment(selectedTime, "HH:mm").format("hh:mm a") : "Choose a time!"}</div>
+            <div className="customer__appointment__selected__services">
+              {selectedServicesInfo &&
+                Object.values(selectedServicesInfo).map((service) => {
+                  return <li>{service.title}</li>;
+                })}
+            </div>
+            <div>{errors && errors.noHours}</div>
+            <div>{`$${price}`}</div>
+            <div>{`Time: ${selectedHours} Hours`}</div>
           </div>
-          <div>{errors && errors.noHours}</div>
-          <div>{`$${price}`}</div>
-          <div>{`Time: ${selectedHours} Hours`}</div>
+          <div className="customer__appointment__errors"></div>
+          <form className="customer__appointment__form" onSubmit={(e) => bookAppointment(e)}>
+            <button>Schedule Now!</button>
+          </form>
         </div>
-        <div className="customer__appointment__errors"></div>
-        <form className="customer__appointment__form" onSubmit={(e) => bookAppointment(e)}>
-          <button>Schedule Now!</button>
-        </form>
-      </div>
+      ) : null}
     </div>
   );
 }
