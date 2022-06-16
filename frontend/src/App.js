@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import LoginFormPage from "./COMPONENTS/FORMS/Auth/Login";
 import SignupFormPage from "./COMPONENTS/FORMS/Auth/Signup";
 import * as sessionActions from "./store/session";
+import * as currentEmployeeAction from "./store/currentEmployee";
 import Navigation from "./COMPONENTS/NAVBAR/Navbar";
 import DatePickerTest from "./COMPONENTS/test/Test";
 import TestAppointments from "./COMPONENTS/test/TestAppointments";
@@ -17,8 +18,12 @@ import ProtectedRoute from "./COMPONENTS/FORMS/Auth/ProtectedRoute";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser()).then(
+      () => dispatch(currentEmployeeAction.checkEmployment(1)),
+      setIsLoaded(true)
+    );
   }, [dispatch]);
   return (
     <>
@@ -40,13 +45,16 @@ function App() {
           <Route path="/about">
             <HomePageEmployees></HomePageEmployees>
           </Route>
+          {/* <ProtectedRoute path="/portal">
+          </ProtectedRoute> */}
+          <Route path="/portal">
+            <EmployeePortal></EmployeePortal>
+          </Route>
+
           <ProtectedRoute path="/profile">
             <CustomerHomePage></CustomerHomePage>
           </ProtectedRoute>
           {/* <Route path="/profile"></Route> */}
-          <ProtectedRoute path="/portal">
-            <EmployeePortal></EmployeePortal>
-          </ProtectedRoute>
 
           <Route path="/test">
             <DatePickerTest></DatePickerTest>

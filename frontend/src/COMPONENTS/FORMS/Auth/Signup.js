@@ -29,16 +29,30 @@ function SignupFormPage() {
     if (password === confirmPassword) {
       setConfirmErrors([]);
       console.log(phoneNum);
-      return dispatch(sessionActions.signup({ email, fName, lName, password, phoneNum })).catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setPasswordErrors(data.errors.filter((error) => error.includes("password")));
-          setFNameErrors(data.errors.filter((error) => error.includes("first name")));
-          setLNameErrors(data.errors.filter((error) => error.includes("last name")));
-          setEmailErrors(data.errors.filter((error) => error.includes("email")));
-          setPhoneNumErrors(data.errors.filter((error) => error.includes("phone")));
-        }
-      });
+      if (phoneNum) {
+        return dispatch(sessionActions.signup({ email, fName, lName, password, phoneNum })).catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) {
+            setPasswordErrors(data.errors.filter((error) => error.includes("password")));
+            setFNameErrors(data.errors.filter((error) => error.includes("first name")));
+            setLNameErrors(data.errors.filter((error) => error.includes("last name")));
+            setEmailErrors(data.errors.filter((error) => error.includes("email")));
+            setPhoneNumErrors(data.errors.filter((error) => error.includes("phone")));
+          }
+        });
+      } else {
+        console.log("inside the else");
+        return dispatch(sessionActions.signup({ email, fName, lName, password })).catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) {
+            setPasswordErrors(data.errors.filter((error) => error.includes("password")));
+            setFNameErrors(data.errors.filter((error) => error.includes("first name")));
+            setLNameErrors(data.errors.filter((error) => error.includes("last name")));
+            setEmailErrors(data.errors.filter((error) => error.includes("email")));
+            setPhoneNumErrors(data.errors.filter((error) => error.includes("phone")));
+          }
+        });
+      }
     }
     return setConfirmErrors(["Passwords must match"]);
   };

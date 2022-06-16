@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
+import * as currentEmployeeActions from "../../store/currentEmployee";
 
 function HamburgerMenu({ user }) {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function HamburgerMenu({ user }) {
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    dispatch(currentEmployeeActions.cleanCurrentEmployee());
     history.push("/");
   };
 

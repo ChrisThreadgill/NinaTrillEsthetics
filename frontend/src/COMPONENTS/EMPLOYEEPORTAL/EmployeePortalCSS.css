@@ -18,13 +18,13 @@
   flex-direction: column;
   /* justify-content: flex-end; */
 }
-.employee__profile__edit {
+.employee__profile__picture__edit {
   width: 100%;
   display: flex;
   align-items: CENTER;
   justify-content: space-around;
   /* height: auto; */
-  height: 400px;
+  height: 25%;
   border: 1px solid blue;
 }
 .employee__profile__pic {
@@ -43,4 +43,8 @@
   border-radius: 5px;
   color: #a45ee5;
   cursor: pointer;
+}
+.employee__profile__edit {
+  display: flex;
+  height: 25%;
 }
