@@ -21,6 +21,27 @@ function LoginFormPage() {
       if (data && data.errors) setErrors(data.errors);
     });
   };
+  const loginCustomer = (e) => {
+    e.preventDefault();
+    setErrors([]);
+    return dispatch(sessionActions.login({ credential: "darren.kong@test.com", password: "password" })).catch(
+      async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      }
+    );
+  };
+  const loginEmployee = (e) => {
+    e.preventDefault();
+    setErrors([]);
+
+    return dispatch(
+      sessionActions.login({ credential: "p.melhus@ninatrillesthetics.com", password: "password" })
+    ).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrors(data.errors);
+    });
+  };
 
   return (
     <div className="login__page__container">
@@ -55,6 +76,20 @@ function LoginFormPage() {
           Log In
         </button>
       </form>
+      <div className="demo__login__buttons__container">
+        <div className="demo__login__button" onClick={loginCustomer}>
+          Login as a customer
+        </div>
+        <div className="demo__login__button" onClick={loginEmployee}>
+          Login as an employee
+        </div>
+      </div>
+      {/* <button className="login__button" type="submit">
+        Log in as Customer
+      </button>
+      <button className="login__button" type="submit">
+        Log In as Employee
+      </button> */}
     </div>
   );
 }

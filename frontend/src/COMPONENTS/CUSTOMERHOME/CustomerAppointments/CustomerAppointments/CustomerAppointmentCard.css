@@ -64,11 +64,10 @@
 .customer__appointment__card__services {
   display: flex;
   justify-content: center;
-  border-radius: 100%;
-  border: 10px ridge #a45ee5;
-  background-color: goldenrod;
+  border-radius: 5px;
+  border: 1px ridge whitesmoke;
 
-  margin-bottom: 7px;
+  margin: 7px 0 7px 0;
   color: #a45ee5;
   /* font-size: 18px; */
 }

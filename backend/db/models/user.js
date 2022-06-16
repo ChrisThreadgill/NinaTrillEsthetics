@@ -88,6 +88,7 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(models.Service, columnMapping);
     User.hasMany(models.Appointment, { foreignKey: "customerId" });
     User.hasOne(models.Schedule, { foreignKey: "userId" });
+    User.hasOne(models.profilePicture, { foreignKey: "userId" });
   };
   return User;
 };

@@ -1,0 +1,24 @@
+.employee__appointment__calendar__view__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 50%;
+  /* border: 3px solid goldenrod; */
+}
+.employee__appointments__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 100%;
+  padding-top: 30px;
+  margin-top: 25px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.employee__appointments__container::-webkit-scrollbar {
+  display: none;
+}

@@ -15,6 +15,7 @@ function HomePageServices() {
   const [selectedEmployee, setSelectedEmployee] = useState(Object.values(employeesObj)[0]);
   const [selectedServices, setSelectedServices] = useState([]);
   const [selectedServicesInfo, setSelectedServicesInfo] = useState([]);
+  const [errors, setErrors] = useState({});
   let serviceSet = new Set();
 
   useEffect(() => {
@@ -50,6 +51,8 @@ function HomePageServices() {
             selectedServicesInfo={selectedServicesInfo}
             setSelectedServicesInfo={setSelectedServicesInfo}
             serviceSet={serviceSet}
+            errors={errors}
+            setErrors={setErrors}
           ></EmployeeScheduleCustomerView>
           <AvailableServices
             selectedEmployee={selectedEmployee}
@@ -59,6 +62,8 @@ function HomePageServices() {
             setSelectedServicesInfo={setSelectedServicesInfo}
             employeeId={employeeId}
             serviceSet={serviceSet}
+            setErrors={setErrors}
+            errors={errors}
           ></AvailableServices>
         </div>
       )}

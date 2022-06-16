@@ -7,10 +7,12 @@ import * as appointmentsActions from "../../store/appointments";
 import EmployeeScheduleCustomerView from "./EmployeeScheduleCustomerView/EmployeeScheduleCustomerView";
 import EmployeeServices from "./EmployeeServices/EmployeeServices";
 import EditEmployeeBio from "../FORMS/EditEmployeeBio";
+import EmployeeAppointmentCalendar from "./EmployeeAppointments/EmployeeAppointmentCalendar";
 
 function EmployeePortal() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session);
+
   //
 
   useEffect(() => {
@@ -34,8 +36,8 @@ function EmployeePortal() {
         <EditEmployeeBio></EditEmployeeBio>
         <EmployeeServices></EmployeeServices>
       </div>
-
-      <EmployeeServices></EmployeeServices>
+      <EmployeeAppointmentCalendar></EmployeeAppointmentCalendar>
+      {/* <EmployeeServices></EmployeeServices> */}
       {/* <EmployeeScheduleCustomerView schedule={schedule}></EmployeeScheduleCustomerView> */}
     </div>
   );

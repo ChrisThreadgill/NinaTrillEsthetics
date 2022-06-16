@@ -31,13 +31,14 @@ function EditEmployeeBio() {
     <div className="employee__profile__edit">
       <form onSubmit={editEmployeeProfile} className="employee__profile__edit__form">
         <div className="employee__profile__title">Welcome, {currentEmployee?.fName}</div>
-        <div className="employee__profile__bio">Edit your bio here</div>
+        <div className="employee__profile__bio">EMPLOYEE BIO EDITING COMING SOON</div>
         {bioErrors && bioErrors.bio && <div className="employee__portal__errors">{bioErrors.bio}</div>}
         <textarea
           className="employee__portal__bio__input"
           type="text"
           cols="50"
           rows="7"
+          disabled
           value={employeeBio || bioActive ? employeeBio : currentEmployee.bio}
           onFocus={() => setBioActive(true)}
           onBlur={() => setBioActive(false)}

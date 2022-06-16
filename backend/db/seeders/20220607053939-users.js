@@ -19,7 +19,7 @@ module.exports = {
           phoneNum: 4793014455,
           email: "ninatrillcosmo@gmail.com",
           role: 3,
-          bio: "Started Business",
+          bio: "Hannah is a 29 year old local NWA *NorthWest Arkansas* native, that started NinaTrill Esthetics in early 2020 right before the pandemic.  After going to Nail Tech school in early 2017, she quickly realized her love wasn't for nails but for skin and making people feel beautiful in their own skin. She then went on to become a licensed esthetician by the State of Arkansas.  She is very adamant on make sure that every one of her clients feels at home and as comfortable as possible. If you have any questions about your specific beauty goals Hannah is the right person to talk to, as well as even if you just need a place to decompress!",
           title: "Owner",
         },
         {

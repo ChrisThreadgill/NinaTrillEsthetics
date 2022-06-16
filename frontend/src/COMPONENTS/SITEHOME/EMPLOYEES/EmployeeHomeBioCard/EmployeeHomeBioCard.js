@@ -2,6 +2,7 @@ import "./EmployeeHomeBioCardCSS/EmployeeHomeBioCard.css";
 
 function EmployeeHomeBioCard({ employee }) {
   //
+  console.log(employee.profilePicture.profileUrl);
 
   return (
     <div className="employee__home__bio__card__container">
@@ -10,7 +11,7 @@ function EmployeeHomeBioCard({ employee }) {
         <div className="employee__bio__name">
           {employee.fName} {employee.lName}
         </div>
-        <div>{employee.title}</div>
+        <div className="employee__bio__title">{employee.title}</div>
         <div className="employee__bio">{employee.bio}</div>
       </div>
     </div>

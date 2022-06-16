@@ -1,20 +1,49 @@
 .employee__home__bio__card__container {
   margin-top: 75px;
+  background-color: #efe5f8;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   width: 75%;
   height: 300px;
 }
+.home__page__employees__header {
+  color: rgb(35, 33, 33);
+  font-size: 32px;
+  border-bottom: 2px solid #a45ee5;
+  /* width: 400px; */
+}
 
 .employee__bio__profile__picture {
   width: 150px;
   height: 150px;
-  border: 1px solid black;
+  border: 1px solid #a45ee5;
+  /* background-color: rgb(35, 33, 33); */
+  /* border: 1px solid black; */
   border-radius: 50%;
   padding: 100px;
-  margin-left: 10px;
+  margin-left: 25px;
 }
 
 .employee__bio__contents {
-  margin-left: 25px;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.employee__bio__name {
+  color: rgb(35, 33, 33);
+  font-weight: 800;
+}
+
+.employee__bio__title {
+  color: #a45ee5;
+  font-weight: 800;
+  margin: 7px 0 40px 0;
+}
+.employee__bio {
+  text-align: center;
+  max-width: 800px;
+  font-weight: 100;
+  color: rgb(35, 33, 33);
 }

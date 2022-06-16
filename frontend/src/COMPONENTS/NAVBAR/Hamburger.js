@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import * as currentEmployeeActions from "../../store/currentEmployee";
@@ -8,6 +8,7 @@ function HamburgerMenu({ user }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
+  const currentEmployee = useSelector((state) => state.currentEmployee);
   // console.log(user);
   console.log(showMenu);
 
@@ -56,13 +57,24 @@ function HamburgerMenu({ user }) {
       {showMenu && (
         <div className="nav__bar__dropdown">
           <div>{`Hi, ${user.fName}`}</div>
-          <div
-            className="hamburger__menu__option"
-            onClick={() => {
-              openMenu();
-              history.push("/profile");
-            }}
-          >{`Profile`}</div>
+          {currentEmployee && currentEmployee.id ? (
+            <div
+              className="hamburger__menu__option"
+              onClick={() => {
+                openMenu();
+                history.push("/portal");
+              }}
+            >{`Portal`}</div>
+          ) : (
+            <div
+              className="hamburger__menu__option"
+              onClick={() => {
+                openMenu();
+                history.push("/profile");
+              }}
+            >{`Profile`}</div>
+          )}
+
           <div
             className="hamburger__menu__option"
             onClick={() => {
