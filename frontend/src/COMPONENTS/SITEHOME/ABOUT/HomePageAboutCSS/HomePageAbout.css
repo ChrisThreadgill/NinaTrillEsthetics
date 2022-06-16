@@ -1,0 +1,47 @@
+.home__page__about {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home__page__about__header {
+  margin-top: 100px;
+  color: rgb(35, 33, 33);
+  border-bottom: 2px solid #a45ee5;
+}
+.home__page__about__bio {
+  background-color: rgb(35, 33, 33);
+  opacity: 0.9;
+  padding: 65px;
+  border-radius: 5px;
+  text-align: center;
+  color: #a45ee5;
+  font-weight: bold;
+  width: 40%;
+  line-height: 2;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.home__page__about__contact__us {
+  width: 80%;
+  height: 250px;
+  /* border: 2px dashed blue; */
+  display: flex;
+  justify-content: space-between;
+}
+.home__page__about__contact__us > div {
+  width: 50%;
+  /* border: 2px dashed red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.home__page__about__services__link {
+  color: #a45ee5;
+  text-decoration: underline;
+  cursor: pointer;
+}

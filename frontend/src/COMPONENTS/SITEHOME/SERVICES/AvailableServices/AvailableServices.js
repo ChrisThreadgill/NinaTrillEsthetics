@@ -9,6 +9,8 @@ function AvailableServices({
   setSelectedServices,
   serviceSet,
   setSelectedServicesInfo,
+  setErrors,
+  errors,
 }) {
   //
   const sessionUser = useSelector((state) => state.session.user);

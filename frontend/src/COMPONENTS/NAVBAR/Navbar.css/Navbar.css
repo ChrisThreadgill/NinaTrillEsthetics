@@ -43,6 +43,7 @@
   position: absolute;
   color: white;
   background-color: rgb(35, 33, 33);
+  z-index: 50;
 }
 
 .hamburger__menu__option {

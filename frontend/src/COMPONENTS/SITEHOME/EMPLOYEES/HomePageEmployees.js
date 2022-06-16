@@ -27,30 +27,10 @@ function HomePageEmployees() {
     <>
       {isLoaded && (
         <div className="home__page__container">
-          <div className="home__page__header">EMPLOYEES</div>
+          <div className="home__page__employees__header">Meet The Staff</div>
           {Object.values(employeesObj).map((employee) => {
             return <EmployeeHomeBioCard employee={employee}></EmployeeHomeBioCard>;
           })}
-          {/* <EmployeeSelect employeeId={employeeId} setEmployeeId={setEmployeeId}></EmployeeSelect>
-          <EmployeeScheduleCustomerView
-            schedule={schedule}
-            setSchedule={setSchedule}
-            selectedEmployee={selectedEmployee}
-            employeeId={employeeId}
-            selectedServices={selectedServices}
-            selectedServicesInfo={selectedServicesInfo}
-            setSelectedServicesInfo={setSelectedServicesInfo}
-            serviceSet={serviceSet}
-          ></EmployeeScheduleCustomerView>
-          <AvailableServices
-            selectedEmployee={selectedEmployee}
-            selectedServices={selectedServices}
-            setSelectedServices={setSelectedServices}
-            selectedServicesInfo={selectedServicesInfo}
-            setSelectedServicesInfo={setSelectedServicesInfo}
-            employeeId={employeeId}
-            serviceSet={serviceSet}
-          ></AvailableServices> */}
         </div>
       )}
     </>

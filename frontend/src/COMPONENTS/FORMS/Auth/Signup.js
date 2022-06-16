@@ -151,7 +151,9 @@ function SignupFormPage() {
               </div>
             ))}
 
-            <div className="signup__label__name">Phone Number</div>
+            <div className="signup__label__name">
+              Phone Number <p className="optional__placeholder">optional</p>
+            </div>
           </label>
           <input
             className="signup__input"

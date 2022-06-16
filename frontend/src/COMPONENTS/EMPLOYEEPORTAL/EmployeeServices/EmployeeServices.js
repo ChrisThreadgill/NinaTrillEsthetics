@@ -38,7 +38,7 @@ function EmployeeServices() {
         >
           {servicesArr.map((service, idx) => {
             return (
-              <option className="employee__services__option" value={service.id}>
+              <option key={idx} className="employee__services__option" value={service.id}>
                 {service.title}
               </option>
             );
@@ -54,7 +54,7 @@ function EmployeeServices() {
           })
           .map((employeeService) => {
             return (
-              <div className="employee__service__remove__card">
+              <div key={employeeService.id} className="employee__service__remove__card">
                 <div>{employeeService.title}</div>
                 <button
                   className="employee__service__remove__button"

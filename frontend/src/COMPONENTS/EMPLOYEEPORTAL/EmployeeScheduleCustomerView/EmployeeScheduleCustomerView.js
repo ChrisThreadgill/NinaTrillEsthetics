@@ -17,6 +17,8 @@ function EmployeeScheduleCustomerView({
   selectedServicesInfo,
   setSelectedServicesInfo,
   serviceSet,
+  errors,
+  setErrors,
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -32,7 +34,6 @@ function EmployeeScheduleCustomerView({
   const [price, setPrice] = useState("");
   const [formServices, setFormServices] = useState("");
   const [selectedHours, setSelectedHours] = useState("");
-  const [errors, setErrors] = useState({});
 
   const [weekDay, setWeekDay] = useState("");
   const bookAppointment = async (e) => {
@@ -249,7 +250,9 @@ function EmployeeScheduleCustomerView({
       </div>
       <div className="available__appointment__times__container">
         {sessionUser.user ? <h2>Choose a time!</h2> : <h2>Login To view Available Times</h2>}
-        <div>{errors && errors.booked && `set this page to refresh if this error occurs`}</div>
+        <div className="customer__schedule__view__errors">
+          {errors && errors.booked && `set this page to refresh if this error occurs`}
+        </div>
         {sessionUser.user ? (
           <div className="available__appointment__times">
             {currentAppointments.map((timeSlot, idx) => {
@@ -293,15 +296,15 @@ function EmployeeScheduleCustomerView({
             {/* {selectedTime % 1 === 0
             ? setSelectedTime(moment(selectedTime, "HH:mm").format("hh:mm a"))
           : setSelectedTime(moment(selectedTime.split(":")[0], "HH:mm").format("hh:mm a"))} */}
-            <div>{errors && errors.startTime}</div>
+            <div className="customer__schedule__view__errors">{errors && errors.startTime}</div>
             <div>{selectedTime ? moment(selectedTime, "HH:mm").format("hh:mm a") : "Choose a time!"}</div>
             <div className="customer__appointment__selected__services">
               {selectedServicesInfo &&
                 Object.values(selectedServicesInfo).map((service) => {
-                  return <li>{service.title}</li>;
+                  return <div>{service.title}</div>;
                 })}
             </div>
-            <div>{errors && errors.noHours}</div>
+            <div className="customer__schedule__view__errors">{errors && errors.noHours}</div>
             <div>{`$${price}`}</div>
             <div>{`Time: ${selectedHours} Hours`}</div>
           </div>

@@ -71,3 +71,9 @@
   background-color: #a45ee5;
   font-weight: bold;
 }
+
+.optional__placeholder {
+  font-size: 8px;
+  text-align: center;
+  color: #a45ee5;
+}
