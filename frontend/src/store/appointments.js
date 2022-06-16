@@ -4,6 +4,7 @@ const clone = rfdc();
 
 const GET_ALL = "appointments/getAll";
 const ALL_CUSTOMER = "appointments/customerAll";
+const ALL_EMPLOYEE = "appointments/employeeAll";
 const CLEAN = "appointments/clean";
 const DELETE = "appointments/delete";
 const ADD_RELATION = "appointments/addRELATION";
@@ -17,6 +18,12 @@ const allAppointments = (appointments) => {
 const allCustomerAppointments = (appointments) => {
   return {
     type: ALL_CUSTOMER,
+    payload: appointments,
+  };
+};
+const allEmployeeAppointments = (appointments) => {
+  return {
+    type: ALL_EMPLOYEE,
     payload: appointments,
   };
 };
@@ -50,6 +57,16 @@ export const getAllAppointmentsForCustomer = (customerId) => async (dispatch) =>
   console.log(appointments);
 
   dispatch(allCustomerAppointments(appointments));
+  return appointments;
+};
+export const getAllAppointmentsForEmployee = (employeeId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/appointments/employee/${employeeId}`, {
+    method: "GET",
+  });
+  const appointments = await response.json();
+  console.log(appointments);
+
+  dispatch(allEmployeeAppointments(appointments));
   return appointments;
 };
 // export const bookAppointment = (appointment) => async (dispatch) => {
@@ -111,6 +128,15 @@ const appointmentsReducer = (state = initialState, action) => {
       }
 
       return { ...customerAppointments };
+    case ALL_EMPLOYEE:
+      const employeeAppointments = {};
+      console.log(action.payload);
+      for (let appointment of action.payload.appointments) {
+        employeeAppointments[appointment.id] = appointment;
+      }
+
+      return { ...employeeAppointments };
+
     case DELETE:
       delete newState[action.payload];
       return newState;

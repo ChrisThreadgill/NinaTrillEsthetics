@@ -120,6 +120,7 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const { employeeId } = req.params;
+    console.log(employeeId, "----------------------");
 
     const appointments = await Appointment.findAll({
       where: { employeeId: employeeId },

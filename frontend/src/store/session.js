@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import { checkEmployment } from "./currentEmployee";
 
 const SET_USER = "session/setUser";
 const REMOVE_USER = "session/removeUser";
@@ -28,6 +29,7 @@ export const login = (user) => async (dispatch) => {
   });
   const data = await response.json();
   dispatch(setUser(data.user));
+  dispatch(checkEmployment(data.user.id));
   return response;
 };
 export const restoreUser = () => async (dispatch) => {
@@ -40,6 +42,20 @@ export const restoreUser = () => async (dispatch) => {
 export const signup = (user) => async (dispatch) => {
   const { email, password, fName, lName, phoneNum } = user;
   console.log(email, fName, lName);
+  if (!phoneNum) {
+    const response = await csrfFetch("/api/users/noPhone", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+        fName,
+        lName,
+      }),
+    });
+    const data = await response.json();
+    dispatch(setUser(data.user));
+    return response;
+  }
   const response = await csrfFetch("/api/users", {
     method: "POST",
     body: JSON.stringify({

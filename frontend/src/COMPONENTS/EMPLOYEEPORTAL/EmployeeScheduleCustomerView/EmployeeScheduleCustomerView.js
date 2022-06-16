@@ -230,6 +230,8 @@ function EmployeeScheduleCustomerView({
           onChange={
             sessionUser.user
               ? (date) => {
+                  console.log(date.getDate());
+                  console.log(date.getMonth());
                   const { formattedDate, weekDay } = formatDate(date);
                   // console.log(formattedDate, weekDay);
                   setSelectedDate(formattedDate);
