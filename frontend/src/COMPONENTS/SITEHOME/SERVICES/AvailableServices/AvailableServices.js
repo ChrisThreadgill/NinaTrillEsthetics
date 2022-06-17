@@ -14,13 +14,20 @@ function AvailableServices({
 }) {
   //
   const sessionUser = useSelector((state) => state.session.user);
+  const employeeCheck = useSelector((state) => state.currentEmployee.role);
   const history = useHistory();
 
   console.log(sessionUser);
   const addService = (service) => {
     // console.log(service);
+    if (employeeCheck) {
+      window.alert("You cannot schedule appointments as an employee");
+      return;
+    } else {
+      serviceSet.add(service);
+    }
     // console.log(serviceSet.has(service));
-    serviceSet.add(service);
+
     // console.log(serviceSet);
     // serviceSet.delete(service);
     // console.log(serviceSet);

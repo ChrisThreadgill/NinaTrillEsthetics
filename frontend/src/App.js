@@ -22,12 +22,21 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const currentEmployee = useSelector((state) => state.currentEmployee);
+  const userId = useSelector((state) => state.session?.user?.id);
 
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() =>
-      dispatch(currentEmployeeAction.checkEmployment(1)).then(() => setIsLoaded(true))
-    );
+    dispatch(sessionActions.restoreUser()).then(() => {
+      console.log(userId);
+
+      dispatch(currentEmployeeAction.checkEmployment(userId)).then(() => setIsLoaded(true));
+    });
   }, [dispatch]);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(currentEmployeeAction.checkEmployment(userId)).then(() => setIsLoaded(true));
+    }
+  }, [userId]);
   return (
     <>
       <Navigation isLoaded={isLoaded}></Navigation>
