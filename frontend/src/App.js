@@ -17,6 +17,7 @@ import ProtectedRoute from "./COMPONENTS/FORMS/Auth/ProtectedRoute";
 import SiteHomePage from "./COMPONENTS/SITEHOME/SiteHomePage";
 import ProtectedRouteCustomer from "./COMPONENTS/FORMS/Auth/ProtectedRouteCustomer";
 import HomePageAbout from "./COMPONENTS/SITEHOME/ABOUT/HomePageAbout";
+import Footer from "./COMPONENTS/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => {
       console.log(userId);
 
-      dispatch(currentEmployeeAction.checkEmployment(userId)).then(() => setIsLoaded(true));
+      setIsLoaded(true);
     });
   }, [dispatch]);
 
@@ -44,6 +45,7 @@ function App() {
         <Switch>
           <Route path="/login">
             <LoginFormPage></LoginFormPage>
+            <Footer></Footer>
           </Route>
           <Route path="/signup">
             <SignupFormPage></SignupFormPage>
@@ -69,6 +71,7 @@ function App() {
           </ProtectedRouteCustomer>
           <Route path="/">
             <SiteHomePage></SiteHomePage>
+            <Footer></Footer>
           </Route>
           {/* <Route path="/profile"></Route> */}
 

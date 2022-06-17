@@ -9,7 +9,7 @@
   border: 2px solid rgb(35, 33, 33);
   border-top: none;
   background-color: rgb(246, 241, 241);
-  /* border-radius: 5px; */
+  border-radius: 5px;
   width: 80%;
   min-height: 800px;
   height: auto;

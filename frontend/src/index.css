@@ -7,6 +7,12 @@ body {
   margin: 0;
   background-color: whitesmoke;
   /* background-color: rgb(95, 91, 91); */
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+  display: none;
 }
 .App {
   width: 100%;

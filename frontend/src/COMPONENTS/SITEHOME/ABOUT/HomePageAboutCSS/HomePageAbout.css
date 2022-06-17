@@ -28,6 +28,7 @@
 .home__page__about__contact__us {
   width: 80%;
   height: 250px;
+  margin-top: 40px;
   /* border: 2px dashed blue; */
   display: flex;
   justify-content: space-between;
@@ -44,4 +45,12 @@
   color: #a45ee5;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.location__map {
+  width: 550px;
+  outline: 0;
+  margin-right: 25px;
+  border-radius: 5px;
+  border: 2px ridge #a45ee5;
 }

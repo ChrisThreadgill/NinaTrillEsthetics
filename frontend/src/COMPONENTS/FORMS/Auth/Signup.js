@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../../store/session";
 import "./AuthCSS/SignupForm.css";
+import { ExternalLink } from "react-external-link";
+import Footer from "../../Footer/Footer";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -58,116 +60,158 @@ function SignupFormPage() {
   };
 
   return (
-    <div className="sign__up__form">
-      <form onSubmit={handleSubmit}>
-        <div className="sign__up__form__container">
-          <label className="signup__label">
-            {fNameErrors.map((error, idx) => (
-              <div className="signup__errors" key={idx}>
-                {error}
-              </div>
-            ))}
-            <div className="signup__label__name">
-              First Name <span>*</span>
-            </div>
-          </label>
-          <input className="signup__input" type="text" value={fName} onChange={(e) => setFName(e.target.value)} />
-          <label className="signup__label">
-            {lNameErrors.map((error, idx) => (
-              <div className="signup__errors" key={idx}>
-                {error}
-              </div>
-            ))}
-            <div className="signup__label__name">
-              Last Name <span>*</span>
-            </div>
-          </label>
-          <input className="signup__input" type="text" value={lName} onChange={(e) => setLName(e.target.value)} />
-          <label className="signup__label">
-            {emailErrors.map((error, idx) => (
-              <div className="signup__errors" key={idx}>
-                {error}
-              </div>
-            ))}
-            <div className="signup__label__name">
-              Email <span>*</span>
-            </div>
-          </label>
-          <input className="signup__input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-
-          <label className="signup__label">
-            {passwordErrors.map((error, idx) => (
-              <div className="signup__errors" key={idx}>
-                {error}
-              </div>
-            ))}
-            <div className="password__label__container">
+    <div className="sign__up__form__page">
+      <div className="sign__up__form">
+        <form onSubmit={handleSubmit}>
+          <div className="sign__up__form__container">
+            <label className="signup__label">
+              {fNameErrors.map((error, idx) => (
+                <div className="signup__errors" key={idx}>
+                  {error}
+                </div>
+              ))}
               <div className="signup__label__name">
-                Password<span>*</span>
+                First Name <span>*</span>
               </div>
-              <div
-                className="show__password"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (passwordShow === "password") {
-                    setPasswordShow("text");
-                  } else {
-                    setPasswordShow("password");
-                  }
-                }}
-              ></div>
-            </div>
-          </label>
-          <input
-            className="signup__input"
-            type={passwordShow}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-
-          <label className="signup__label">
-            {confirmErrors.map((error, idx) => (
-              <div className="signup__errors" key={idx}>
-                {error}
+            </label>
+            <input className="signup__input" type="text" value={fName} onChange={(e) => setFName(e.target.value)} />
+            <label className="signup__label">
+              {lNameErrors.map((error, idx) => (
+                <div className="signup__errors" key={idx}>
+                  {error}
+                </div>
+              ))}
+              <div className="signup__label__name">
+                Last Name <span>*</span>
               </div>
-            ))}
-            <div className="signup__label__name">
-              Confirm Password <span>*</span>
-            </div>
-          </label>
-          <input
-            className="signup__input"
-            type={passwordShow}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-
-          <label className="signup__label">
-            {phoneNumErrors.map((error, idx) => (
-              <div className="signup__errors" key={idx}>
-                {error}
+            </label>
+            <input className="signup__input" type="text" value={lName} onChange={(e) => setLName(e.target.value)} />
+            <label className="signup__label">
+              {emailErrors.map((error, idx) => (
+                <div className="signup__errors" key={idx}>
+                  {error}
+                </div>
+              ))}
+              <div className="signup__label__name">
+                Email <span>*</span>
               </div>
-            ))}
+            </label>
+            <input className="signup__input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
 
-            <div className="signup__label__name">
-              Phone Number <p className="optional__placeholder">optional</p>
-            </div>
-          </label>
-          <input
-            className="signup__input"
-            type="text"
-            value={phoneNum}
-            maxLength={10}
-            onChange={(e) => setPhoneNum(e.target.value)}
-          />
+            <label className="signup__label">
+              {passwordErrors.map((error, idx) => (
+                <div className="signup__errors" key={idx}>
+                  {error}
+                </div>
+              ))}
+              <div className="password__label__container">
+                <div className="signup__label__name">
+                  Password<span>*</span>
+                </div>
+                <div
+                  className="show__password"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (passwordShow === "password") {
+                      setPasswordShow("text");
+                    } else {
+                      setPasswordShow("password");
+                    }
+                  }}
+                ></div>
+              </div>
+            </label>
+            <input
+              className="signup__input"
+              type={passwordShow}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
 
-          <button className="signup__button" type="submit">
-            Sign Up
-          </button>
+            <label className="signup__label">
+              {confirmErrors.map((error, idx) => (
+                <div className="signup__errors" key={idx}>
+                  {error}
+                </div>
+              ))}
+              <div className="signup__label__name">
+                Confirm Password <span>*</span>
+              </div>
+            </label>
+            <input
+              className="signup__input"
+              type={passwordShow}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+
+            <label className="signup__label">
+              {phoneNumErrors.map((error, idx) => (
+                <div className="signup__errors" key={idx}>
+                  {error}
+                </div>
+              ))}
+
+              <div className="signup__label__name">
+                Phone Number <p className="optional__placeholder">optional</p>
+              </div>
+            </label>
+            <input
+              className="signup__input"
+              type="text"
+              value={phoneNum}
+              maxLength={10}
+              onChange={(e) => setPhoneNum(e.target.value)}
+            />
+
+            <button className="signup__button" type="submit">
+              Sign Up
+            </button>
+          </div>
+        </form>
+      </div>
+      <div className="footer__container__about" id="footer__container__signup">
+        <div>
+          <div>NinaTrill Esthetics LLC</div>
+          <span>1127 S Gutensohn Rd, Springdale, AR 72764</span>
+          <span>(479) 301-4455</span>
         </div>
-      </form>
+        <div>
+          <div>Meet the dev</div>
+
+          <ExternalLink className="about__links" href="https://www.linkedin.com/in/chris-threadgill-b05090185/">
+            Portfolio
+          </ExternalLink>
+          <ExternalLink className="about__links" href="https://www.linkedin.com/in/chris-threadgill-b05090185/">
+            LinkedIn
+          </ExternalLink>
+          <ExternalLink className="about__links" href="https://github.com/ChrisThreadgill">
+            Github
+          </ExternalLink>
+        </div>
+        <div>
+          <div className="tech__used__container">Technologies Used</div>
+          <container className="tech__links__div">
+            <container className="tech__links__container">
+              <label className="technologies__links">JavaScript</label>
+              <label className="technologies__links">Express</label>
+              <label className="technologies__links">NodeJS</label>
+              <label className="technologies__links">Sequelize</label>
+              <label className="technologies__links">PostgreSQL</label>
+              <label className="technologies__links">Docker</label>
+            </container>
+            <container className="tech__links__container__right">
+              <label className="technologies__links">HTML/CSS</label>
+              <label className="technologies__links">React</label>
+              <label className="technologies__links">Redux</label>
+              <label className="technologies__links">Github</label>
+              <label className="technologies__links">YAML</label>
+            </container>
+          </container>
+        </div>
+      </div>
     </div>
   );
 }
