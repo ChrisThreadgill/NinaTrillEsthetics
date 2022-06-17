@@ -1,0 +1,134 @@
+.new__service__container {
+  display: flex;
+}
+.employee__all__services__container {
+  max-height: 250px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  background-color: rgb(35, 33, 33);
+  margin-right: 20px;
+  border-radius: 5px;
+}
+.employee__all__services__container::-webkit-scrollbar {
+  display: none;
+}
+.new__service__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: whitesmoke;
+  border-bottom: 2px ridge rgb(35, 33, 33);
+}
+
+.employee__service__container {
+  padding: 2px;
+  max-width: 450px;
+  /* margin-top: 15px; */
+  margin: 10px;
+  border: 2px solid #a45ee5;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.employee__service__title {
+  color: #a45ee5;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.new__service__form__container {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+  border: 2px ridge whitesmoke;
+  border-radius: 5px;
+  margin: 0 20px 0 0;
+  padding: 10px;
+}
+
+.new__service__form {
+  display: flex;
+  /* flex-direction: column; */
+}
+.new__service__description__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  height: 20vh;
+  /* border: 1px solid red; */
+}
+.new__service__description__container > label {
+  color: whitesmoke;
+  font-weight: bold;
+  margin: 4px 0 4px 0;
+  /* border: 1px solid red; */
+}
+.new__service__text__area {
+  resize: none;
+  outline: 0;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: #a45ee5;
+  color: rgb(35, 33, 33);
+}
+
+.new__service__error {
+  color: rgb(178, 39, 39);
+  font-size: 12px;
+  font-weight: bold;
+}
+.new__service__add__input {
+  outline: 0;
+  border: none;
+  background-color: #a45ee5;
+  color: rgb(35, 33, 33);
+}
+.new__service__price__submit {
+  display: flex;
+  flex-direction: column;
+}
+.new__service__price__submit > div {
+  margin: 10px 0 10px 0;
+}
+.new__service__price__submit > div > label {
+  margin-right: 10px;
+  color: whitesmoke;
+}
+.new__service__price__submit > div > input {
+  margin-right: 10px;
+  width: 20%;
+  border-radius: 5px;
+}
+
+.new__service__button {
+  width: 150px;
+  border: none;
+  margin-top: 15px;
+  border-radius: 5px;
+  background-color: rgb(35, 33, 33);
+  color: whitesmoke;
+  cursor: pointer;
+}
+
+.employee__service__edit__container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.employee__service__delete {
+  background: url("./delete__service.svg");
+  width: 15px;
+  height: 15px;
+  margin-left: 7px;
+  cursor: pointer;
+}
+.employee__service__price {
+  color: rgb(36, 162, 36);
+  margin: 4px 0 4px 0;
+}

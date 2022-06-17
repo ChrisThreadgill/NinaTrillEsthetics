@@ -1,0 +1,7 @@
+.edit__service__modal__quill {
+  background: url("./edit__service.svg");
+  height: 30px;
+  width: 30px;
+  margin-right: 7px;
+  cursor: pointer;
+}

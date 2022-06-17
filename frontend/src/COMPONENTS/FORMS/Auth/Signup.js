@@ -93,7 +93,7 @@ function SignupFormPage() {
               Email <span>*</span>
             </div>
           </label>
-          <input className="signup__input" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input className="signup__input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
 
           <label className="signup__label">
             {passwordErrors.map((error, idx) => (

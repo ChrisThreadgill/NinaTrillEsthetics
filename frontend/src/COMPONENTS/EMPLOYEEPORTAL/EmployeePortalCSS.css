@@ -52,3 +52,8 @@
 .employee__portal__left {
   margin: 10px 10px 0 15px;
 }
+
+.employee__portal__right {
+  display: flex;
+  flex-direction: column;
+}

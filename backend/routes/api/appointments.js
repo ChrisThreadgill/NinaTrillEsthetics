@@ -48,11 +48,15 @@ const appointmentValidations = [
               }
             }
           }
+          console.log(selectedAppointmentEndTime, "selected appointment time -------------------");
           if (bookedTimes.includes(selectedStartTime))
             return Promise.reject("This time slot has been booked, please select another time.");
 
           if (bookedTimes.includes(selectedAppointmentEndTime))
             return Promise.reject("This time slot overlaps an already booked appointment, please select another time.");
+
+          if (selectedAppointmentEndTime > 20)
+            return Promise.reject("You will need to schedule larger appointments earlier in the day.");
         }
       });
     }),

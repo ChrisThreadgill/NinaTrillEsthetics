@@ -11,11 +11,33 @@ const { db } = require("../../config");
 
 const serviceValidations = [
   check("title").exists({ checkFalsy: true }).withMessage("Please Provide a Service Name"),
-  check("title").isLength({ max: 75 }).withMessage("Your title name must be within 75 characters."),
+  check("title").isLength({ max: 75 }).withMessage("Service name must be within 75 characters."),
+  check("title").not().isEmpty().withMessage("Please Provide a service name"),
   check("description").exists({ checkFalsy: true }).withMessage("Please provide a description of the service."),
   check("description").isLength({ max: 500 }).withMessage("Description must be 500 characters or less."),
-  check("price").exists({ checkFalsy: true }).withMessage("You must include a price."),
-  check("hours").exists({ checkFalsy: true }).withMessage("Include total service time in hours."),
+  check("price")
+    .exists({ checkFalsy: true })
+    .withMessage("You must include a price.")
+    .isNumeric()
+    .withMessage("Price must be a number."),
+  check("hours")
+    .exists({ checkFalsy: true })
+    .withMessage("Include total service time in hours.")
+    .isNumeric()
+    .withMessage("Hours must be a number"),
+  // .isInt({ min: 1, max: 5 })
+  // .withMessage("Cannot exceed 5 hours and must be a whole number."),
+  // check("hours").custom((value) => {
+  //   if (!value) return Promise.reject("Please use increments of .5");
+
+  //   // console.log(value);
+  //   console.log(value % 0.5);
+  //   if (value > 5) return Promise.reject("We do not offer services more than 5 hours.");
+  //   if (value % 0.5 !== 0) {
+  //     return Promise.reject("Please use increments of .5");
+  //   }
+  // }),
+
   handleValidationErrors,
 ];
 
