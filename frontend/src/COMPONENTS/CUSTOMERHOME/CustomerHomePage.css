@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: auto;
+  position: relative;
+  min-height: 91.5vh;
 }
 
 .customer__homepage__container {
@@ -22,4 +25,12 @@
   color: black;
   line-height: 2.5;
   font-size: large;
+}
+.customer__appointment__cards__container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 125px;
 }

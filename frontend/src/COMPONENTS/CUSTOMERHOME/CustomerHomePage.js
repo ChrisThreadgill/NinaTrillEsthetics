@@ -1,6 +1,7 @@
 import "./CustomerHomePage.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Footer from "../Footer/Footer";
 import { unFormatDate } from "../utils/utils";
 import * as appointmentsActions from "../../store/appointments";
 import { Redirect } from "react-router-dom";
@@ -22,40 +23,46 @@ function CustomerHomePage() {
   useEffect(() => {
     dispatch(appointmentsActions.getAllAppointmentsForCustomer(sessionUser?.user?.id));
     dispatch(servicesActions.getAllServices());
+    return () => {
+      dispatch(appointmentsActions.cleanAppointments());
+    };
   }, [dispatch]);
   return (
     <div className="customer__home__page__container">
       <div className="customer__home__page__welcome">Welcome back {sessionUser?.user?.fName}</div>
-      {Object.values(customerAppointments).map((appointment) => {
-        console.log(appointment.startTime.split("."));
+      <div className="customer__appointment__cards__container">
+        {Object.values(customerAppointments).map((appointment) => {
+          console.log(appointment.startTime.split("."));
 
-        let appointmentTimeConvert = appointment.startTime.split(".");
-        let appointmentTime = appointmentTimeConvert[0];
-        let date = appointment.date.toString();
-        let appointmentServicesArr = appointment.services.split(",");
+          let appointmentTimeConvert = appointment.startTime.split(".");
+          let appointmentTime = appointmentTimeConvert[0];
+          let date = appointment.date.toString();
+          let appointmentServicesArr = appointment.services.split(",");
 
-        let day = date.slice(-6, -4);
-        let year = date.slice(-4);
-        let month = date.slice(0, -6);
-        console.log(appointment.services.split(","));
-        console.log(allServices);
+          let day = date.slice(-6, -4);
+          let year = date.slice(-4);
+          let month = date.slice(0, -6);
+          console.log(appointment.services.split(","));
+          console.log(allServices);
 
-        if (appointmentTimeConvert[1] == 5) {
-          appointmentTime = `${appointmentTimeConvert[0]}:30`;
-        }
-        return (
-          <CustomerAppointmentCard
-            month={month}
-            day={day}
-            year={year}
-            appointmentServicesArr={appointmentServicesArr}
-            allServices={allServices}
-            appointmentTime={appointmentTime}
-            appointmentId={appointment.id}
-            cancelAppointment={cancelAppointment}
-          ></CustomerAppointmentCard>
-        );
-      })}
+          if (appointmentTimeConvert[1] == 5) {
+            appointmentTime = `${appointmentTimeConvert[0]}:30`;
+          }
+          return (
+            <CustomerAppointmentCard
+              month={month}
+              day={day}
+              year={year}
+              appointmentServicesArr={appointmentServicesArr}
+              allServices={allServices}
+              appointmentTime={appointmentTime}
+              appointmentId={appointment.id}
+              cancelAppointment={cancelAppointment}
+            ></CustomerAppointmentCard>
+          );
+        })}
+      </div>
+      <Footer></Footer>
     </div>
   );
 }

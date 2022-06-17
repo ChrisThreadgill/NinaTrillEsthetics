@@ -24,12 +24,14 @@ function EmployeeScheduleCustomerView({
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session);
   const allAppointments = useSelector((state) => state.appointments);
-  const { formattedDate: todaysDate } = formatDate(new Date());
+  const employeeCheck = useSelector((state) => state.currentEmployee.id);
+  // const { formattedDate: todaysDate } = formatDate(new Date());
+  const { formattedDate } = formatDate(new Date());
 
   const [startDate, setStartDate] = useState(new Date());
   const [currentAppointments, setCurrentAppointments] = useState([]);
   // const [selected, setSelected] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState(formattedDate);
   const [selectedTime, setSelectedTime] = useState("");
   const [price, setPrice] = useState("");
   const [formServices, setFormServices] = useState("");
@@ -208,6 +210,9 @@ function EmployeeScheduleCustomerView({
     setSelectedHours(hours);
     setFormServices(services);
   }, [selectedServicesInfo]);
+  useEffect(() => {
+    console.log(employeeCheck, "---------------------");
+  }, [employeeCheck]);
 
   useEffect(() => {
     //setting date to today's formatted date on component mount NOT WORKING
@@ -218,7 +223,7 @@ function EmployeeScheduleCustomerView({
 
     return () => {
       // const { formattedDate } = formatDate(new Date());
-      setSelectedDate(todaysDate);
+      // setSelectedDate(todaysDate);
     };
   }, [dispatch]);
   // console.log(selectedTime);
@@ -252,7 +257,13 @@ function EmployeeScheduleCustomerView({
         />
       </div>
       <div className="available__appointment__times__container">
-        {sessionUser.user ? <h2>Choose a time!</h2> : <h2>Login To view Available Times</h2>}
+        {sessionUser.user && !employeeCheck ? (
+          <h2>Choose a time!</h2>
+        ) : employeeCheck ? (
+          <></>
+        ) : (
+          <h2>Login To view Available Times</h2>
+        )}
         <div className="customer__schedule__view__errors">
           {errors && errors.booked && `set this page to refresh if this error occurs`}
         </div>
@@ -300,20 +311,27 @@ function EmployeeScheduleCustomerView({
             ? setSelectedTime(moment(selectedTime, "HH:mm").format("hh:mm a"))
           : setSelectedTime(moment(selectedTime.split(":")[0], "HH:mm").format("hh:mm a"))} */}
             <div className="customer__schedule__view__errors">{errors && errors.startTime}</div>
-            <div>{selectedTime ? moment(selectedTime, "HH:mm").format("hh:mm a") : "Choose a time!"}</div>
+            <div>
+              {selectedTime && !employeeCheck
+                ? moment(selectedTime, "HH:mm").format("hh:mm a")
+                : employeeCheck
+                ? "Please check the employee Portal"
+                : "Choose a time!"}
+            </div>
             <div className="customer__appointment__selected__services">
               {selectedServicesInfo &&
+                !employeeCheck &&
                 Object.values(selectedServicesInfo).map((service) => {
                   return <div>{service.title}</div>;
                 })}
             </div>
             <div className="customer__schedule__view__errors">{errors && errors.noHours}</div>
-            <div>{`$${price}`}</div>
-            <div>{`Time: ${selectedHours} Hours`}</div>
+            {!employeeCheck ? <div>{`$${price}`}</div> : <></>}
+            {!employeeCheck ? <div>{`Time: ${selectedHours} Hours`}</div> : <></>}
           </div>
           <div className="customer__appointment__errors"></div>
           <form className="customer__appointment__form" onSubmit={(e) => bookAppointment(e)}>
-            <button>Schedule Now!</button>
+            {!employeeCheck ? <button>Schedule Now!</button> : <></>}
           </form>
         </div>
       ) : null}

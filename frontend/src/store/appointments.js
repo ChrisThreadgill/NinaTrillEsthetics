@@ -33,11 +33,11 @@ const cancelOneAppointment = (appointmentId) => {
     payload: appointmentId,
   };
 };
-// const cleanServices = () => {
-//   return {
-//     type: CLEAN,
-//   };
-// };
+export const cleanAppointments = () => {
+  return {
+    type: CLEAN,
+  };
+};
 
 export const getAllAppointments = () => async (dispatch) => {
   const response = await csrfFetch(`/api/appointments`, {
@@ -140,8 +140,8 @@ const appointmentsReducer = (state = initialState, action) => {
     case DELETE:
       delete newState[action.payload];
       return newState;
-    // case CLEAN:
-    //   return {};
+    case CLEAN:
+      return {};
     default:
       return state;
   }
