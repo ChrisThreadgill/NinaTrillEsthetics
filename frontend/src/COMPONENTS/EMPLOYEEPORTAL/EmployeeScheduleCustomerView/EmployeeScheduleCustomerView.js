@@ -143,6 +143,9 @@ function EmployeeScheduleCustomerView({
                   normErrs["overlap"] =
                     "This time slot overlaps an already booked appointment, please select another time.";
                   break;
+                case "You will need to schedule larger appointments earlier in the day.":
+                  normErrs["overlap"] = "You will need to schedule larger appointments earlier in the day.";
+                  break;
               }
               setErrors(normErrs);
             }

@@ -23,12 +23,14 @@ const appointmentValidations = [
 
           const selectedStartTime = req.body.startTime;
           const selectedAppointmentHours = req.body.hours;
+          console.log(selectedAppointmentHours);
           var selectedAppointmentEndTime;
 
           if (selectedAppointmentHours > 0.5) {
-            selectedAppointmentEndTime = selectedStartTime;
+            selectedAppointmentEndTime = Number(selectedStartTime);
             for (let i = 0.5; i < selectedAppointmentHours; i += 0.5) {
               selectedAppointmentEndTime += 0.5;
+              console.log("selected appointment end time ---------------------", selectedAppointmentEndTime);
             }
           }
 
@@ -48,11 +50,15 @@ const appointmentValidations = [
               }
             }
           }
+          console.log(selectedAppointmentEndTime, "selected appointment time -------------------");
           if (bookedTimes.includes(selectedStartTime))
             return Promise.reject("This time slot has been booked, please select another time.");
 
           if (bookedTimes.includes(selectedAppointmentEndTime))
             return Promise.reject("This time slot overlaps an already booked appointment, please select another time.");
+
+          if (selectedAppointmentEndTime > 20)
+            return Promise.reject("You will need to schedule larger appointments earlier in the day.");
         }
       });
     }),

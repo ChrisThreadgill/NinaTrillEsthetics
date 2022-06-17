@@ -8,6 +8,7 @@ import EmployeeScheduleCustomerView from "./EmployeeScheduleCustomerView/Employe
 import EmployeeServices from "./EmployeeServices/EmployeeServices";
 import EditEmployeeBio from "../FORMS/EditEmployeeBio";
 import EmployeeAppointmentCalendar from "./EmployeeAppointments/EmployeeAppointmentCalendar";
+import NewServiceForm from "../FORMS/NewService";
 
 function EmployeePortal() {
   const dispatch = useDispatch();
@@ -36,7 +37,10 @@ function EmployeePortal() {
         <EditEmployeeBio></EditEmployeeBio>
         <EmployeeServices></EmployeeServices>
       </div>
-      <EmployeeAppointmentCalendar></EmployeeAppointmentCalendar>
+      <div className="employee__portal__right">
+        <EmployeeAppointmentCalendar></EmployeeAppointmentCalendar>
+        <NewServiceForm></NewServiceForm>
+      </div>
       {/* <EmployeeServices></EmployeeServices> */}
       {/* <EmployeeScheduleCustomerView schedule={schedule}></EmployeeScheduleCustomerView> */}
     </div>

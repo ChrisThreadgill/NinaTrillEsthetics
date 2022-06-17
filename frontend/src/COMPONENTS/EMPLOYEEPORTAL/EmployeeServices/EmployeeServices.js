@@ -29,7 +29,7 @@ function EmployeeServices() {
   };
   return (
     <div className="employee__services__container">
-      <h3 className="employee__services__header">Add a New Service</h3>
+      <h3 className="employee__services__header">Offer a New Service</h3>
       <form onSubmit={addEmployeeService} className="employee__service__add__form">
         <select
           className="employee__services__select"
