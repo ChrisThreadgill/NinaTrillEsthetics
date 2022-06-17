@@ -19,6 +19,7 @@ export const cleanCurrentEmployee = () => {
 
 export const checkEmployment = (userId) => async (dispatch) => {
   console.log("in the thunk");
+  if (!userId) return;
   const response = await csrfFetch(`/api/users/${userId}`, {
     method: "GET",
   });
