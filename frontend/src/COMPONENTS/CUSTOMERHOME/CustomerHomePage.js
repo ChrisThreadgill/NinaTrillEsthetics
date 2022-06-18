@@ -4,14 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Footer from "../Footer/Footer";
 import { unFormatDate } from "../utils/utils";
 import * as appointmentsActions from "../../store/appointments";
-import { Redirect } from "react-router-dom";
 import * as servicesActions from "../../store/services";
+import * as appointmentEditActions from "../../store/appointmentEdit";
+import * as employeesActions from "../../store/employees";
+import { Redirect } from "react-router-dom";
 import CustomerAppointmentCard from "./CustomerAppointments/CustomerAppointmentCard";
 const moment = require("moment");
 
 function CustomerHomePage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session);
+  const employees = useSelector((state) => state.employees);
   const customerAppointments = useSelector((state) => state.appointments);
   const allServices = useSelector((state) => state.services);
   console.log(sessionUser);
@@ -23,8 +26,11 @@ function CustomerHomePage() {
   useEffect(() => {
     dispatch(appointmentsActions.getAllAppointmentsForCustomer(sessionUser?.user?.id));
     dispatch(servicesActions.getAllServices());
+    dispatch(appointmentEditActions.editAppointmentGetAll());
+    dispatch(employeesActions.getAllEmployees());
     return () => {
       dispatch(appointmentsActions.cleanAppointments());
+      dispatch(appointmentEditActions.cleanAppointmentEdit());
     };
   }, [dispatch]);
   return (
@@ -53,6 +59,8 @@ function CustomerHomePage() {
               month={month}
               day={day}
               year={year}
+              appointment={appointment}
+              employees={employees}
               appointmentServicesArr={appointmentServicesArr}
               allServices={allServices}
               appointmentTime={appointmentTime}

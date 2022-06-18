@@ -2,6 +2,7 @@ export const checkAvailableTimes = (appointments, schedule, selectedHours) => {
   // console.log("selected hours in the check times function", selectedHours);
   // console.log(schedule);
   // console.log(appointments, "apppts and schedu inside utils");
+  console.log(schedule);
   let bookedTimes = [];
   let availableTimes = [...schedule];
   // console.log(availableTimes);

@@ -11,6 +11,8 @@ function AvailableServices({
   setSelectedServicesInfo,
   setErrors,
   errors,
+  servicesId,
+  setServicesId,
 }) {
   //
   const sessionUser = useSelector((state) => state.session.user);
@@ -19,27 +21,21 @@ function AvailableServices({
 
   console.log(sessionUser);
   const addService = (service) => {
-    // console.log(service);
     if (employeeCheck) {
       window.alert("You cannot schedule appointments as an employee");
       return;
     } else {
       serviceSet.add(service);
     }
-    // console.log(serviceSet.has(service));
-
-    // console.log(serviceSet);
-    // serviceSet.delete(service);
-    // console.log(serviceSet);
   };
   const removeService = (service) => {
-    // console.log(service);
-    // console.log(serviceSet.has(service));
     serviceSet.delete(service);
-    // console.log(serviceSet);
-    // serviceSet.delete(service);
-    // console.log(serviceSet);
   };
+
+  const testArr = [];
+  useEffect(() => {
+    console.log(servicesId);
+  }, [servicesId]);
 
   return (
     <div className="available__services__container">
@@ -52,45 +48,41 @@ function AvailableServices({
             </div>
             <div className="available__service__add__container">
               <div className="available__service__price">{`$${service.price}`}</div>
-              {sessionUser ? (
+              {sessionUser && !employeeCheck ? (
                 <>
                   <button
                     className="available__service__add"
                     onClick={() => {
-                      let services = {};
-                      addService(service);
-                      // if (selectedServices) {
-                      setSelectedServices(selectedServices.add(service));
-                      for (let service of selectedServices) {
-                        services[service.id] = service;
+                      if (servicesId.includes(service.id)) return;
+                      else {
+                        setServicesId([...servicesId, service.id]);
                       }
-                      setSelectedServicesInfo(services);
-                      // }
                     }}
                   >
                     Add Service
                   </button>
-                  {/* <button
+                  <button
                     className="available__service__add"
                     onClick={() => {
-                      let services = {};
-                      removeService(service);
+                      if (servicesId.includes(service.id)) {
+                        const idx = servicesId.indexOf(service.id);
+                        servicesId.splice(idx, 1);
 
-                      setSelectedServices(selectedServices.delete(service));
-                      for (let service of selectedServices) {
-                        services[service.id] = service;
+                        setServicesId([...servicesId]);
+                        console.log(servicesId);
+                      } else {
+                        return;
                       }
-                      setSelectedServicesInfo(services);
                     }}
                   >
                     Remove Service
-                  </button> */}
+                  </button>
                 </>
-              ) : (
+              ) : !employeeCheck ? (
                 <div className="available__services__un__auth" onClick={() => history.push("/login")}>
                   Sign In to Schedule!
                 </div>
-              )}
+              ) : null}
             </div>
           </div>
         );

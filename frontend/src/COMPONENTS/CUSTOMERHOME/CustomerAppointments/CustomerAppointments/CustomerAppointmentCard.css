@@ -59,6 +59,7 @@
   display: flex;
   color: whitesmoke;
   margin: 15px 0 15px 0;
+  text-align: center;
 }
 
 .customer__appointment__card__services {

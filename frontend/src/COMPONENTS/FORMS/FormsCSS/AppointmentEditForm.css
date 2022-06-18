@@ -1,0 +1,104 @@
+.appointment__edit__form__container {
+  display: flex;
+  align-items: center;
+  background-color: rgb(35, 33, 33);
+
+  flex-direction: column;
+  justify-content: space-between;
+  width: 700px;
+  min-height: 500px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.appointment__edit__calendar__container {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.appointment__reschedule__button {
+  height: 45px;
+  width: 125px;
+  background: whitesmoke;
+  border: #a45ee5 2px ridge;
+  color: rgb(35, 33, 33);
+  font-weight: bold;
+}
+
+.appointment__edit__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-right: 20px;
+  height: 200px;
+
+  width: 275px;
+  text-align: center;
+  align-items: center;
+  background-color: rgb(35, 33, 33);
+}
+.appointment__edit__form__details {
+  margin: 20px 0 20px 0;
+}
+
+.appointment__edit__details {
+  color: #a45ee5;
+  background-color: rgb(35, 33, 33);
+}
+
+.appointment__edit__time__header {
+  color: whitesmoke;
+}
+.available__appointment__times2 {
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  max-height: 235px;
+  width: 50%;
+}
+
+.available__appointment__times2 > div {
+  color: #a45ee5;
+  border: 1px ridge whitesmoke;
+}
+
+.appointment__edit__form__details {
+  color: whitesmoke;
+  display: flex;
+  align-items: center;
+}
+.appointment__edit__form__details > p {
+  margin: 0 5px 0 5px;
+  color: #a45ee5;
+}
+.appointment__calendar__headers {
+  display: flex;
+  justify-content: flex-end;
+  color: whitesmoke;
+}
+.appointment__calendar__header__date {
+  margin-right: 115px;
+}
+
+.appointment__edit__go__back {
+  display: flex;
+  padding: 7px;
+  margin: 0 0 10px 0;
+}
+.appointment__edit__go__back > span {
+  color: whitesmoke;
+  margin-left: 10px;
+}
+.appointment__edit__go__back > div {
+  color: rgb(226, 65, 65);
+  width: 120px;
+  height: 35px;
+  margin-left: 7px;
+  cursor: pointer;
+}
+/* .appointment__calendar__header__time {
+  margin-left: 50px;
+} */

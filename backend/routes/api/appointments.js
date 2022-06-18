@@ -58,7 +58,7 @@ const appointmentValidations = [
             return Promise.reject("This time slot overlaps an already booked appointment, please select another time.");
 
           if (selectedAppointmentEndTime > 20)
-            return Promise.reject("You will need to schedule larger appointments earlier in the day.");
+            return Promise.reject("You will need to schedule appointments longer than 2.5 hours earlier in the day.");
         }
       });
     }),

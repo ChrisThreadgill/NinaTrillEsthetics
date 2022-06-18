@@ -18,10 +18,10 @@ function HomePageAbout() {
         Esthetics we will exceed your expectations!
       </div>
       <div className="home__page__about__contact__us">
-        <div>
-          <h3>Give us a call!</h3>
+        <div className="home__page__about__phone">
+          <h3>Give us a call or</h3>
           <p onClick={() => history.push("/services")} className="home__page__about__services__link">
-            Or Book online today!
+            Book online today!
           </p>
           <p>(479)-301-4455</p>
         </div>
