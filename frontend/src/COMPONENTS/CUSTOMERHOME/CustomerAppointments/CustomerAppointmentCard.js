@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
 import "./CustomerAppointments/CustomerAppointmentCard.css";
+import AppointmentEditModal from "../../Modals/AppointmentEdit";
 const moment = require("moment");
 
 function CustomerAppointmentCard({
@@ -11,14 +12,18 @@ function CustomerAppointmentCard({
   appointmentServicesArr,
   allServices,
   appointmentTime,
+  appointment,
+  employees,
 }) {
   const history = useHistory();
   //
+  const appointmentOwner = employees[appointment.employeeId];
+  console.log(appointmentOwner, "employee id in the customer appointment card");
 
   return (
     <div className="customer__appointment__card__container">
       <h3 className="customer__appointment__card__header">
-        Your appointment at NinaTrill Esthetics has been confirmed!
+        Your appointment with {appointmentOwner?.fName} has been confirmed!
       </h3>
       <div className="customer__appointment__card__details__container">
         {appointmentServicesArr.map((integer) => {
@@ -39,9 +44,13 @@ function CustomerAppointmentCard({
         "HH:mm"
       ).format("hh:mm A")}.`}</div>
       <div className="customer__appointment__card__buttons">
-        <div className="customer__appointment__reschedule" onClick={() => history.push("/services")}>
+        {/* <div
+          className="customer__appointment__reschedule"
+          onClick={() => history.push(`/appointments/${appointmentId}`)}
+        >
           Reschedule
-        </div>
+        </div> */}
+        <AppointmentEditModal appointmentId={appointmentId}></AppointmentEditModal>
         <div className="customer__appointment__cancel" onClick={() => cancelAppointment(appointmentId)}>
           Cancel
         </div>

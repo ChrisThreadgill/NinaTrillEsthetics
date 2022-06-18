@@ -6,6 +6,7 @@ import employeeServicesReducer from "./employeeServices";
 import appointmentsReducer from "./appointments";
 import employeesReducer from "./employees";
 import currentEmployeeReducer from "./currentEmployee";
+import appointmentEditReducer from "./appointmentEdit";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   appointments: appointmentsReducer,
   employees: employeesReducer,
   currentEmployee: currentEmployeeReducer,
+  appointmentEdit: appointmentEditReducer,
 });
 
 let enhancer;

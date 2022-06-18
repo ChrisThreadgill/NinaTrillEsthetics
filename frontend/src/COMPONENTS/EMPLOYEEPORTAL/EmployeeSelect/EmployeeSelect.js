@@ -1,14 +1,21 @@
 import "./EmployeeSelectCSS/EmployeeSelect.css";
 import { useDispatch, useSelector } from "react-redux";
 
-function EmployeeSelect({ employeeId, setEmployeeId }) {
+function EmployeeSelect({ setErrors, setServicesId, employeeId, setEmployeeId }) {
   //
   const employeesObj = useSelector((state) => state.employees);
 
   return (
     <div className="employee__select__container">
       <div className="employee__picture"></div>
-      <select className="employee__select" onChange={(e) => setEmployeeId(e.target.value)}>
+      <select
+        className="employee__select"
+        onChange={(e) => {
+          setErrors([]);
+          setServicesId([]);
+          setEmployeeId(e.target.value);
+        }}
+      >
         <option className="option__placeholder" disabled selected hidden>
           Select an Employee
         </option>
