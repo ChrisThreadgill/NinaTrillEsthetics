@@ -18,6 +18,12 @@
   margin: 55px 0 55px 0;
 }
 
+.customer__appointment__card__title {
+  max-width: 200px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
 .customer__appointment__card__buttons {
   display: flex;
   align-items: center;

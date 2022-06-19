@@ -47,6 +47,12 @@
   color: #a45ee5;
   font-weight: 800;
 }
+.available__service__description {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 850px;
+  overflow: hidden;
+}
 .available__service__add__container {
   margin: 0 35px 0 35px;
   display: flex;

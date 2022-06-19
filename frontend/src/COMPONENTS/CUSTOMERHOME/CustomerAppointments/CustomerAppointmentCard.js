@@ -29,7 +29,7 @@ function CustomerAppointmentCard({
           if (integer) {
             return (
               <div key={integer} className="customer__appointment__card__services">
-                <div>{allServices[integer]?.title}</div>
+                <div className="customer__appointment__card__title">{allServices[integer]?.title}</div>
                 <div>{`$${allServices[integer]?.price}`}</div>
               </div>
             );

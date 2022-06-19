@@ -9,7 +9,7 @@
 .home__logo {
   width: 75px;
   height: 75px;
-  background: url("./home__heart.svg");
+  background: url("./home__heart.svg") no-repeat center;
   cursor: pointer;
 }
 
@@ -25,6 +25,12 @@
   height: 34px;
   cursor: pointer;
 }
+.home__page__categories__container > div:hover {
+  border-bottom: none;
+
+  color: whitesmoke;
+}
+
 .home__page__categories__container {
   display: flex;
   align-items: center;
@@ -94,6 +100,7 @@
 .nav__login__signup__container {
   display: flex;
 }
+
 .nav__bar__login {
   width: 90px;
   height: 35px;
@@ -104,6 +111,10 @@
   background-color: whitesmoke;
   color: #a45ee5;
   cursor: pointer;
+}
+
+.nav__bar__login:hover {
+  box-shadow: 2px 1px 4px #a45ee5;
 }
 .nav__bar__signup {
   display: flex;
@@ -117,6 +128,9 @@
   border: 1px solid #a45ee5;
   border-radius: 5px;
   cursor: pointer;
+}
+.nav__bar__signup:hover {
+  box-shadow: 1px 0px 4px whitesmoke;
 }
 /* .hamburger__menu__container {
   display: flex;

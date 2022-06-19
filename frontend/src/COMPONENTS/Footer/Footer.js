@@ -14,9 +14,9 @@ function Footer() {
       <div>
         <div>Meet the dev</div>
 
-        <ExternalLink className="about__links" href="https://www.linkedin.com/in/chris-threadgill-b05090185/">
+        {/* <ExternalLink className="about__links" href="https://www.linkedin.com/in/chris-threadgill-b05090185/">
           Portfolio
-        </ExternalLink>
+        </ExternalLink> */}
         <ExternalLink className="about__links" href="https://www.linkedin.com/in/chris-threadgill-b05090185/">
           LinkedIn
         </ExternalLink>
