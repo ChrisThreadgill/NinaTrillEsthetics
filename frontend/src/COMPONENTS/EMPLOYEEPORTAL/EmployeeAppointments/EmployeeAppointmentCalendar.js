@@ -18,7 +18,7 @@ function EmployeeAppointmentCalendar() {
 
   useEffect(() => {
     setSelectedAppointments(allEmployeeAppointmentsArr.filter((appointment) => appointment.date == selectedDate));
-  }, [selectedDate]);
+  }, [selectedDate, allEmployeeAppointmentsArr]);
   //
 
   // const dateManip = new Date();
