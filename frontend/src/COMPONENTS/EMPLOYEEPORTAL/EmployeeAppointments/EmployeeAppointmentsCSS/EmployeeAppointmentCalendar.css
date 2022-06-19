@@ -26,3 +26,16 @@
   color: whitesmoke;
   font-weight: bold;
 }
+
+.employee__appointment__calendar__header {
+  max-width: 150px;
+  color: whitesmoke;
+  font-weight: bold;
+  margin: 0 35px 15px 0;
+}
+.employee__appointment__calendar__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
