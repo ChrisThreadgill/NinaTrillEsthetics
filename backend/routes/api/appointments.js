@@ -20,6 +20,7 @@ const appointmentValidations = [
       return Appointment.findAll({ where: { date: value, employeeId: req.body.employeeId } }).then((appointments) => {
         if (appointments) {
           const bookedTimes = [];
+          const newAppointmentHours = [];
 
           const selectedStartTime = req.body.startTime;
           const selectedAppointmentHours = req.body.hours;
@@ -28,8 +29,10 @@ const appointmentValidations = [
 
           if (selectedAppointmentHours > 0.5) {
             selectedAppointmentEndTime = Number(selectedStartTime);
+            newAppointmentHours.push(selectedAppointmentEndTime);
             for (let i = 0.5; i < selectedAppointmentHours; i += 0.5) {
               selectedAppointmentEndTime += 0.5;
+              newAppointmentHours.push(selectedAppointmentEndTime);
               // console.log("selected appointment end time ---------------------", selectedAppointmentEndTime);
             }
           }
@@ -50,6 +53,16 @@ const appointmentValidations = [
               }
             }
           }
+
+          while (newAppointmentHours.length) {
+            let currentHourCheck = newAppointmentHours.pop();
+            if (bookedTimes.includes(currentHourCheck))
+              return Promise.reject(
+                "This time slot overlaps an already booked appointment, please select another time."
+              );
+          }
+          console.log(bookedTimes, "-------------------- BOOKED TIMES");
+          console.log(newAppointmentHours, "--------------------------");
           // console.log(selectedAppointmentEndTime, "selected appointment time -------------------");
           if (bookedTimes.includes(selectedStartTime))
             return Promise.reject("This time slot has been booked, please select another time.");
@@ -76,17 +89,14 @@ const appointmentEditValidations = [
     .withMessage("Please Select a date")
     .custom((value, { req }) => {
       return Appointment.findAll({ where: { date: value, employeeId: req.body.employeeId } }).then((appointments) => {
-        console.log(req.body.appointmentId);
-        console.log(appointments, "appointments");
         if (appointments) {
           const bookedTimes = [];
           const newAppointmentHours = [];
           const appointmentsCopy = [...appointments];
-          console.log(appointmentsCopy, "----------------------", "testingggggggggggg");
 
           const selectedStartTime = req.body.startTime;
           const selectedAppointmentHours = req.body.hours;
-          // console.log(selectedAppointmentHours);
+
           var selectedAppointmentEndTime;
 
           if (selectedAppointmentHours > 0.5) {
@@ -95,28 +105,18 @@ const appointmentEditValidations = [
             for (let i = 0.5; i < selectedAppointmentHours; i += 0.5) {
               selectedAppointmentEndTime += 0.5;
               newAppointmentHours.push(selectedAppointmentEndTime);
-              // console.log("selected appointment end time ---------------------", selectedAppointmentEndTime);
             }
           }
 
           for (let i = 0; i < appointmentsCopy.length - 1; i++) {
-            console.log(appointments.length, "------------------ length");
             let currAPP = appointments[i].dataValues;
-            // const {dataValues} = Appointment
-            // console.log(appointments, "helooooooooooooooooo");
-            console.log(currAPP, "---------boolean check");
+
             if (currAPP.id == req.body.appointmentId) {
               continue;
-              // const currentAppIdx = appointments.indexOf(appointments[i]);
-              // console.log(appointments.indexOf(appointments[i]), "----------------------------");
-              // appointments.splice(currentAppIdx, 1);
             }
-            // if (currAPP.id == req.body.appointmentId) break;
             let hours = currAPP.hours;
             let startTime = currAPP.startTime;
-            console.log(startTime, "start time-----------------------------");
             bookedTimes.push(Number(startTime));
-            console.log(bookedTimes, "------- booked times");
 
             if (hours > 0.5) {
               var bookedSlots = Number(startTime);
@@ -127,35 +127,13 @@ const appointmentEditValidations = [
               }
             }
           }
-          // while (appointments.length) {
-          //   let stack = appointments.pop();
-          //   let currAPP = stack.dataValues;
-          //   console.log(stack.dataValues);
-          //   if (currAPP.id == req.body.appointmentId) {
-          //     continue;
-          //     // const currentAppIdx = appointments.indexOf(appointments[i]);
-          //     // // console.log(appointments.indexOf(appointments[i]), "----------------------------");
-          //     // appointments.splice(currentAppIdx, 1);
-          //   } else {
-          //     let hours = currAPP.hours;
-          //     let startTime = currAPP.startTime;
-          //     console.log(startTime, "start time-----------------------------");
-          //     bookedTimes.push(Number(startTime));
-          //     console.log(bookedTimes, "------- booked times");
-
-          //     if (hours > 0.5) {
-          //       var bookedSlots = Number(startTime);
-
-          //       for (let i = 0.5; i < hours; i += 0.5) {
-          //         bookedSlots += 0.5;
-          //         bookedTimes.push(bookedSlots);
-          //       }
-          //     }
-          //   }
-          // }
-          console.log(bookedTimes, "-------------------- BOOKED TIMES");
-          console.log(newAppointmentHours, "--------------------------");
-          // console.log(selectedAppointmentEndTime, "selected appointment time -------------------");
+          while (newAppointmentHours.length) {
+            let currentHourCheck = newAppointmentHours.pop();
+            if (bookedTimes.includes(currentHourCheck))
+              return Promise.reject(
+                "This time slot overlaps an already booked appointment, please select another time."
+              );
+          }
           if (bookedTimes.includes(selectedStartTime))
             return Promise.reject("This time slot has been booked, please select another time.");
 
