@@ -19,17 +19,35 @@ function NewServiceForm() {
   const [hours, setHours] = useState("");
   const [errors, setErrors] = useState([]);
   const [hoursErr, setHoursErr] = useState([]);
+  const [decimalErr, setDecimalErr] = useState([]);
+  const [noHoursErr, setNoHoursErr] = useState([]);
   const [priceErr, setPriceErr] = useState([]);
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     setHoursErr([]);
     setPriceErr([]);
+    setDecimalErr([]);
+    setNoHoursErr([]);
     if (price > 1) {
       setDisabled(false);
     }
     if (hours < 5) {
       setDisabled(false);
+    }
+    if (hours % 0.5 === 0) {
+      setDisabled(false);
+    }
+    if (hours > 0.5) {
+      setDisabled(false);
+    }
+    if (hours % 0.5 != 0) {
+      setDisabled(true);
+      setDecimalErr(["Hours must be in increments of .5"]);
+    }
+    if (hours && hours < 0.5) {
+      setDisabled(true);
+      setNoHoursErr(["Hours must be half an hour(0.5) or greater"]);
     }
     if (hours > 5) {
       setDisabled(true);
@@ -86,6 +104,16 @@ function NewServiceForm() {
           </div>
         ))}
         {priceErr.map((error, idx) => (
+          <div className="new__service__error" key={idx}>
+            {error}
+          </div>
+        ))}
+        {decimalErr.map((error, idx) => (
+          <div className="new__service__error" key={idx}>
+            {error}
+          </div>
+        ))}
+        {noHoursErr.map((error, idx) => (
           <div className="new__service__error" key={idx}>
             {error}
           </div>
@@ -150,14 +178,14 @@ function NewServiceForm() {
                 type="text"
                 name="model"
                 value={hours}
-                maxLength={1}
+                maxLength={3}
                 required
                 onChange={(e) => {
                   setHours(e.target.value);
                 }}
               />
             </div>
-            <button className="new__service__button" disabled={disabled}>
+            <button className="new__service__button" type="submit" disabled={disabled}>
               New Service
             </button>
           </div>
