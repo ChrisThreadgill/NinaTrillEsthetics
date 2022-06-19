@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import setHours from "date-fns/setHours";
-import setMinutes from "date-fns/setMinutes";
+// import setHours from "date-fns/setHours";
+// import setMinutes from "date-fns/setMinutes";
 import * as servicesActions from "../../store/services.js";
 import * as employeeServicesActions from "../../store/employeeServices";
 import EditServiceModal from "../Modals/EditService.js";
@@ -15,6 +15,7 @@ function DatePickerTest() {
   const services = useSelector((state) => state.services);
   const sessionUser = useSelector((state) => state.session);
   const employeeServices = useSelector((state) => state.employeeServices);
+  // console.log(employeeServices, "----------------------");
 
   //MANAGER ADDITION OF SERVICE
   const [title, setTitle] = useState("");
@@ -24,6 +25,8 @@ function DatePickerTest() {
 
   //EMPLOYEE ADDING SERVICE
   const [employeeServiceId, setEmployeeServiceId] = useState("");
+
+  // console.log(startDate);
 
   const handleDelete = (serviceId) => {
     dispatch(servicesActions.deleteOneService(serviceId));

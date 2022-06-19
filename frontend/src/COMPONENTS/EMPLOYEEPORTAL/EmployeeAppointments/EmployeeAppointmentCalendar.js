@@ -9,27 +9,33 @@ function EmployeeAppointmentCalendar() {
   const dispatch = useDispatch();
   const allEmployeeAppointments = useSelector((state) => state.appointments);
   const allEmployeeAppointmentsArr = Object.values(allEmployeeAppointments);
-  const { formattedDate } = formatDate(new Date());
+  const dateManip = new Date();
+  let yesterday = new Date(dateManip);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const { formattedDate } = formatDate(yesterday);
+  console.log(formattedDate);
   const [selectedDate, setSelectedDate] = useState(formattedDate);
   const [selectedAppointments, setSelectedAppointments] = useState([]);
 
   useEffect(() => {
-    const filtered = allEmployeeAppointmentsArr.filter((appointment) => console.log(selectedDate, appointment.date));
     setSelectedAppointments(allEmployeeAppointmentsArr.filter((appointment) => appointment.date == selectedDate));
   }, [selectedDate]);
   //
-  console.log(selectedAppointments);
 
+  // const dateManip = new Date();
+  // let yesterday = new Date(dateManip);
+  // yesterday.setDate(yesterday.getDate() - 1);
   return (
     <div className="employee__appointment__calendar__view__container">
       <div className="employee__appointments__container">
+        <div></div>
         {selectedAppointments.map((appointment) => {
           return <EmployeeAppointmentCard key={appointment.id} appointment={appointment}></EmployeeAppointmentCard>;
         })}
       </div>
       <div className="employee__appointment__calendar__container">
         <DatePicker
-          // selected={yesterday}
+          selected={yesterday}
           showDateDisplay={false}
           minDate={new Date()}
           onChange={(date) => {
