@@ -151,11 +151,11 @@ router.get(
 router.put(
   "/:appointmentId",
   requireAuth,
-  // serviceValidations,
+  appointmentValidations,
   asyncHandler(async (req, res) => {
     const { appointmentId } = req.params;
 
-    const { date, startTime, endTime, hours, customerId } = req.body;
+    const { date, startTime, hours, employeeId, customerId } = req.body;
 
     const appointmentToUpdate = await Appointment.findByPk(appointmentId);
 
@@ -163,9 +163,7 @@ router.put(
       await appointmentToUpdate.update({
         date,
         startTime,
-        endTime,
         hours,
-        customerId,
       });
     }
 

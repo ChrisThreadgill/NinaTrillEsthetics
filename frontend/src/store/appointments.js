@@ -69,6 +69,7 @@ export const getAllAppointmentsForEmployee = (employeeId) => async (dispatch) =>
   dispatch(allEmployeeAppointments(appointments));
   return appointments;
 };
+
 // export const bookAppointment = (appointment) => async (dispatch) => {
 
 //   const appointment = {

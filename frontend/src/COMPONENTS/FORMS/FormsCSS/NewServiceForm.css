@@ -38,6 +38,8 @@
   color: #a45ee5;
   font-weight: bold;
   font-size: 14px;
+  max-width: 150px;
+  overflow-wrap: break-word;
 }
 
 .new__service__form__container {
