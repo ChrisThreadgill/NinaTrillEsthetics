@@ -107,6 +107,8 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
         });
     }
   };
+  let tomorrow = new Date(dateManip);
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
   return (
     <div className="appointment__edit__form__container">
@@ -140,9 +142,9 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
         <div className="appointment__edit__date__picker__container">
           <div className="appointment__calendar__header__date">Select a new appointment date</div>
           <DatePicker
+            minDate={tomorrow}
             selected={yesterday}
             showDateDisplay={false}
-            minDate={new Date()}
             onChange={(date) => {
               setErrors([]);
               setEnableButton(true);
