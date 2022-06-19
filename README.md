@@ -1,6 +1,6 @@
 # WELCOME TO NinaTrill Esthetics
 
-Nina Trill Esthetics Live Link: (https://ninatrill-esthetics.herokuapp.com/)
+Nina Trill Esthetics Live Link: https://ninatrill-esthetics.herokuapp.com/
 
 
 
@@ -9,6 +9,7 @@ Nina Trill Esthetics Live Link: (https://ninatrill-esthetics.herokuapp.com/)
 <a href="https://www.linkedin.com/in/chris-threadgill-b05090185/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
 <a href="https://github.com/ChrisThreadgill"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" /></a>
 </div>
+
 ## Technologies Used
 
 ---
@@ -23,3 +24,14 @@ Nina Trill Esthetics Live Link: (https://ninatrill-esthetics.herokuapp.com/)
 ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![Postgresql](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
+
+
+## Future Features
+
+---
+
+- Implement Manager portal.  This will take away the authority to create new site wide services from regular employees and pass it on to the manager role.
+- Schedules.  A manager will be able to change an employee's schedule which will update their available times on the site as well. 
+- Time off appointments/Time off requests an employee will be able to put in for time off which will update their schedule accordingly. 
+
