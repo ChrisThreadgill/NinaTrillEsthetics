@@ -217,6 +217,9 @@ function EmployeeScheduleCustomerView({
   const dateManip = new Date();
   let yesterday = new Date(dateManip);
   yesterday.setDate(yesterday.getDate() - 1);
+  let tomorrow = new Date(dateManip);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
   return (
     <div className="employee__schedule__customer__view__container">
       <div className="employee__schedule__customer__calendar__container">
@@ -224,7 +227,7 @@ function EmployeeScheduleCustomerView({
         <DatePicker
           selected={yesterday}
           showDateDisplay={false}
-          minDate={new Date()}
+          minDate={tomorrow}
           onChange={
             sessionUser.user
               ? (date) => {
@@ -315,7 +318,11 @@ function EmployeeScheduleCustomerView({
                 {servicesId.length &&
                   !employeeCheck &&
                   servicesId.map((serviceId) => {
-                    return <div className="selected__services__title">{allServices[serviceId].title}</div>;
+                    return (
+                      <div key={serviceId} className="selected__services__title">
+                        {allServices[serviceId].title}
+                      </div>
+                    );
                   })}
               </div>
             ) : null}

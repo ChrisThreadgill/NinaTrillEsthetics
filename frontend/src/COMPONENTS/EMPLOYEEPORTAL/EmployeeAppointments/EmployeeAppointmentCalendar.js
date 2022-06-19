@@ -24,6 +24,9 @@ function EmployeeAppointmentCalendar() {
   // const dateManip = new Date();
   // let yesterday = new Date(dateManip);
   // yesterday.setDate(yesterday.getDate() - 1);
+  let tomorrow = new Date(dateManip);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
   return (
     <div className="employee__appointment__calendar__view__container">
       <div className="employee__appointments__container">
@@ -34,9 +37,9 @@ function EmployeeAppointmentCalendar() {
       </div>
       <div className="employee__appointment__calendar__container">
         <DatePicker
+          minDate={tomorrow}
           selected={yesterday}
           showDateDisplay={false}
-          minDate={new Date()}
           onChange={(date) => {
             const { formattedDate, weekDay } = formatDate(date);
             setSelectedDate(formattedDate);
