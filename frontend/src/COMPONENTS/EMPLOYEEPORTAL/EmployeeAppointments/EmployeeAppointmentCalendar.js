@@ -36,6 +36,7 @@ function EmployeeAppointmentCalendar() {
         })}
       </div>
       <div className="employee__appointment__calendar__container">
+        <div className="employee__appointment__calendar__header">Select a date to see your appointments</div>
         <DatePicker
           minDate={tomorrow}
           selected={yesterday}
