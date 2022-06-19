@@ -1,13 +1,31 @@
 import "./EmployeeSelectCSS/EmployeeSelect.css";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 function EmployeeSelect({ setErrors, setServicesId, employeeId, setEmployeeId }) {
   //
+  const [selectedEmployee, setSelectedEmployee] = useState();
   const employeesObj = useSelector((state) => state.employees);
-
+  const employeesArr = Object.values(employeesObj);
+  useEffect(() => {
+    setSelectedEmployee(employeesArr.filter((employee) => employee.id == employeeId));
+  }, [employeeId]);
+  console.log(selectedEmployee);
   return (
     <div className="employee__select__container">
-      <div className="employee__picture"></div>
+      {/* <div className="employee__picture"></div> */}
+      {selectedEmployee && selectedEmployee.length ? (
+        <img
+          className="employee__picture"
+          src={selectedEmployee.length ? selectedEmployee[0].profilePicture.profileUrl : null}
+        ></img>
+      ) : (
+        <div className="employee__select__header">SELECT AN EMPLOYEE TO SEE AVAILABLE TIMES</div>
+      )}
+      {/* <img
+        className="employee__picture"
+        src={selectedEmployee.length ? selectedEmployee[0].profilePicture.profileUrl : null}
+      ></img> */}
       <select
         className="employee__select"
         onChange={(e) => {

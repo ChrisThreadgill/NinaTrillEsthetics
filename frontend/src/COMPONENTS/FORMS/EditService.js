@@ -14,16 +14,34 @@ function EditServiceForm({ service, setShowModal }) {
   const [errors, setErrors] = useState([]);
   const [hoursErr, setHoursErr] = useState([]);
   const [priceErr, setPriceErr] = useState([]);
+  const [decimalErr, setDecimalErr] = useState([]);
+  const [noHoursErr, setNoHoursErr] = useState([]);
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     setHoursErr([]);
     setPriceErr([]);
+    setDecimalErr([]);
+    setNoHoursErr([]);
     if (hours < 5) {
       setDisabled(false);
     }
     if (price > 1) {
       setDisabled(false);
+    }
+    if (hours % 0.5 === 0) {
+      setDisabled(false);
+    }
+    if (hours > 0.5) {
+      setDisabled(false);
+    }
+    if (hours % 0.5 != 0) {
+      setDisabled(true);
+      setDecimalErr(["Hours must be in increments of .5"]);
+    }
+    if (hours && hours < 0.5) {
+      setDisabled(true);
+      setNoHoursErr(["Hours must be half an hour(0.5) or greater"]);
     }
     if (hours > 5) {
       setDisabled(true);
@@ -72,7 +90,16 @@ function EditServiceForm({ service, setShowModal }) {
           {error}
         </div>
       ))}
-
+      {decimalErr.map((error, idx) => (
+        <div className="new__service__error" key={idx}>
+          {error}
+        </div>
+      ))}
+      {noHoursErr.map((error, idx) => (
+        <div className="new__service__error" key={idx}>
+          {error}
+        </div>
+      ))}
       <form onSubmit={handleSubmit} className="edit__service__form">
         <div>
           <label>
@@ -117,7 +144,7 @@ function EditServiceForm({ service, setShowModal }) {
               className="edit__service__input"
               type="text"
               value={hours}
-              maxLength={1}
+              maxLength={3}
               onChange={(e) => setHours(e.target.value)}
               required
             />

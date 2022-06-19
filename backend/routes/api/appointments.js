@@ -66,6 +66,111 @@ const appointmentValidations = [
   handleValidationErrors,
 ];
 
+const appointmentEditValidations = [
+  check("startTime").exists({ checkFalsy: true }).withMessage("Please select an appointment time."),
+  check("hours").exists({ checkFalsy: true }).withMessage("Error calculating appointment hours"),
+  check("employeeId").exists({ checkFalsy: true }).withMessage("Error with employeeId"),
+  check("customerId").exists({ checkFalsy: true }).withMessage("Error with customerId"),
+  check("date")
+    .exists({ checkFalsy: true })
+    .withMessage("Please Select a date")
+    .custom((value, { req }) => {
+      return Appointment.findAll({ where: { date: value, employeeId: req.body.employeeId } }).then((appointments) => {
+        console.log(req.body.appointmentId);
+        console.log(appointments, "appointments");
+        if (appointments) {
+          const bookedTimes = [];
+          const newAppointmentHours = [];
+          const appointmentsCopy = [...appointments];
+          console.log(appointmentsCopy, "----------------------", "testingggggggggggg");
+
+          const selectedStartTime = req.body.startTime;
+          const selectedAppointmentHours = req.body.hours;
+          // console.log(selectedAppointmentHours);
+          var selectedAppointmentEndTime;
+
+          if (selectedAppointmentHours > 0.5) {
+            selectedAppointmentEndTime = Number(selectedStartTime);
+            newAppointmentHours.push(selectedAppointmentEndTime);
+            for (let i = 0.5; i < selectedAppointmentHours; i += 0.5) {
+              selectedAppointmentEndTime += 0.5;
+              newAppointmentHours.push(selectedAppointmentEndTime);
+              // console.log("selected appointment end time ---------------------", selectedAppointmentEndTime);
+            }
+          }
+
+          for (let i = 0; i < appointmentsCopy.length - 1; i++) {
+            console.log(appointments.length, "------------------ length");
+            let currAPP = appointments[i].dataValues;
+            // const {dataValues} = Appointment
+            // console.log(appointments, "helooooooooooooooooo");
+            console.log(currAPP, "---------boolean check");
+            if (currAPP.id == req.body.appointmentId) {
+              continue;
+              // const currentAppIdx = appointments.indexOf(appointments[i]);
+              // console.log(appointments.indexOf(appointments[i]), "----------------------------");
+              // appointments.splice(currentAppIdx, 1);
+            }
+            // if (currAPP.id == req.body.appointmentId) break;
+            let hours = currAPP.hours;
+            let startTime = currAPP.startTime;
+            console.log(startTime, "start time-----------------------------");
+            bookedTimes.push(Number(startTime));
+            console.log(bookedTimes, "------- booked times");
+
+            if (hours > 0.5) {
+              var bookedSlots = Number(startTime);
+
+              for (let i = 0.5; i < hours; i += 0.5) {
+                bookedSlots += 0.5;
+                bookedTimes.push(bookedSlots);
+              }
+            }
+          }
+          // while (appointments.length) {
+          //   let stack = appointments.pop();
+          //   let currAPP = stack.dataValues;
+          //   console.log(stack.dataValues);
+          //   if (currAPP.id == req.body.appointmentId) {
+          //     continue;
+          //     // const currentAppIdx = appointments.indexOf(appointments[i]);
+          //     // // console.log(appointments.indexOf(appointments[i]), "----------------------------");
+          //     // appointments.splice(currentAppIdx, 1);
+          //   } else {
+          //     let hours = currAPP.hours;
+          //     let startTime = currAPP.startTime;
+          //     console.log(startTime, "start time-----------------------------");
+          //     bookedTimes.push(Number(startTime));
+          //     console.log(bookedTimes, "------- booked times");
+
+          //     if (hours > 0.5) {
+          //       var bookedSlots = Number(startTime);
+
+          //       for (let i = 0.5; i < hours; i += 0.5) {
+          //         bookedSlots += 0.5;
+          //         bookedTimes.push(bookedSlots);
+          //       }
+          //     }
+          //   }
+          // }
+          console.log(bookedTimes, "-------------------- BOOKED TIMES");
+          console.log(newAppointmentHours, "--------------------------");
+          // console.log(selectedAppointmentEndTime, "selected appointment time -------------------");
+          if (bookedTimes.includes(selectedStartTime))
+            return Promise.reject("This time slot has been booked, please select another time.");
+
+          if (bookedTimes.includes(selectedAppointmentEndTime))
+            return Promise.reject("This time slot overlaps an already booked appointment, please select another time.");
+
+          if (selectedAppointmentEndTime > 20)
+            return Promise.reject("You will need to schedule appointments longer than 2.5 hours earlier in the day.");
+        }
+      });
+    }),
+
+  handleValidationErrors,
+];
+
 router.get(
   "/",
   requireAuth,
@@ -146,7 +251,7 @@ router.get(
 router.put(
   "/:appointmentId",
   requireAuth,
-  appointmentValidations,
+  appointmentEditValidations,
   asyncHandler(async (req, res) => {
     const { appointmentId } = req.params;
 

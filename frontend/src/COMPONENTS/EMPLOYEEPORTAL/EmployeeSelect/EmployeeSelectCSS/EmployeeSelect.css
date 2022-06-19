@@ -18,9 +18,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid rgb(35, 33, 33); */
-  width: 150px;
-  height: 150px;
+  border: 1px solid #a45ee5;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   margin-right: 30px;
 }
@@ -36,4 +36,11 @@
   color: #a45ee5;
   background-color: rgb(35, 33, 33);
   border-radius: 5px;
+}
+.employee__select__header {
+  margin-right: 20px;
+  max-width: 222px;
+  line-height: 2.5;
+  color: #a45ee5;
+  font-weight: bold;
 }

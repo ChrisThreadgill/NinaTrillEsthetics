@@ -40,7 +40,7 @@ function SignupFormPage() {
             setPasswordErrors(data.errors.filter((error) => error.includes("password")));
             setFNameErrors(data.errors.filter((error) => error.includes("irst name")));
             setLNameErrors(data.errors.filter((error) => error.includes("last name")));
-            setEmailErrors(data.errors.filter((error) => error.includes("Email")));
+            setEmailErrors(data.errors.filter((error) => error.includes("Email") || error.includes("email")));
             setPhoneNumErrors(data.errors.filter((error) => error.includes("phone")));
           }
         });

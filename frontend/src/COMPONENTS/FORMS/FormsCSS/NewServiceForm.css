@@ -111,14 +111,25 @@
 }
 
 .new__service__button {
-  width: 150px;
+  /* width: 150px;
   border: none;
   margin-top: 15px;
   height: 25px;
   border-radius: 5px;
-  background-color: rgb(35, 33, 33);
-  border: 1px ridge whitesmoke;
-  color: #a45ee5;
+  background-color: whitesmoke;
+  border: 1px ridge rgb(35, 33, 33);
+  color: rgb(35, 33, 33);
+  cursor: pointer;
+ */
+
+  width: 100%;
+  max-width: 125px;
+  height: 30px;
+  margin: 10px 0 10px 0;
+  background-color: whitesmoke;
+  font-weight: bold;
+  border: rgb(35, 33, 33) 2px ridge;
+  border-radius: 5px;
   cursor: pointer;
 }
 
