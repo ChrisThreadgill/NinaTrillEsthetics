@@ -10,7 +10,6 @@ function EmployeeSelect({ setErrors, setServicesId, employeeId, setEmployeeId })
   useEffect(() => {
     setSelectedEmployee(employeesArr.filter((employee) => employee.id == employeeId));
   }, [employeeId]);
-  console.log(selectedEmployee);
   return (
     <div className="employee__select__container">
       {/* <div className="employee__picture"></div> */}
