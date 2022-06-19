@@ -151,7 +151,7 @@ router.get(
   "/:userId",
   asyncHandler(async (req, res) => {
     const { userId } = req.params;
-    const currentUser = await User.findByPk(userId);
+    const currentUser = await User.findByPk(userId, { include: [Schedule, profilePicture] });
     return res.json({
       currentUser,
     });

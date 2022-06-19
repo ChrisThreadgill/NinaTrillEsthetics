@@ -22,7 +22,7 @@ function HomePageEmployees() {
         <div className="home__page__container">
           <div className="home__page__employees__header">Meet The Staff</div>
           {Object.values(employeesObj).map((employee) => {
-            return <EmployeeHomeBioCard employee={employee}></EmployeeHomeBioCard>;
+            return <EmployeeHomeBioCard key={employee.id} employee={employee}></EmployeeHomeBioCard>;
           })}
         </div>
       )}

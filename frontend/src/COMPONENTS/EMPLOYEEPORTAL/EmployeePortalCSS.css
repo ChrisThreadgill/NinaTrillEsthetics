@@ -19,35 +19,6 @@
   align-items: center;
   /* justify-content: flex-end; */
 }
-.employee__profile__picture__edit {
-  width: 100%;
-  display: flex;
-  align-items: CENTER;
-  justify-content: space-around;
-  /* height: auto; */
-  height: 25%;
-}
-.employee__profile__pic {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 1px solid black;
-}
-.employee__profile__pic__upload {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 175px;
-  height: 50px;
-  background-color: rgb(35, 33, 33);
-  border-radius: 5px;
-  color: #a45ee5;
-  cursor: pointer;
-}
-.employee__profile__edit {
-  display: flex;
-  height: 25%;
-}
 
 .employee__portal__left {
   margin: 10px 10px 0 15px;

@@ -52,14 +52,24 @@ function HamburgerMenu({ user }) {
               }}
             >{`Profile`}</div>
           )}
-
-          <div
+          {currentEmployee && currentEmployee ? (
+            <></>
+          ) : (
+            <div
+              className="hamburger__menu__option"
+              onClick={() => {
+                openMenu();
+                history.push("/services");
+              }}
+            >{`Book Now!`}</div>
+          )}
+          {/* <div
             className="hamburger__menu__option"
             onClick={() => {
               openMenu();
               history.push("/services");
             }}
-          >{`Book Now!`}</div>
+          >{`Book Now!`}</div> */}
           <div
             className="hamburger__menu__option"
             onClick={() => {
