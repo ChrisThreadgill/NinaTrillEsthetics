@@ -107,7 +107,9 @@ function NewServiceForm() {
                 setTitle(e.target.value);
               }}
             />
-            <label>Description</label>
+            <label className="new__service__label">
+              Description <span>*</span>
+            </label>
             <textarea
               className="new__service__text__area"
               type="text"
@@ -156,7 +158,7 @@ function NewServiceForm() {
               />
             </div>
             <button className="new__service__button" disabled={disabled}>
-              new service
+              New Service
             </button>
           </div>
         </form>
