@@ -241,6 +241,7 @@ function EmployeeScheduleCustomerView({
     }
 
     return () => {
+      dispatch(appointmentsActions.cleanAppointments());
       // const { formattedDate } = formatDate(new Date());
       // setSelectedDate(todaysDate);
     };

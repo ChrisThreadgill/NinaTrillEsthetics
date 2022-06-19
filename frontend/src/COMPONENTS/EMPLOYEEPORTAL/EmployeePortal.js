@@ -22,6 +22,9 @@ function EmployeePortal() {
       dispatch(employeeServicesActions.getAllEmployeeServices(sessionUser.user?.id));
       dispatch(appointmentsActions.getAllAppointmentsForEmployee(sessionUser.user?.id));
     }
+    return () => {
+      dispatch(appointmentsActions.cleanAppointments());
+    };
   }, [dispatch, sessionUser]);
   return (
     <div className="employee__portal__container">

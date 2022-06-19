@@ -5,7 +5,8 @@
 
   flex-direction: column;
   justify-content: space-between;
-  width: 700px;
+  min-width: 900px;
+  width: auto;
   min-height: 500px;
   height: auto;
   border-radius: 5px;
@@ -80,7 +81,16 @@
   color: whitesmoke;
 }
 .appointment__calendar__header__date {
-  margin-right: 115px;
+  margin-bottom: 15px;
+  color: whitesmoke;
+  text-align: center;
+  margin-right: 10px;
+}
+.appointment__calendar__header__time {
+  margin-bottom: 15px;
+  color: whitesmoke;
+  text-align: center;
+  margin-right: 10px;
 }
 
 .appointment__edit__go__back {
@@ -98,7 +108,15 @@
   height: 35px;
   margin-left: 7px;
   cursor: pointer;
+
+  text-decoration: underline;
 }
 /* .appointment__calendar__header__time {
   margin-left: 50px;
 } */
+
+.appointment__edit__date__picker__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

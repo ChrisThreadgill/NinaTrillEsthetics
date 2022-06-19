@@ -10,28 +10,35 @@ function EmployeeAppointmentCalendar() {
   const allEmployeeAppointments = useSelector((state) => state.appointments);
   const allEmployeeAppointmentsArr = Object.values(allEmployeeAppointments);
   const { formattedDate } = formatDate(new Date());
+  const [refilter, setRefilter] = useState(false);
   const [selectedDate, setSelectedDate] = useState(formattedDate);
   const [selectedAppointments, setSelectedAppointments] = useState([]);
-  console.log(Object.values(allEmployeeAppointments));
-  console.log(selectedDate, "type of", typeof selectedDate);
-  console.log(allEmployeeAppointmentsArr, "------------------");
   useEffect(() => {
     const filtered = allEmployeeAppointmentsArr.filter((appointment) => console.log(selectedDate, appointment.date));
-    console.log(filtered);
     setSelectedAppointments(allEmployeeAppointmentsArr.filter((appointment) => appointment.date == selectedDate));
-  }, [selectedDate]);
+  }, [selectedDate, dispatch, allEmployeeAppointmentsArr]);
   //
-  console.log(selectedAppointments);
+  const dateManip = new Date();
+  let yesterday = new Date(dateManip);
+  yesterday.setDate(yesterday.getDate() - 1);
 
   return (
     <div className="employee__appointment__calendar__view__container">
       <div className="employee__appointments__container">
+        <div className="employee__appointments__header">Your Appointments</div>
         {selectedAppointments.map((appointment) => {
-          return <EmployeeAppointmentCard key={appointment.id} appointment={appointment}></EmployeeAppointmentCard>;
+          return (
+            <EmployeeAppointmentCard
+              key={appointment.id}
+              setRefilter={setRefilter}
+              appointment={appointment}
+            ></EmployeeAppointmentCard>
+          );
         })}
       </div>
       <div className="employee__appointment__calendar__container">
         <DatePicker
+          selected={yesterday}
           showDateDisplay={false}
           minDate={new Date()}
           onChange={(date) => {

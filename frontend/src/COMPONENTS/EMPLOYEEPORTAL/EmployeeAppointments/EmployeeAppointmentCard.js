@@ -4,7 +4,7 @@ import * as appointmentsActions from "../../../store/appointments";
 import { useDispatch } from "react-redux";
 const moment = require("moment");
 
-function EmployeeAppointmentCard({ appointment }) {
+function EmployeeAppointmentCard({ setRefilter, appointment }) {
   const dispatch = useDispatch();
   let date = appointment.date.toString();
   // const [showServices,setShowServices]
@@ -14,7 +14,9 @@ function EmployeeAppointmentCard({ appointment }) {
   let month = date.slice(0, -6);
   console.log(appointment.startTime);
   const cancel = async () => {
-    dispatch(appointmentsActions.cancelAppointment(appointment.id));
+    await dispatch(appointmentsActions.cancelAppointment(appointment.id));
+    setRefilter(true);
+    setRefilter(false);
   };
 
   return (

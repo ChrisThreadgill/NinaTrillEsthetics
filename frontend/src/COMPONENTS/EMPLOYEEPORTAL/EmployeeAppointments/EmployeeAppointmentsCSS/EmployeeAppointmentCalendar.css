@@ -22,3 +22,7 @@
 .employee__appointments__container::-webkit-scrollbar {
   display: none;
 }
+.employee__appointments__header {
+  color: whitesmoke;
+  font-weight: bold;
+}
