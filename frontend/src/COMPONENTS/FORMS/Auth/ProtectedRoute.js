@@ -7,7 +7,6 @@ const ProtectedRoute = (props) => {
   const [loaded, setLoaded] = useState();
   const user = useSelector((state) => state.session.user);
   const employee = useSelector((state) => state.currentEmployee);
-  console.log(employee);
 
   useEffect(() => {
     if (employee) setLoaded(true);

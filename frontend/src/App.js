@@ -7,8 +7,6 @@ import SignupFormPage from "./COMPONENTS/FORMS/Auth/Signup";
 import * as sessionActions from "./store/session";
 import * as currentEmployeeAction from "./store/currentEmployee";
 import Navigation from "./COMPONENTS/NAVBAR/Navbar";
-import DatePickerTest from "./COMPONENTS/test/Test";
-import TestAppointments from "./COMPONENTS/test/TestAppointments";
 import EmployeePortal from "./COMPONENTS/EMPLOYEEPORTAL/EmployeePortal";
 import HomePageServices from "./COMPONENTS/SITEHOME/SERVICES/HomePageServices";
 import HomePageEmployees from "./COMPONENTS/SITEHOME/EMPLOYEES/HomePageEmployees";
@@ -22,13 +20,11 @@ import Footer from "./COMPONENTS/Footer/Footer";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const currentEmployee = useSelector((state) => state.currentEmployee);
+  // const currentEmployee = useSelector((state) => state.currentEmployee);
   const userId = useSelector((state) => state.session?.user?.id);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => {
-      console.log(userId);
-
       setIsLoaded(true);
     });
   }, [dispatch]);
@@ -37,7 +33,7 @@ function App() {
     if (userId) {
       dispatch(currentEmployeeAction.checkEmployment(userId)).then(() => setIsLoaded(true));
     }
-  }, [userId]);
+  }, [userId, dispatch]);
   return (
     <>
       <Navigation isLoaded={isLoaded}></Navigation>
@@ -74,13 +70,13 @@ function App() {
             <Footer></Footer>
           </Route>
           {/* <Route path="/profile"></Route> */}
-
+          {/*
           <Route path="/test">
             <DatePickerTest></DatePickerTest>
           </Route>
           <Route path="/testAppointments">
             <TestAppointments></TestAppointments>
-          </Route>
+          </Route> */}
         </Switch>
       )}
     </>

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import * as servicesActions from "../../store/services";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./FormsCSS/EditServiceForm.css";
 
 function EditServiceForm({ service, setShowModal }) {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user);
-  console.log(service);
   const [title, setTitle] = useState(service.title);
   const [description, setDescription] = useState(service.description);
   const [price, setPrice] = useState(service.price);
@@ -14,20 +12,26 @@ function EditServiceForm({ service, setShowModal }) {
   const [errors, setErrors] = useState([]);
   const [hoursErr, setHoursErr] = useState([]);
   const [priceErr, setPriceErr] = useState([]);
-  const [enabled, setEnabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     setHoursErr([]);
     setPriceErr([]);
+    if (hours < 5) {
+      setDisabled(false);
+    }
+    if (price > 1) {
+      setDisabled(false);
+    }
     if (hours > 5) {
-      setHoursErr(["Hours cannots"]);
-      setEnabled(false);
+      setDisabled(true);
+      setHoursErr(["Services cannot exceed 5 hours"]);
     }
     if (price < 1) {
-      setEnabled(false);
+      setDisabled(true);
       setPriceErr(["Price must be between $1-$999"]);
     }
-  }, [hours, price]);
+  }, [hours, price, disabled]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -70,6 +74,7 @@ function EditServiceForm({ service, setShowModal }) {
               className="edit__service__input"
               type="text"
               value={title}
+              maxLength={72}
               onChange={(e) => setTitle(e.target.value)}
               required
             />
@@ -110,7 +115,7 @@ function EditServiceForm({ service, setShowModal }) {
               required
             />
           </label>
-          <button className="edit__service__buttons" type="submit" disabled={enabled}>
+          <button className="edit__service__buttons" type="submit" disabled={disabled}>
             Update
           </button>
           <div className="edit__service__cancel" onClick={() => setShowModal(false)}>

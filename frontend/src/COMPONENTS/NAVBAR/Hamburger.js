@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
@@ -9,8 +9,6 @@ function HamburgerMenu({ user }) {
   const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
   const currentEmployee = useSelector((state) => state.currentEmployee);
-  // console.log(user);
-  console.log(showMenu);
 
   const openMenu = () => {
     if (showMenu) setShowMenu(false);
@@ -18,18 +16,6 @@ function HamburgerMenu({ user }) {
       setShowMenu(true);
     }
   };
-
-  // useEffect(() => {
-  //   if (!showMenu) return;
-
-  //   const closeMenu = () => {
-  //     setShowMenu(false);
-  //   };
-
-  //   document.addEventListener("click", closeMenu);
-
-  //   return () => document.removeEventListener("click", closeMenu);
-  // }, [showMenu]);
 
   const logout = (e) => {
     e.preventDefault();
@@ -40,14 +26,6 @@ function HamburgerMenu({ user }) {
 
   return (
     <div className="hamburger__menu__container">
-      {/* <button className="hamburger__button" onClick={() => openMenu()}>
-        Menu
-      </button> */}
-      {/* <svg className="hamburger__button" viewBox="0 0 100 80" width="40" height="40" onClick={() => openMenu()}>
-        <rect className="rectangle" width="50" height="7"></rect>
-        <rect className="rectangle" y="20" width="50" height="7"></rect>
-        <rect className="rectangle" y="40" width="50" height="7"></rect>
-      </svg> */}
       <div className="hamburger__button" onClick={() => openMenu()}>
         <div></div>
         <div></div>

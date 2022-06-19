@@ -112,11 +112,8 @@ const userValidatorsNoPhone = [
 router.post(
   "/",
   userValidators,
-
   asyncHandler(async (req, res) => {
     const { email, password, fName, lName, phoneNum } = req.body;
-
-    console.log("in the else on post");
     const user = await User.signup({ email, password, fName, lName, phoneNum });
     await setJWT(res, user);
     return res.json({
@@ -127,11 +124,8 @@ router.post(
 router.post(
   "/noPhone",
   userValidatorsNoPhone,
-
   asyncHandler(async (req, res) => {
     const { email, password, fName, lName } = req.body;
-
-    console.log("in the else on post");
     const user = await User.signup({ email, password, fName, lName });
     await setJWT(res, user);
     return res.json({
@@ -143,13 +137,10 @@ router.post(
 router.get(
   "/employees",
   asyncHandler(async (req, res) => {
-    console.log("inside the route");
     const employees = await User.findAll({
       where: { role: { [Op.gt]: 1 } },
       include: [Service, Schedule, profilePicture],
     });
-
-    // console.log(employees);
     return res.json({
       employees,
     });
@@ -160,12 +151,7 @@ router.get(
   "/:userId",
   asyncHandler(async (req, res) => {
     const { userId } = req.params;
-    console.log(userId);
     const currentUser = await User.findByPk(userId);
-    // const serviceId = 3;
-    // const users = await User.findAll();
-    // console.log(users);
-
     return res.json({
       currentUser,
     });

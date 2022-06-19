@@ -53,9 +53,11 @@
   border: none;
   outline: 0;
   margin-right: 7px;
+  margin-top: 7px;
   height: 22px;
   background-color: rgb(35, 33, 33);
   color: whitesmoke;
+  cursor: pointer;
 }
 .employee__services__select {
   background-color: rgb(35, 33, 33);

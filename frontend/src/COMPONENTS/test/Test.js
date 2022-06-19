@@ -15,7 +15,6 @@ function DatePickerTest() {
   const services = useSelector((state) => state.services);
   const sessionUser = useSelector((state) => state.session);
   const employeeServices = useSelector((state) => state.employeeServices);
-  // console.log(employeeServices, "----------------------");
 
   //MANAGER ADDITION OF SERVICE
   const [title, setTitle] = useState("");
@@ -25,8 +24,6 @@ function DatePickerTest() {
 
   //EMPLOYEE ADDING SERVICE
   const [employeeServiceId, setEmployeeServiceId] = useState("");
-
-  // console.log(startDate);
 
   const handleDelete = (serviceId) => {
     dispatch(servicesActions.deleteOneService(serviceId));

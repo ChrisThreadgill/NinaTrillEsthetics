@@ -2,6 +2,7 @@ import "./FormsCSS/NewServiceForm.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as servicesActions from "../../store/services.js";
+import * as employeeServicesActions from "../../store/employeeServices.js";
 import EditServiceModal from "../Modals/EditService";
 
 function NewServiceForm() {
@@ -10,12 +11,38 @@ function NewServiceForm() {
 
   const services = useSelector((state) => state.services);
   const sessionUser = useSelector((state) => state.session);
+  const employee = useSelector((state) => state.currentEmployee);
 
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [hours, setHours] = useState("");
   const [errors, setErrors] = useState([]);
+  const [hoursErr, setHoursErr] = useState([]);
+  const [priceErr, setPriceErr] = useState([]);
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    setHoursErr([]);
+    setPriceErr([]);
+    if (price > 1) {
+      setDisabled(false);
+    }
+    if (hours < 5) {
+      setDisabled(false);
+    }
+    if (hours > 5) {
+      setDisabled(true);
+      setHoursErr(["Services cannot exceed 5 hours"]);
+    }
+    if (price < 1) {
+      setDisabled(true);
+      setPriceErr(["Price must be between $1-$999"]);
+    }
+    if (!price) {
+      setPriceErr([]);
+    }
+  }, [hours, price, disabled]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,8 +62,10 @@ function NewServiceForm() {
       });
   };
 
-  const handleDelete = (serviceId) => {
-    dispatch(servicesActions.deleteOneService(serviceId));
+  const handleDelete = async (serviceId) => {
+    dispatch(servicesActions.deleteOneService(serviceId)).then(() => {
+      dispatch(employeeServicesActions.getAllEmployeeServices(employee.id));
+    });
   };
 
   return (
@@ -44,13 +73,23 @@ function NewServiceForm() {
       {/* <h1>SUBMIT NEW SERVICE FORM</h1> */}
       <div className="new__service__form__container">
         <div className="new__service__header">New Service</div>
-        <ul>
-          {errors.map((error, idx) => (
-            <div className="new__service__error" key={idx}>
-              {error}
-            </div>
-          ))}
-        </ul>
+
+        {errors.map((error, idx) => (
+          <div className="new__service__error" key={idx}>
+            {error}
+          </div>
+        ))}
+        {hoursErr.map((error, idx) => (
+          <div className="new__service__error" key={idx}>
+            {error}
+          </div>
+        ))}
+        {priceErr.map((error, idx) => (
+          <div className="new__service__error" key={idx}>
+            {error}
+          </div>
+        ))}
+
         <form onSubmit={handleSubmit} className="new__service__form">
           <div className="new__service__description__container">
             <label>Name</label>
@@ -71,7 +110,7 @@ function NewServiceForm() {
               type="text"
               name="model"
               value={description}
-              maxLength={85}
+              maxLength={500}
               cols="40"
               rows="5"
               required
@@ -109,7 +148,9 @@ function NewServiceForm() {
                 }}
               />
             </div>
-            <button className="new__service__button">new service</button>
+            <button className="new__service__button" disabled={disabled}>
+              new service
+            </button>
           </div>
         </form>
       </div>

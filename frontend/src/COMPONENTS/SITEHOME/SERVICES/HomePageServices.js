@@ -23,18 +23,9 @@ function HomePageServices() {
 
   useEffect(() => {
     setSelectedEmployee(employeesObj[employeeId]);
-    serviceSet = new Set();
-    setSelectedServices(serviceSet);
-    console.log(serviceSet, "--------------------");
-    return () => {
-      setSelectedServicesInfo("");
-    };
   }, [employeeId]);
 
   useEffect(() => {
-    // serviceSet = new Set();
-    // setSelectedServices(serviceSet);
-    console.log(serviceSet);
     dispatch(employeesActions.getAllEmployees()).then(() => setIsLoaded(true));
     dispatch(servicesActions.getAllServices());
   }, [dispatch]);
@@ -68,16 +59,8 @@ function HomePageServices() {
             ></EmployeeScheduleCustomerView>
             <AvailableServices
               selectedEmployee={selectedEmployee}
-              selectedServices={selectedServices}
               servicesId={servicesId}
               setServicesId={setServicesId}
-              setSelectedServices={setSelectedServices}
-              selectedServicesInfo={selectedServicesInfo}
-              setSelectedServicesInfo={setSelectedServicesInfo}
-              employeeId={employeeId}
-              serviceSet={serviceSet}
-              setErrors={setErrors}
-              errors={errors}
             ></AvailableServices>
           </div>
 

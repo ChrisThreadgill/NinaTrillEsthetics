@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./EmployeeServicesCSS/EmployeeServices.css";
 import * as employeeServicesActions from "../../../store/employeeServices";
@@ -10,12 +10,11 @@ function EmployeeServices() {
   const employeeServices = useSelector((state) => state.employeeServices);
   const employeeServicesArr = Object.values(employeeServices);
   const servicesArr = Object.values(services);
-  const employeeServicesIdArr = employeeServicesArr.filter((employeeService) => {
-    employeeServicesArr.includes(employeeService);
-    console.log(employeeService.id);
-    return employeeService.id;
-  });
-  console.log(services, employeeServices, employeeServicesIdArr, "services and employee services");
+  // const employeeServicesIdArr = employeeServicesArr.filter((employeeService) => {
+  //   employeeServicesArr.includes(employeeService);
+
+  //   return employeeService.id;
+  // });
 
   const [employeeServiceId, setEmployeeServiceId] = useState("");
   //

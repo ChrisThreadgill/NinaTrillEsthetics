@@ -1,10 +1,9 @@
 import "./EmployeeAppointmentsCSS/EmployeeAppointmentCard.css";
-import { useState, useEffect } from "react";
 import * as appointmentsActions from "../../../store/appointments";
 import { useDispatch } from "react-redux";
 const moment = require("moment");
 
-function EmployeeAppointmentCard({ setRefilter, appointment }) {
+function EmployeeAppointmentCard({ appointment }) {
   const dispatch = useDispatch();
   let date = appointment.date.toString();
   // const [showServices,setShowServices]
@@ -12,11 +11,10 @@ function EmployeeAppointmentCard({ setRefilter, appointment }) {
   let day = date.slice(-6, -4);
   let year = date.slice(-4);
   let month = date.slice(0, -6);
-  console.log(appointment.startTime);
   const cancel = async () => {
-    await dispatch(appointmentsActions.cancelAppointment(appointment.id));
-    setRefilter(true);
-    setRefilter(false);
+    dispatch(appointmentsActions.cancelAppointment(appointment.id));
+    // setRefilter(true);
+    // setRefilter(false);
   };
 
   return (

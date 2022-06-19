@@ -1,41 +1,12 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./AvailableServicesCSS/AvailableServices.css";
 
-function AvailableServices({
-  selectedEmployee,
-  selectedServices,
-  setSelectedServices,
-  serviceSet,
-  setSelectedServicesInfo,
-  setErrors,
-  errors,
-  servicesId,
-  setServicesId,
-}) {
+function AvailableServices({ selectedEmployee, servicesId, setServicesId }) {
   //
   const sessionUser = useSelector((state) => state.session.user);
   const employeeCheck = useSelector((state) => state.currentEmployee.role);
   const history = useHistory();
-
-  console.log(sessionUser);
-  const addService = (service) => {
-    if (employeeCheck) {
-      window.alert("You cannot schedule appointments as an employee");
-      return;
-    } else {
-      serviceSet.add(service);
-    }
-  };
-  const removeService = (service) => {
-    serviceSet.delete(service);
-  };
-
-  const testArr = [];
-  useEffect(() => {
-    console.log(servicesId);
-  }, [servicesId]);
 
   return (
     <div className="available__services__container">
@@ -69,7 +40,6 @@ function AvailableServices({
                         servicesId.splice(idx, 1);
 
                         setServicesId([...servicesId]);
-                        console.log(servicesId);
                       } else {
                         return;
                       }

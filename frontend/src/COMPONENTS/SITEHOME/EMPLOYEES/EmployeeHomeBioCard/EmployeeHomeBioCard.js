@@ -2,7 +2,6 @@ import "./EmployeeHomeBioCardCSS/EmployeeHomeBioCard.css";
 
 function EmployeeHomeBioCard({ employee }) {
   //
-  console.log(employee.profilePicture.profileUrl);
 
   return (
     <div className="employee__home__bio__card__container">

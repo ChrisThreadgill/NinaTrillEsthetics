@@ -7,7 +7,7 @@ const ALL_CUSTOMER = "appointments/customerAll";
 const ALL_EMPLOYEE = "appointments/employeeAll";
 const CLEAN = "appointments/clean";
 const DELETE = "appointments/delete";
-const ADD_RELATION = "appointments/addRELATION";
+// const ADD_RELATION = "appointments/addRELATION";
 
 const allAppointments = (appointments) => {
   return {
@@ -44,7 +44,6 @@ export const getAllAppointments = () => async (dispatch) => {
     method: "GET",
   });
   const appointments = await response.json();
-  console.log(appointments);
 
   dispatch(allAppointments(appointments));
   return appointments;
@@ -54,7 +53,6 @@ export const getAllAppointmentsForCustomer = (customerId) => async (dispatch) =>
     method: "GET",
   });
   const appointments = await response.json();
-  console.log(appointments);
 
   dispatch(allCustomerAppointments(appointments));
   return appointments;
@@ -64,34 +62,12 @@ export const getAllAppointmentsForEmployee = (employeeId) => async (dispatch) =>
     method: "GET",
   });
   const appointments = await response.json();
-  console.log(appointments);
 
   dispatch(allEmployeeAppointments(appointments));
   return appointments;
 };
 
-// export const bookAppointment = (appointment) => async (dispatch) => {
-
-//   const appointment = {
-//     date: selectedDate,
-//     startTime: 12,
-//     hours: 2,
-//     employeeId: 1,
-//     customerId: 3,
-//     services: "1 2 3 4",
-//   };
-//   const newAppointment = await csrfFetch(`/api/appointments`, {
-//     method: "POST",
-//     body: JSON.stringify(appointment),
-//   });
-//   const data = await newAppointment.json();
-//   console.log(response);
-//   if (response.newAppointment) {
-//   }
-// };
-
 export const cancelAppointment = (appointmentId) => async (dispatch) => {
-  console.log("in the thunk");
   const cancelledAppointment = await csrfFetch(`/api/appointments/${appointmentId}`, {
     method: "DELETE",
   });
@@ -101,29 +77,16 @@ export const cancelAppointment = (appointmentId) => async (dispatch) => {
   return response;
 };
 
-// export const clean = () => (dispatch) => {
-//   dispatch(cleanServices());
-// };
 const initialState = {};
 
 const appointmentsReducer = (state = initialState, action) => {
   let newState = clone(state);
   switch (action.type) {
-    // case ADD_RELATION:
-    //   const newEmployeeServices = {};
-    //   console.log(action.payload);
-    //   for (let newEmployeeService of action.payload) {
-    //     employeeServices[newEmployeeService.id] = newEmployeeService;
-    //   }
-
-    //   return { ...newEmployeeServices };
     case GET_ALL:
-      console.log(action.payload);
-
       return action.payload.appointments;
     case ALL_CUSTOMER:
       const customerAppointments = {};
-      console.log(action.payload);
+
       for (let appointment of action.payload.appointments) {
         customerAppointments[appointment.id] = appointment;
       }
@@ -131,7 +94,7 @@ const appointmentsReducer = (state = initialState, action) => {
       return { ...customerAppointments };
     case ALL_EMPLOYEE:
       const employeeAppointments = {};
-      console.log(action.payload);
+
       for (let appointment of action.payload.appointments) {
         employeeAppointments[appointment.id] = appointment;
       }

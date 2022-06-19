@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../../store/session";
 import "./AuthCSS/SignupForm.css";
 import { ExternalLink } from "react-external-link";
-import Footer from "../../Footer/Footer";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -25,12 +24,11 @@ function SignupFormPage() {
   const [phoneNumErrors, setPhoneNumErrors] = useState([]);
 
   if (sessionUser) return <Redirect to="/" />;
-  console.log(phoneNumErrors);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setConfirmErrors([]);
-      console.log(phoneNum);
+
       if (phoneNum) {
         return dispatch(sessionActions.signup({ email, fName, lName, password, phoneNum })).catch(async (res) => {
           const data = await res.json();
@@ -43,7 +41,6 @@ function SignupFormPage() {
           }
         });
       } else {
-        console.log("inside the else");
         return dispatch(sessionActions.signup({ email, fName, lName, password })).catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) {

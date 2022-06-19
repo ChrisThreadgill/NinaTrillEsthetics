@@ -14,16 +14,12 @@ function TestAppointments() {
   const [startDate, setStartDate] = useState(new Date());
   const [minHour, setMinHour] = useState(6);
   const { formattedDate: todaysDate } = formatDate(new Date());
-  // console.log(todaysDate);
   const [selectedDate, setSelectedDate] = useState(todaysDate);
   const [selectedTime, setSelectedTime] = useState("");
   const [weekDay, setWeekDay] = useState("");
   const [currentAppointments, setCurrentAppointments] = useState([]);
   const [trigger, setTrigger] = useState(false);
-  // console.log(allAppointments, "all appointments");
-  // console.log(currentAppointments);
-  //
-  // console.log(moment(13, "HH:mm").format("hh:mm a"));
+
   let schedule = [10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5];
 
   const bookAppointment = async (e) => {
@@ -41,8 +37,6 @@ function TestAppointments() {
       body: JSON.stringify(appointment),
     }).catch(async (res) => {
       const data = await res.json();
-
-      console.log(data.errors);
     });
     // if (response.newAppointment) {
     // }
@@ -52,11 +46,11 @@ function TestAppointments() {
       const currentAppointments = allAppointments?.filter(
         (appointment) => appointment.date == selectedDate && appointment.employeeId == 2
       );
-      console.log(currentAppointments);
+
       setCurrentAppointments(checkAvailableTimes(currentAppointments, schedule));
     }
   }, [selectedDate]);
-  console.log(currentAppointments);
+
   useEffect(() => {
     //setting date to today's formatted date on component mount
     const { formattedDate } = formatDate(new Date());
@@ -71,7 +65,6 @@ function TestAppointments() {
       <DatePicker
         onChange={(date) => {
           const { formattedDate, weekDay } = formatDate(date);
-          // console.log(formattedDate, weekDay);
           setSelectedDate(formattedDate);
           setWeekDay(weekDay);
           setStartDate(date);
@@ -91,10 +84,9 @@ function TestAppointments() {
               () => {
                 if (typeof timeSlot === "string") {
                   const decimalTime = timeSlot.split(":")[0];
-                  console.log(Number(decimalTime));
+
                   setSelectedTime(Number(decimalTime));
                 } else {
-                  console.log(timeSlot);
                   setSelectedTime(timeSlot);
                 }
               }
