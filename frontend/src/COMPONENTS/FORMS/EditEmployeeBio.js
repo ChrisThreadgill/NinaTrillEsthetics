@@ -31,7 +31,7 @@ function EditEmployeeBio() {
     <div className="employee__profile__edit">
       <form onSubmit={editEmployeeProfile} className="employee__profile__edit__form">
         <div className="employee__profile__title">Welcome, {currentEmployee?.fName}</div>
-        <div className="employee__profile__bio">EMPLOYEE BIO EDITING COMING SOON</div>
+        {/* <div className="employee__profile__bio">BIO</div>
         {bioErrors && bioErrors.bio && <div className="employee__portal__errors">{bioErrors.bio}</div>}
         <textarea
           className="employee__portal__bio__input"
@@ -43,7 +43,7 @@ function EditEmployeeBio() {
           onFocus={() => setBioActive(true)}
           onBlur={() => setBioActive(false)}
           onChange={(e) => setEmployeeBio(e.target.value)}
-        ></textarea>
+        ></textarea> */}
       </form>
     </div>
   );

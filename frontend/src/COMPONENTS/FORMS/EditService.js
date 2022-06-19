@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as servicesActions from "../../store/services";
-import { useDispatch } from "react-redux";
+import * as employeeServicesActions from "../../store/employeeServices";
 import "./FormsCSS/EditServiceForm.css";
 
 function EditServiceForm({ service, setShowModal }) {
   const dispatch = useDispatch();
+  const employee = useSelector((state) => state.currentEmployee);
   const [title, setTitle] = useState(service.title);
   const [description, setDescription] = useState(service.description);
   const [price, setPrice] = useState(service.price);
@@ -41,7 +43,12 @@ function EditServiceForm({ service, setShowModal }) {
 
     // setShowModal(false);
     return dispatch(servicesActions.updateOneService(service.id, body))
-      .then(() => setShowModal(false))
+      .then(() => {
+        dispatch(employeeServicesActions.getAllEmployeeServices(employee.id));
+
+        setShowModal(false);
+      })
+
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);

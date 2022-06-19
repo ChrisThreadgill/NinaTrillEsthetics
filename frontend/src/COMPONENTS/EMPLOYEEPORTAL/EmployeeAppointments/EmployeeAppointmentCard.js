@@ -16,12 +16,13 @@ function EmployeeAppointmentCard({ appointment }) {
     // setRefilter(true);
     // setRefilter(false);
   };
-
+  let appointmentTime = Number(appointment.startTime);
+  if (appointmentTime % 1 !== 0) appointmentTime = `${Math.floor(appointmentTime)}:30`;
   return (
     <div className="employee__appointment__card__container">
       <div className="employee__appointment__time__details">
         <div className="employee__appointment__time">
-          {moment(appointment.startTime, "HH:mm").format("hh:mm A")}
+          {moment(appointmentTime, "HH:mm").format("hh:mm A")}
 
           {/* {`Your Appointment on ${month}/${day}/${year}`} */}
         </div>

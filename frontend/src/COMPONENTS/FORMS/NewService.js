@@ -51,10 +51,11 @@ function NewServiceForm() {
     dispatch(servicesActions.addOneService(service))
       .then(() => {
         setErrors([]);
-        setTitle("");
+        window.alert(`Your new service ${title} has been successfully created! Thank you`);
         setPrice("");
         setDescription("");
         setHours("");
+        setTitle("");
       })
       .catch(async (res) => {
         const data = await res.json();
@@ -92,7 +93,9 @@ function NewServiceForm() {
 
         <form onSubmit={handleSubmit} className="new__service__form">
           <div className="new__service__description__container">
-            <label>Name</label>
+            <label className="new__service__label">
+              Name <span>*</span>
+            </label>
             <input
               className="new__service__add__input"
               type="text"
@@ -113,7 +116,7 @@ function NewServiceForm() {
               maxLength={500}
               cols="40"
               rows="5"
-              required
+              // required
               onChange={(e) => {
                 setDescription(e.target.value);
               }}
@@ -121,7 +124,9 @@ function NewServiceForm() {
           </div>
           <div className="new__service__price__submit">
             <div>
-              <label>$</label>
+              <label className="new__service__label">
+                $ <span>*</span>
+              </label>
               <input
                 className="new__service__add__input"
                 type="text"
@@ -135,7 +140,9 @@ function NewServiceForm() {
               />
             </div>
             <div>
-              <label>Hours</label>
+              <label className="new__service__label">
+                Hours <span>*</span>
+              </label>
               <input
                 className="new__service__add__input"
                 type="text"
@@ -154,28 +161,31 @@ function NewServiceForm() {
           </div>
         </form>
       </div>
-      <div className="employee__all__services__container">
-        {Object.values(services).map((service, idx) => {
-          return (
-            <div key={idx} className="employee__service__container">
-              <div>
-                <div className="employee__service__title">{service.title}</div>
-                <div className="employee__service__price">${service.price}</div>
-                <div>Time: {service.hours}</div>
+      <div>
+        <div className="all__services__header">ALL SERVICES</div>
+        <div className="employee__all__services__container">
+          {Object.values(services).map((service, idx) => {
+            return (
+              <div key={idx} className="employee__service__container">
+                <div>
+                  <div className="employee__service__title">{service.title}</div>
+                  <div className="employee__service__price">${service.price}</div>
+                  <div>Time: {service.hours}</div>
+                </div>
+                <div className="employee__service__edit__container">
+                  <EditServiceModal service={service}></EditServiceModal>
+                  <div
+                    className="employee__service__delete"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleDelete(service.id);
+                    }}
+                  ></div>
+                </div>
               </div>
-              <div className="employee__service__edit__container">
-                <EditServiceModal service={service}></EditServiceModal>
-                <div
-                  className="employee__service__delete"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleDelete(service.id);
-                  }}
-                ></div>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

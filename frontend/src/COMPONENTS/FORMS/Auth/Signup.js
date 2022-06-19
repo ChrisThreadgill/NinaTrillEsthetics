@@ -10,6 +10,8 @@ function SignupFormPage() {
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [emailErrors, setEmailErrors] = useState([]);
+  const [blankF, setBlankF] = useState([]);
+  const [blankL, setBlankL] = useState([]);
 
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
@@ -26,6 +28,8 @@ function SignupFormPage() {
   if (sessionUser) return <Redirect to="/" />;
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!fName.length || fName.trim().length === 0) return setBlankF(["Please Provide a First Name"]);
+    if (!lName.length || lName.trim().length === 0) return setBlankL(["Please Provide a Last Name"]);
     if (password === confirmPassword) {
       setConfirmErrors([]);
 
@@ -34,9 +38,9 @@ function SignupFormPage() {
           const data = await res.json();
           if (data && data.errors) {
             setPasswordErrors(data.errors.filter((error) => error.includes("password")));
-            setFNameErrors(data.errors.filter((error) => error.includes("first name")));
+            setFNameErrors(data.errors.filter((error) => error.includes("irst name")));
             setLNameErrors(data.errors.filter((error) => error.includes("last name")));
-            setEmailErrors(data.errors.filter((error) => error.includes("email")));
+            setEmailErrors(data.errors.filter((error) => error.includes("Email")));
             setPhoneNumErrors(data.errors.filter((error) => error.includes("phone")));
           }
         });
@@ -45,9 +49,9 @@ function SignupFormPage() {
           const data = await res.json();
           if (data && data.errors) {
             setPasswordErrors(data.errors.filter((error) => error.includes("password")));
-            setFNameErrors(data.errors.filter((error) => error.includes("first name")));
-            setLNameErrors(data.errors.filter((error) => error.includes("last name")));
-            setEmailErrors(data.errors.filter((error) => error.includes("email")));
+            setFNameErrors(data.errors.filter((error) => error.includes("irst name")));
+            setLNameErrors(data.errors.filter((error) => error.includes("ast name")));
+            setEmailErrors(data.errors.filter((error) => error.includes("Email")));
             setPhoneNumErrors(data.errors.filter((error) => error.includes("phone")));
           }
         });
@@ -67,13 +71,31 @@ function SignupFormPage() {
                   {error}
                 </div>
               ))}
+              {blankF.map((error, idx) => (
+                <div className="signup__errors" key={idx}>
+                  {error}
+                </div>
+              ))}
               <div className="signup__label__name">
                 First Name <span>*</span>
               </div>
             </label>
-            <input className="signup__input" type="text" value={fName} onChange={(e) => setFName(e.target.value)} />
+            <input
+              className="signup__input"
+              type="text"
+              value={fName}
+              onChange={(e) => {
+                setBlankF([]);
+                setFName(e.target.value);
+              }}
+            />
             <label className="signup__label">
               {lNameErrors.map((error, idx) => (
+                <div className="signup__errors" key={idx}>
+                  {error}
+                </div>
+              ))}
+              {blankL.map((error, idx) => (
                 <div className="signup__errors" key={idx}>
                   {error}
                 </div>
@@ -82,7 +104,15 @@ function SignupFormPage() {
                 Last Name <span>*</span>
               </div>
             </label>
-            <input className="signup__input" type="text" value={lName} onChange={(e) => setLName(e.target.value)} />
+            <input
+              className="signup__input"
+              type="text"
+              value={lName}
+              onChange={(e) => {
+                setBlankL([]);
+                setLName(e.target.value);
+              }}
+            />
             <label className="signup__label">
               {emailErrors.map((error, idx) => (
                 <div className="signup__errors" key={idx}>

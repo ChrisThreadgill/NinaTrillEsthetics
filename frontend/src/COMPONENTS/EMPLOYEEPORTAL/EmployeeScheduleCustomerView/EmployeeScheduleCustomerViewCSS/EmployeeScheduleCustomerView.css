@@ -160,6 +160,7 @@
 }
 
 .customer__appointment__selected__time {
+  margin-top: 10px;
   text-align: center;
   font-weight: bold;
   color: rgb(35, 33, 33);

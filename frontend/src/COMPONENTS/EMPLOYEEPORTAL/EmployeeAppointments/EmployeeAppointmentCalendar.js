@@ -13,7 +13,6 @@ function EmployeeAppointmentCalendar() {
   let yesterday = new Date(dateManip);
   yesterday.setDate(yesterday.getDate() - 1);
   const { formattedDate } = formatDate(yesterday);
-  console.log(formattedDate);
   const [selectedDate, setSelectedDate] = useState(formattedDate);
   const [selectedAppointments, setSelectedAppointments] = useState([]);
 
@@ -28,7 +27,7 @@ function EmployeeAppointmentCalendar() {
   return (
     <div className="employee__appointment__calendar__view__container">
       <div className="employee__appointments__container">
-        <div></div>
+        <div className="employee__appointments__header">Your Appointments</div>
         {selectedAppointments.map((appointment) => {
           return <EmployeeAppointmentCard key={appointment.id} appointment={appointment}></EmployeeAppointmentCard>;
         })}

@@ -35,6 +35,9 @@ function EmployeeServices() {
           value={employeeServiceId}
           onChange={(e) => setEmployeeServiceId(e.target.value)}
         >
+          <option className="option__placeholder" value="" disabled selected hidden>
+            Select a service
+          </option>
           {servicesArr.map((service, idx) => {
             return (
               <option key={idx} className="employee__services__option" value={service.id}>
