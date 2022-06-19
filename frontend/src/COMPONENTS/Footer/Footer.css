@@ -62,7 +62,10 @@
   margin: 5px 0 5px 0;
   font-size: 12px;
   color: #a45ee5;
-  text-decoration: none;
+  text-decoration: underline;
+}
+.about__links:hover {
+  color: whitesmoke;
 }
 
 .technologies__links {
