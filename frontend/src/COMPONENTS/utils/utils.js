@@ -2,7 +2,7 @@ export const checkAvailableTimes = (appointments, schedule, selectedHours) => {
   // console.log("selected hours in the check times function", selectedHours);
   // console.log(schedule);
   // console.log(appointments, "apppts and schedu inside utils");
-  console.log(schedule);
+  // console.log(schedule);
   let bookedTimes = [];
   let availableTimes = [...schedule];
   // console.log(availableTimes);
@@ -70,7 +70,7 @@ export const checkAvailableTimes = (appointments, schedule, selectedHours) => {
   //   }
   // }
   // console.log(availableTimes, "3999999999999999999999999999");
-  console.log(availableTimes, "after this selected hours if");
+  // console.log(availableTimes, "after this selected hours if");
   return availableTimes;
 };
 

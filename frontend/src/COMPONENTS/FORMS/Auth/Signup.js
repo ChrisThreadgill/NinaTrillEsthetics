@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../../store/session";
 import "./AuthCSS/SignupForm.css";
 import { ExternalLink } from "react-external-link";
-import Footer from "../../Footer/Footer";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [emailErrors, setEmailErrors] = useState([]);
+  const [blankF, setBlankF] = useState([]);
+  const [blankL, setBlankL] = useState([]);
 
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
@@ -25,32 +26,32 @@ function SignupFormPage() {
   const [phoneNumErrors, setPhoneNumErrors] = useState([]);
 
   if (sessionUser) return <Redirect to="/" />;
-  console.log(phoneNumErrors);
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!fName.length || fName.trim().length === 0) return setBlankF(["Please Provide a First Name"]);
+    if (!lName.length || lName.trim().length === 0) return setBlankL(["Please Provide a Last Name"]);
     if (password === confirmPassword) {
       setConfirmErrors([]);
-      console.log(phoneNum);
+
       if (phoneNum) {
         return dispatch(sessionActions.signup({ email, fName, lName, password, phoneNum })).catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) {
             setPasswordErrors(data.errors.filter((error) => error.includes("password")));
-            setFNameErrors(data.errors.filter((error) => error.includes("first name")));
+            setFNameErrors(data.errors.filter((error) => error.includes("irst name")));
             setLNameErrors(data.errors.filter((error) => error.includes("last name")));
-            setEmailErrors(data.errors.filter((error) => error.includes("email")));
+            setEmailErrors(data.errors.filter((error) => error.includes("Email")));
             setPhoneNumErrors(data.errors.filter((error) => error.includes("phone")));
           }
         });
       } else {
-        console.log("inside the else");
         return dispatch(sessionActions.signup({ email, fName, lName, password })).catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) {
             setPasswordErrors(data.errors.filter((error) => error.includes("password")));
-            setFNameErrors(data.errors.filter((error) => error.includes("first name")));
-            setLNameErrors(data.errors.filter((error) => error.includes("last name")));
-            setEmailErrors(data.errors.filter((error) => error.includes("email")));
+            setFNameErrors(data.errors.filter((error) => error.includes("irst name")));
+            setLNameErrors(data.errors.filter((error) => error.includes("ast name")));
+            setEmailErrors(data.errors.filter((error) => error.includes("Email")));
             setPhoneNumErrors(data.errors.filter((error) => error.includes("phone")));
           }
         });
@@ -70,13 +71,31 @@ function SignupFormPage() {
                   {error}
                 </div>
               ))}
+              {blankF.map((error, idx) => (
+                <div className="signup__errors" key={idx}>
+                  {error}
+                </div>
+              ))}
               <div className="signup__label__name">
                 First Name <span>*</span>
               </div>
             </label>
-            <input className="signup__input" type="text" value={fName} onChange={(e) => setFName(e.target.value)} />
+            <input
+              className="signup__input"
+              type="text"
+              value={fName}
+              onChange={(e) => {
+                setBlankF([]);
+                setFName(e.target.value);
+              }}
+            />
             <label className="signup__label">
               {lNameErrors.map((error, idx) => (
+                <div className="signup__errors" key={idx}>
+                  {error}
+                </div>
+              ))}
+              {blankL.map((error, idx) => (
                 <div className="signup__errors" key={idx}>
                   {error}
                 </div>
@@ -85,7 +104,15 @@ function SignupFormPage() {
                 Last Name <span>*</span>
               </div>
             </label>
-            <input className="signup__input" type="text" value={lName} onChange={(e) => setLName(e.target.value)} />
+            <input
+              className="signup__input"
+              type="text"
+              value={lName}
+              onChange={(e) => {
+                setBlankL([]);
+                setLName(e.target.value);
+              }}
+            />
             <label className="signup__label">
               {emailErrors.map((error, idx) => (
                 <div className="signup__errors" key={idx}>

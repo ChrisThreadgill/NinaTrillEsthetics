@@ -3,12 +3,12 @@ import rfdc from "rfdc";
 const clone = rfdc();
 
 const GET_ALL = "services/getAll";
-const GET_ONE = "services/getone";
+// const GET_ONE = "services/getone";
 const UPDATE = "/services/update";
 const CLEAN = "services/clean";
 const DELETE = "services/delete";
 const ADD_SERVICE = "services/add";
-const ADD_RELATION = "services/addRELATION";
+// const ADD_RELATION = "services/addRELATION";
 
 const allServices = (services) => {
   return {
@@ -23,12 +23,12 @@ const addService = (service) => {
   };
 };
 
-const addServiceRelation = (service) => {
-  return {
-    type: ADD_RELATION,
-    payload: service,
-  };
-};
+// const addServiceRelation = (service) => {
+//   return {
+//     type: ADD_RELATION,
+//     payload: service,
+//   };
+// };
 
 const updateService = (service) => {
   return {
@@ -64,7 +64,6 @@ export const addOneService = (service) => async (dispatch) => {
     body: JSON.stringify(service),
   });
   const response = await newService.json();
-  console.log(response);
 
   dispatch(addService(response.newService));
 };
@@ -75,20 +74,17 @@ export const updateOneService = (serviceId, body) => async (dispatch) => {
     body: JSON.stringify(body),
   });
   const service = await response.json();
-  console.log(service);
 
   dispatch(updateService(service.serviceToUpdate));
 };
 export const deleteOneService = (serviceId) => async (dispatch) => {
-  console.log("in the thunk");
   const serviceToDelete = await csrfFetch(`/api/services/managerDelete`, {
     method: "DELETE",
     body: JSON.stringify({ serviceId }),
   });
   const response = await serviceToDelete.json();
-  console.log(response);
-
   dispatch(deleteService(serviceId));
+  return response;
 };
 
 export const clean = () => (dispatch) => {
@@ -118,7 +114,6 @@ const servicesReducer = (state = initialState, action) => {
       return newState;
 
     case DELETE:
-      console.log(newState, "this is the new state");
       delete newState[action.payload];
       return newState;
     case CLEAN:

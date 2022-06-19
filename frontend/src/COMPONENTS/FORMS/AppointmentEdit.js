@@ -2,14 +2,13 @@ import { checkAvailableTimes, formatDate } from "../utils/utils";
 import "./FormsCSS/AppointmentEditForm.css";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import { csrfFetch } from "../../store/csrf";
 const moment = require("moment");
-// console.log(moment(13, "HH:mm").format("hh:mm a"));
 
 function AppointmentEditForm({ appointmentId, setShowModal }) {
-  const history = useHistory();
+  // const history = useHistory();
   //
   // getting all variables needed for the available times function
   const allAppointments = useSelector((state) => state.appointmentEdit);
@@ -28,9 +27,6 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
     (appointments) => appointments.employeeId == currentAppointmentEmployee.id
   );
   const currentEmployeeScheduleArr = currentAppointmentEmployee.Schedule.hours.split(" ");
-  // console.log(currentAppointmentEmployee, currentAppointment, "---------------------");
-  // console.log(currentEmployeesAppointments);
-  // console.log(currentEmployeeScheduleArr);
 
   //date display
   let day = currentAppointment[0].date.toString().slice(-6, -4);
@@ -56,7 +52,6 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
   yesterday.setDate(yesterday.getDate() - 1);
 
   const handleSubmit = async (e) => {
-    console.log("hello");
     e.preventDefault();
     const date = Number(selectedDate);
     const customerId = sessionUser.id;
@@ -78,13 +73,9 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
         body: JSON.stringify(appointmentUpdate),
       })
         .then(async (res) => {
-          console.log("inside the then");
           const data = await res.json();
-          console.log(data);
           if (data.appointmentToUpdate) {
-            console.log("inside the if statement");
             window.location.reload();
-            // setShowModal(false);
           }
         })
         .catch(async (res) => {
@@ -93,7 +84,6 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
         });
     } else {
       const startTime = selectedTime;
-      console.log(startTime, currentAppointmentEmployee.id);
       const appointmentUpdate = {
         date,
         customerId,
@@ -106,13 +96,9 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
         body: JSON.stringify(appointmentUpdate),
       })
         .then(async (res) => {
-          console.log("inside the then");
           const data = await res.json();
-          console.log(data);
           if (data.appointmentToUpdate) {
-            console.log("inside the if statement");
             window.location.reload();
-            // setShowModal(false);
           }
         })
         .catch(async (res) => {
@@ -129,10 +115,6 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
           Your Appointment with {currentAppointmentEmployee.fName} is scheduled at{" "}
           <p>{moment(appointmentTime, "HH:mm").format("hh:mm a")}</p> on <p>{` ${month}/${day}/${year}`}</p>
         </div>
-        {/* <div className="appointment__calendar__headers">
-          <div className="appointment__calendar__header__date">Select a date</div>
-          <div className="appointment__calendar__header__time">Available Times</div>
-        </div> */}
       </div>
 
       <div className="appointment__edit__calendar__container">
@@ -164,12 +146,8 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
             onChange={(date) => {
               setErrors([]);
               setEnableButton(true);
-
               const { formattedDate } = formatDate(date);
-              // // console.log(formattedDate, weekDay);
               setSelectedDate(formattedDate);
-              // setWeekDay(weekDay);
-              // setStartDate(date);
               setSelectedTime("");
             }}
             dateFormat="MMMM d, yyyy h:mm aa"
@@ -188,27 +166,16 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
                   <div
                     className="available__appointment__time__slot"
                     key={idx}
-                    onClick={
-                      () => {
-                        if (typeof timeSlot === "string" && !Number(timeSlot)) {
-                          // console.log(Number(timeSlot), "time slotttttttt");
-                          setErrors([]);
-
-                          const halfHourTime = timeSlot.split(".")[0];
-                          // console.log(decimalTime, "decimal timeeeeeeeeeeeeeeeee");
-                          setSelectedTime(`${halfHourTime}:30`);
-                          // if (errors.startTime) errors.startTime = null;
-                          // console.log(selectedTime, "new selected timeeeeeeeee");
-                        } else {
-                          // console.log(timeSlot);
-                          // if (errors.startTime) errors.startTime = null;
-                          setErrors([]);
-                          setSelectedTime(timeSlot);
-                        }
+                    onClick={() => {
+                      if (typeof timeSlot === "string" && !Number(timeSlot)) {
+                        setErrors([]);
+                        const halfHourTime = timeSlot.split(".")[0];
+                        setSelectedTime(`${halfHourTime}:30`);
+                      } else {
+                        setErrors([]);
+                        setSelectedTime(timeSlot);
                       }
-
-                      // setSelectedTime()
-                    }
+                    }}
                   >
                     {moment(timeSlot, "HH:mm").format("hh:mm A")}
                   </div>

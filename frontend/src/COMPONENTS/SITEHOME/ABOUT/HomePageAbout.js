@@ -10,12 +10,12 @@ function HomePageAbout() {
     <div className="home__page__about">
       <h1 className="home__page__about__header">Why we do it!</h1>
       <div className="home__page__about__bio">
-        With Hannah and her crew it isn't all about aesthetics as much as it is your comfort. Hannah and her crew are
-        extremely passionate about make sure that every client receives the most relaxing experience as possible. They
-        take pride in expressing that they have a safe space here at NinaTrill Esthetics. We are here to help you get
-        relaxed, make your skin feel great and make you feel better all together. Whether you just need a place to
-        decompress for a few hours or you have specific beauty goals set out we can assure you, here at NinaTrill
-        Esthetics we will exceed your expectations!
+        Here at NinaTrill Esthetics it isn't all about beauty as much as it is your comfort. We are extremely passionate
+        about making sure that every client receives the most relaxing experience as possible. We want everyone to know
+        that once you walk through those doors you are in a safe space here at NinaTrill Esthetics. We are here to help
+        you get relaxed, make your skin feel great and make you feel better all together. Whether you just need a place
+        to decompress for a few hours or you have specific beauty goals set out we can assure you, here at NinaTrill
+        Esthetics, we will exceed your expectations!
       </div>
       <div className="home__page__about__contact__us">
         <div className="home__page__about__phone">

@@ -13,10 +13,8 @@ function EmployeeScheduleCustomerView({
   setSchedule,
   selectedEmployee,
   employeeId,
-  selectedServices,
   selectedServicesInfo,
   setSelectedServicesInfo,
-  serviceSet,
   errors,
   setErrors,
   servicesId,
@@ -95,7 +93,6 @@ function EmployeeScheduleCustomerView({
                     "This time slot overlaps an already booked appointment, please select another time.";
                   break;
                 case "You will need to schedule appointments longer than 2.5 hours earlier in the day.":
-                  console.log(error);
                   normErrs["late"] = "You will need to schedule appointments longer than 2.5 hours earlier in the day.";
                   break;
               }
@@ -124,17 +121,13 @@ function EmployeeScheduleCustomerView({
         })
         .catch(async (res) => {
           const data = await res.json();
-          console.log(data, "dataaaaaaaaaaaaaaaaaaaaaaaaa");
 
           if (data.errors) {
-            console.log(data.errors);
             let normErrs = {};
             for (let i = 0; i < data.errors.length; i++) {
               let error = data.errors[i];
-              console.log(error, "erorrssssssssssssssss");
               switch (error) {
                 case "Please select an appointment time.":
-                  console.log(error);
                   normErrs["startTime"] = "Please select an appointment time.";
                   break;
                 case "Error calculating appointment hours":
@@ -158,7 +151,6 @@ function EmployeeScheduleCustomerView({
                     "This time slot overlaps an already booked appointment, please select another time.";
                   break;
                 case "You will need to schedule appointments longer than 2.5 hours earlier in the day.":
-                  console.log(error);
                   normErrs["late"] = "You will need to schedule appointments longer than 2.5 hours earlier in the day.";
                   break;
               }
@@ -172,20 +164,16 @@ function EmployeeScheduleCustomerView({
 
   //FILTERS ALL APPOINTMENTS BY DAY AND EMPLOYEEID
   useEffect(() => {
-    console.log(selectedDate, "selected date");
-    console.log(selectedEmployee);
     if (selectedEmployee) {
       const schedule = selectedEmployee.Schedule.hours.split(" ");
       setSchedule(schedule);
       if (allAppointments.length && schedule) {
-        // console.log("inside the filter");
         const currentAppointments = allAppointments?.filter(
           (appointment) => appointment.date == selectedDate && appointment.employeeId == employeeId
         );
 
         setCurrentAppointments(checkAvailableTimes(currentAppointments, schedule));
       }
-      // console.log(currentAppointments, "current appoints");
 
       return () => {
         setFormServices("");
@@ -196,11 +184,6 @@ function EmployeeScheduleCustomerView({
     }
   }, [selectedDate, employeeId, enabled, selectedEmployee]);
 
-  // const calculateServices = (servicesArr)=>{
-  //   for (let i = 0; i < servicesArr.length; i++) {
-  //     console.log(selectedServicesInfoArray[i]);
-  //   }
-  // }
   useEffect(() => {
     let total = 0;
     let hours = 0;
@@ -212,26 +195,12 @@ function EmployeeScheduleCustomerView({
       hours += Number(currentService.hours);
       services += serviceId + ",";
     }
-    console.log(total, hours, services, "id movement in customer schedule view");
-
-    // for (let i = 0; i < selectedServicesInfoArray.length; i++) {
-    //   let curService = selectedServicesInfoArray[i];
-    //   let curPrice = parseInt(curService.price);
-    //   let curHours = Number(curService.hours);
-    //   let curServiceId = curService.id.toString();
-    //   console.log(curServiceId);
-    //   total += curPrice;
-    //   hours += curHours;
-    //   services += curServiceId + ",";
-    // }
     setPrice(total);
     setSelectedHours(hours);
     setFormServices(services);
   }, [selectedServicesInfo, servicesId]);
 
-  useEffect(() => {
-    console.log(employeeCheck, "---------------------");
-  }, [employeeCheck]);
+  useEffect(() => {}, [employeeCheck]);
 
   useEffect(() => {
     //setting date to today's formatted date on component mount NOT WORKING
@@ -242,15 +211,12 @@ function EmployeeScheduleCustomerView({
 
     return () => {
       dispatch(appointmentsActions.cleanAppointments());
-      // const { formattedDate } = formatDate(new Date());
-      // setSelectedDate(todaysDate);
     };
   }, [dispatch]);
 
   const dateManip = new Date();
   let yesterday = new Date(dateManip);
   yesterday.setDate(yesterday.getDate() - 1);
-  console.log(errors);
   return (
     <div className="employee__schedule__customer__view__container">
       <div className="employee__schedule__customer__calendar__container">
@@ -262,10 +228,7 @@ function EmployeeScheduleCustomerView({
           onChange={
             sessionUser.user
               ? (date) => {
-                  console.log(date.getDate());
-                  console.log(date.getMonth());
                   const { formattedDate, weekDay } = formatDate(date);
-                  // console.log(formattedDate, weekDay);
                   setEnabled(true);
                   setErrors([]);
                   setSelectedDate(formattedDate);
@@ -331,9 +294,6 @@ function EmployeeScheduleCustomerView({
       {sessionUser.user ? (
         <div className="customer__appointment__form__container">
           <div className="customer__appointment__selected__options">
-            {/* {selectedTime % 1 === 0
-            ? setSelectedTime(moment(selectedTime, "HH:mm").format("hh:mm a"))
-          : setSelectedTime(moment(selectedTime.split(":")[0], "HH:mm").format("hh:mm a"))} */}
             <div className="customer__schedule__view__errors">{errors && errors.overlap}</div>
             <div className="customer__schedule__view__errors">{errors && errors.startTime}</div>
             <div className="customer__schedule__view__errors">{errors && errors.late}</div>

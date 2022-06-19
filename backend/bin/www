@@ -1,6 +1,5 @@
 // const { port } = require("../config");
 const port = process.env.PORT || "8080";
-console.log(port, "this is the port");
 
 const app = require("../app");
 const db = require("../db/models");

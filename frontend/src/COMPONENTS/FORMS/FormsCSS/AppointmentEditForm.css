@@ -25,6 +25,7 @@
   border: #a45ee5 2px ridge;
   color: rgb(35, 33, 33);
   font-weight: bold;
+  cursor: pointer;
 }
 
 .appointment__edit__form {
