@@ -3,11 +3,9 @@ const router = express.Router();
 const asyncHandler = require("express-async-handler");
 const { handleValidationErrors } = require("../../utils/validation");
 const { check } = require("express-validator");
-const { Op } = require("sequelize");
 
-const { setTokenCookie, requireAuth } = require("../../utils/auth");
+const { requireAuth } = require("../../utils/auth");
 const { User, Service, Appointment, userService } = require("../../db/models");
-const { db } = require("../../config");
 
 const serviceValidations = [
   check("title").exists({ checkFalsy: true }).withMessage("Please Provide a Service Name"),
@@ -23,7 +21,7 @@ const serviceValidations = [
   check("hours")
     .exists({ checkFalsy: true })
     .withMessage("Include total service time in hours.")
-    .isNumeric()
+    .isNumeric({ min: 1, max: 5 })
     .withMessage("Hours must be a number"),
   // .isInt({ min: 1, max: 5 })
   // .withMessage("Cannot exceed 5 hours and must be a whole number."),

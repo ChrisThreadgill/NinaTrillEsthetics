@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as servicesActions from "../../store/services";
 import { useDispatch, useSelector } from "react-redux";
 import "./FormsCSS/EditServiceForm.css";
@@ -12,6 +12,22 @@ function EditServiceForm({ service, setShowModal }) {
   const [price, setPrice] = useState(service.price);
   const [hours, setHours] = useState(service.hours);
   const [errors, setErrors] = useState([]);
+  const [hoursErr, setHoursErr] = useState([]);
+  const [priceErr, setPriceErr] = useState([]);
+  const [enabled, setEnabled] = useState(true);
+
+  useEffect(() => {
+    setHoursErr([]);
+    setPriceErr([]);
+    if (hours > 5) {
+      setHoursErr(["Hours cannots"]);
+      setEnabled(false);
+    }
+    if (price < 1) {
+      setEnabled(false);
+      setPriceErr(["Price must be between $1-$999"]);
+    }
+  }, [hours, price]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +47,16 @@ function EditServiceForm({ service, setShowModal }) {
   return (
     <div className="edit__service__form__container">
       {errors.map((error, idx) => (
+        <div className="edit__service__errors" key={idx}>
+          {error}
+        </div>
+      ))}
+      {hoursErr.map((error, idx) => (
+        <div className="edit__service__errors" key={idx}>
+          {error}
+        </div>
+      ))}
+      {priceErr.map((error, idx) => (
         <div className="edit__service__errors" key={idx}>
           {error}
         </div>
@@ -67,6 +93,7 @@ function EditServiceForm({ service, setShowModal }) {
             <input
               className="edit__service__input"
               type="text"
+              maxLength={3}
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               required
@@ -83,7 +110,7 @@ function EditServiceForm({ service, setShowModal }) {
               required
             />
           </label>
-          <button className="edit__service__buttons" type="submit">
+          <button className="edit__service__buttons" type="submit" disabled={enabled}>
             Update
           </button>
           <div className="edit__service__cancel" onClick={() => setShowModal(false)}>
