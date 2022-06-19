@@ -48,6 +48,7 @@ function CustomerHomePage() {
             }
             return (
               <CustomerAppointmentCard
+                key={appointment.id}
                 month={month}
                 day={day}
                 year={year}

@@ -13,15 +13,15 @@ module.exports = {
       [
         {
           userId: 1,
-          profileUrl: "https://i.postimg.cc/Qd8Vv1nj/ninatrill-profile-pic.jpg",
+          profileUrl: "https://i.ibb.co/HTBdQC1/ninatrill-profile-pic.jpg",
         },
         {
           userId: 2,
-          profileUrl: "https://postimg.cc/yDBQ2h3w",
+          profileUrl: "https://i.ibb.co/NVYztmV/paullllllll.jpg",
         },
         {
           userId: 3,
-          profileUrl: "https://postimg.cc/Z0nhMmzr",
+          profileUrl: "https://i.ibb.co/pnPH0Tm/vern-profile.png",
         },
       ],
       {}

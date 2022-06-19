@@ -42,9 +42,8 @@ export const getAllEmployeeServices = (employeeId) => async (dispatch) => {
 };
 
 export const addServiceRelation = (userId, serviceId) => async (dispatch) => {
-  console.log(serviceId, userId, "----------------------------");
   const data = { userId, serviceId };
-  console.log(serviceId);
+
   const newService = await csrfFetch(`/api/services/${userId}/${serviceId}`, {
     method: "POST",
     body: JSON.stringify(data),

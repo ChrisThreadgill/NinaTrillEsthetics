@@ -28,7 +28,7 @@ function CustomerAppointmentCard({
         {appointmentServicesArr.map((integer) => {
           if (integer) {
             return (
-              <div className="customer__appointment__card__services">
+              <div key={integer} className="customer__appointment__card__services">
                 <div>{allServices[integer]?.title}</div>
                 <div>{`$${allServices[integer]?.price}`}</div>
               </div>

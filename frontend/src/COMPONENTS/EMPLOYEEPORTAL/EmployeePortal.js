@@ -9,6 +9,7 @@ import EmployeeServices from "./EmployeeServices/EmployeeServices";
 import EditEmployeeBio from "../FORMS/EditEmployeeBio";
 import EmployeeAppointmentCalendar from "./EmployeeAppointments/EmployeeAppointmentCalendar";
 import NewServiceForm from "../FORMS/NewService";
+import EmployeeProfilePictureForm from "../FORMS/EmployeeProfilePicture";
 
 function EmployeePortal() {
   const dispatch = useDispatch();
@@ -29,10 +30,7 @@ function EmployeePortal() {
   return (
     <div className="employee__portal__container">
       <div className="employee__portal__left">
-        <div className="employee__profile__picture__edit">
-          <div className="employee__profile__pic">PIC</div>
-          <div className="employee__profile__pic__upload">UPLOADBUTTON</div>
-        </div>
+        <EmployeeProfilePictureForm></EmployeeProfilePictureForm>
         {/* <div className="employee__profile__edit">
           <div className="employee__profile__title">Title</div>
           <div className="employee__profile__bio">BIO</div>
