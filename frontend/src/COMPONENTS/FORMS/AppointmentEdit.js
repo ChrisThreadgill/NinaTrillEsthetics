@@ -43,7 +43,9 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
 
   //setup for controlled calendar input
   useEffect(() => {
-    const dailyAppointments = currentEmployeesAppointments.filter((appointments) => appointments.date == selectedDate);
+    const dailyAppointments = currentEmployeesAppointments.filter(
+      (appointments) => appointments.date == selectedDate && appointments.id != currentAppointment[0].id
+    );
     setAvailableTImes(checkAvailableTimes(dailyAppointments, currentEmployeeScheduleArr));
   }, [selectedDate]);
 
@@ -56,6 +58,7 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
     const date = Number(selectedDate);
     const customerId = sessionUser.id;
     const numberHours = Number(hours);
+    const appointmentId = currentAppointment[0].id;
 
     if (selectedTime.includes(":")) {
       let timeManipulation = selectedTime.split(":")[0];
@@ -67,6 +70,7 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
         hours: numberHours,
         employeeId: currentAppointmentEmployee.id,
         startTime,
+        appointmentId,
       };
       const updatedAppointment = await csrfFetch(`/api/appointments/${currentAppointment[0].id}`, {
         method: "PUT",
@@ -90,6 +94,7 @@ function AppointmentEditForm({ appointmentId, setShowModal }) {
         hours: numberHours,
         employeeId: currentAppointmentEmployee.id,
         startTime,
+        appointmentId,
       };
       const updatedAppointment = await csrfFetch(`/api/appointments/${currentAppointment[0].id}`, {
         method: "PUT",

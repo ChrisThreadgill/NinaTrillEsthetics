@@ -76,7 +76,7 @@ function HamburgerMenu({ user }) {
               openMenu();
               history.push("/about");
             }}
-          >{`Directions`}</div>
+          >{`Location`}</div>
           <button className="hamburger__menu__logout" onClick={logout}>
             Log Out
           </button>
