@@ -14,7 +14,6 @@ function EmployeeAppointmentCalendar() {
   const [selectedDate, setSelectedDate] = useState(formattedDate);
   const [selectedAppointments, setSelectedAppointments] = useState([]);
   useEffect(() => {
-    const filtered = allEmployeeAppointmentsArr.filter((appointment) => console.log(selectedDate, appointment.date));
     setSelectedAppointments(allEmployeeAppointmentsArr.filter((appointment) => appointment.date == selectedDate));
   }, [selectedDate, dispatch, allEmployeeAppointmentsArr]);
   //

@@ -5,8 +5,8 @@ const { handleValidationErrors } = require("../../utils/validation");
 const { check } = require("express-validator");
 const { Op } = require("sequelize");
 
-const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User, Service, Appointment, userService } = require("../../db/models");
+const { requireAuth } = require("../../utils/auth");
+const { Appointment } = require("../../db/models");
 
 const appointmentValidations = [
   check("startTime").exists({ checkFalsy: true }).withMessage("Please select an appointment time."),
@@ -69,12 +69,8 @@ const appointmentValidations = [
 router.get(
   "/",
   requireAuth,
-  // serviceValidations,
   asyncHandler(async (req, res) => {
-    // const { appointmentId } = req.params;
-
     const appointments = await Appointment.findAll();
-    // await newService.save();
     return res.json({
       appointments,
     });
@@ -87,7 +83,6 @@ router.post(
   appointmentValidations,
   asyncHandler(async (req, res) => {
     const { startTime, hours, employeeId, customerId, date, services } = req.body;
-    // let date = 20220817;
 
     const newAppointment = await Appointment.build({
       startTime,
@@ -126,7 +121,6 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const { employeeId } = req.params;
-    console.log(employeeId, "----------------------");
 
     const appointments = await Appointment.findAll({
       where: { employeeId: employeeId },
@@ -148,6 +142,7 @@ router.get(
     });
   })
 );
+
 router.put(
   "/:appointmentId",
   requireAuth,
