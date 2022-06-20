@@ -22,7 +22,7 @@ Users are able to sign up with email/phone number and can use either to log in
 ![Sign Up](readme-images/sign__up.JPG "")
 ![Login](readme-images/login__page.JPG "")
 
-Custom booking/sceduling function to adjust and show available appointment times based on employee schedule and appointments.
+Custom booking/sceduling function to adjust and show available services/appointment times based on employee schedule and appointments.
 ![Scheduling](readme-images/services__customer__scheduling__gif.gif "")
 
 Customer Appointment Rescheduling
