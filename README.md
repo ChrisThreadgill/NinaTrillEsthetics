@@ -10,6 +10,16 @@ Nina Trill Esthetics Live Link: https://ninatrill-esthetics.herokuapp.com/
 <a href="https://github.com/ChrisThreadgill"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" /></a>
 </div>
 
+
+## Features
+
+NinaTrill is a beta test to an employee management application that will allow small businesses to adjust their employee's schedules, appointments, and their services they offer.  As a customer you will be able to schedule your next appointment with any of the three employees.  Once you have scheduled an appointment you will have access to your customer home page where you will be able to reschedule your appointment with the same employee and services. 
+
+As an employee you will be able to login and view all of your appointments filtered by the date you choose.  Employees will have control over offering a new service. 
+Employees will also be able to add services for other employees to offer. 
+
+
+
 ## Technologies Used
 
 ---
