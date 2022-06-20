@@ -61,8 +61,8 @@ const appointmentValidations = [
                 "This time slot overlaps an already booked appointment, please select another time."
               );
           }
-          console.log(bookedTimes, "-------------------- BOOKED TIMES");
-          console.log(newAppointmentHours, "--------------------------");
+          // console.log(bookedTimes, "-------------------- BOOKED TIMES");
+          // console.log(newAppointmentHours, "--------------------------");
           // console.log(selectedAppointmentEndTime, "selected appointment time -------------------");
           if (bookedTimes.includes(selectedStartTime))
             return Promise.reject("This time slot has been booked, please select another time.");
