@@ -108,9 +108,8 @@ const appointmentEditValidations = [
             }
           }
 
-          for (let i = 0; i < appointmentsCopy.length - 1; i++) {
+          for (let i = 0; i < appointmentsCopy.length; i++) {
             let currAPP = appointments[i].dataValues;
-
             if (currAPP.id == req.body.appointmentId) {
               continue;
             }
@@ -120,13 +119,13 @@ const appointmentEditValidations = [
 
             if (hours > 0.5) {
               var bookedSlots = Number(startTime);
-
               for (let i = 0.5; i < hours; i += 0.5) {
                 bookedSlots += 0.5;
                 bookedTimes.push(bookedSlots);
               }
             }
           }
+
           while (newAppointmentHours.length) {
             let currentHourCheck = newAppointmentHours.pop();
             if (bookedTimes.includes(currentHourCheck))
