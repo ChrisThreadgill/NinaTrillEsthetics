@@ -18,7 +18,7 @@ NinaTrill is a beta test to an employee management application that will allow s
 As an employee you will be able to login and view all of your appointments filtered by the date you choose.  Employees will have control over offering a new service. 
 Employees will also be able to add services for other employees to offer. 
 
-
+![Sign Up](readme-images/sign__up.JPG "a title")
 
 ## Technologies Used
 
