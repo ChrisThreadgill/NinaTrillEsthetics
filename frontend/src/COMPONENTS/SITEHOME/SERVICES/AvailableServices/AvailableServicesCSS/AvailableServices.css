@@ -38,6 +38,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 800px;
+  width: auto;
+  overflow-wrap: break-word;
 }
 
 .available__service__title {
@@ -46,12 +49,16 @@
   align-self: flex-start;
   color: #a45ee5;
   font-weight: 800;
+  width: auto;
+  overflow-wrap: break-word;
 }
 .available__service__description {
   display: flex;
   flex-wrap: wrap;
-  max-width: 850px;
+  max-width: 800px;
   overflow: hidden;
+  width: auto;
+  overflow-wrap: break-word;
 }
 .available__service__add__container {
   margin: 0 35px 0 35px;
