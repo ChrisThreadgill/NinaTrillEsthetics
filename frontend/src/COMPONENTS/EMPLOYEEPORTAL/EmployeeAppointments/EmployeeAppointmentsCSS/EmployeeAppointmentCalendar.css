@@ -12,9 +12,10 @@
   align-items: center;
   justify-content: center;
   width: 40%;
-  height: 100%;
-  padding-top: 30px;
-  margin-top: 25px;
+  height: 80%;
+  max-height: 300px;
+  /* padding-top: 150px; */
+  /* margin-top: 150px; */
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;

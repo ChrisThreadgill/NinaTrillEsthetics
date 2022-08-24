@@ -105,3 +105,95 @@
 // }
 
 // export default TestAppointments;
+
+// 20220429025510 - create - boat;
+
+// ("use strict");
+// module.exports = {
+//   up: (queryInterface, Sequelize) => {
+//     return queryInterface.createTable("Boats", {
+//       id: {
+//         allowNull: false,
+//         autoIncrement: true,
+//         primaryKey: true,
+//         type: Sequelize.INTEGER,
+//       },
+//       userId: {
+//         allowNull: false,
+//         type: Sequelize.INTEGER,
+//         references: { model: "Users" },
+//       },
+//       marina: {
+//         allowNull: false,
+//         type: Sequelize.STRING(75),
+//       },
+//       city: {
+//         allowNull: false,
+//         type: Sequelize.STRING(50),
+//       },
+//       state: {
+//         allowNull: false,
+//         type: Sequelize.STRING(2),
+//       },
+//       year: {
+//         allowNull: false,
+//         type: Sequelize.INTEGER,
+//       },
+//       model: {
+//         allowNull: false,
+//         type: Sequelize.STRING(100),
+//       },
+//       accessories: {
+//         type: Sequelize.STRING,
+//       },
+//       captain: {
+//         type: Sequelize.BOOLEAN,
+//       },
+//       price: {
+//         allowNull: false,
+//         type: Sequelize.INTEGER,
+//       },
+//       createdAt: {
+//         allowNull: false,
+//         type: Sequelize.DATE,
+//         defaultValue: Sequelize.fn("now"),
+//       },
+//       updatedAt: {
+//         allowNull: false,
+//         type: Sequelize.DATE,
+//         defaultValue: Sequelize.fn("now"),
+//       },
+//     });
+//   },
+//   down: (queryInterface, Sequelize) => {
+//     return queryInterface.dropTable("Boats");
+//   },
+// };
+
+// ("use strict");
+// module.exports = (sequelize, DataTypes) => {
+//   const Boat = sequelize.define(
+//     "Boat",
+//     {
+//       userId: DataTypes.INTEGER,
+//       marina: DataTypes.STRING,
+//       city: DataTypes.STRING,
+//       state: DataTypes.STRING,
+//       year: DataTypes.INTEGER,
+//       model: DataTypes.STRING,
+//       accessories: DataTypes.STRING,
+//       captain: DataTypes.BOOLEAN,
+//       price: DataTypes.INTEGER,
+//     },
+//     {}
+//   );
+//   Boat.associate = function (models) {
+//     // associations can be defined here
+//     Boat.hasMany(models.Booking, { foreignKey: "boatId", onDelete: "CASCADE", hooks: true });
+//     Boat.belongsTo(models.User, { foreignKey: "userId" });
+//     Boat.hasMany(models.Image, { foreignKey: "boatId", onDelete: "CASCADE", hooks: true });
+//     Boat.hasMany(models.BoatReview, { foreignKey: "boatId", onDelete: "CASCADE", hooks: true });
+//     Boat.hasMany(models.BoatRating, { foreignKey: "boatId", onDelete: "CASCADE", hooks: true });
+//   };
+//   return Boat;
+// };
