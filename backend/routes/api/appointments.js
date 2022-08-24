@@ -19,6 +19,7 @@ const appointmentValidations = [
     .custom((value, { req }) => {
       return Appointment.findAll({ where: { date: value, employeeId: req.body.employeeId } }).then((appointments) => {
         if (appointments) {
+          console.log(appointments);
           const bookedTimes = [];
           const newAppointmentHours = [];
 

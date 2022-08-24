@@ -25,16 +25,14 @@ const serviceValidations = [
     .withMessage("Hours must be a number"),
   // .isInt({ min: 1, max: 5 })
   // .withMessage("Cannot exceed 5 hours and must be a whole number."),
-  // check("hours").custom((value) => {
-  //   if (!value) return Promise.reject("Please use increments of .5");
-
-  //   // console.log(value);
-  //   console.log(value % 0.5);
-  //   if (value > 5) return Promise.reject("We do not offer services more than 5 hours.");
-  //   if (value % 0.5 !== 0) {
-  //     return Promise.reject("Please use increments of .5");
-  //   }
-  // }),
+  check("hours").custom((value) => {
+    if (!value) return Promise.reject("Please use increments of .5");
+    if (value > 5) return Promise.reject("We do not offer services more than 5 hours.");
+    if (value % 0.5 !== 0) {
+      return Promise.reject("Please use increments of .5");
+    }
+    return true;
+  }),
 
   handleValidationErrors,
 ];

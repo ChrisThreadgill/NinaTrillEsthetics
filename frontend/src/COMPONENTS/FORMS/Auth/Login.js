@@ -76,14 +76,14 @@ function LoginFormPage() {
           Log In
         </button>
       </form>
-      <div className="demo__login__buttons__container">
+      {/* <div className="demo__login__buttons__container">
         <div className="demo__login__button" onClick={loginCustomer}>
           Login as a customer
         </div>
         <div className="demo__login__button" onClick={loginEmployee}>
           Login as an employee
         </div>
-      </div>
+      </div> */}
       {/* <button className="login__button" type="submit">
         Log in as Customer
       </button>
