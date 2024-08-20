@@ -47,15 +47,3 @@ Employee Portal
 
 
 
-## Future Features
-
----
-## Manager Portal
-- This will take away the authority to create new site wide services from regular employees and pass it on to the manager role.
-
-## Schedules
-- A manager will be able to change an employee's schedule which will update their available times on the site as well. 
-
-## Time off requests
-- An employee will be able to put in for time off which will update their schedule accordingly. 
-
