@@ -1,8 +1,6 @@
 # WELCOME TO NinaTrill Esthetics
 
-Nina Trill Esthetics Live Link: https://ninatrill-esthetics.herokuapp.com/
-
-
+Main focus.  Docker Node.js/React Application.  Scheduling Algorithm. 
 
 ## Meet the Dev
 <div>Chris Treadgill
